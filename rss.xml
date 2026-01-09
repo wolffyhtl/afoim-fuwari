@@ -83,7 +83,7 @@
 &lt;li&gt;单行字符串不超过 &lt;strong&gt;1024&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1&gt;服务架构图&lt;/h1&gt;
-&lt;p&gt;&lt;img src=&quot;../assets/images/Mermaid%20Chart%20-%20Create%20complex,%20visual%20diagrams%20with%20text.-2026-01-09-031619.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/MermaidChart-Createcomplexvisualdiagramswithtext-2026-01-09-031619.DaCu2KVo.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 </content:encoded></item><item><title>超高校级的监控服务：UptimeFlare！基于CF Worker！自托管！声明式！新手友好！</title><link>https://blog.acofork.com/posts/uptimeflare/</link><guid isPermaLink="true">https://blog.acofork.com/posts/uptimeflare/</guid><description>谁不想拥有一个监控自己服务的服务呢？</description><pubDate>Sat, 03 Jan 2026 03:10:53 GMT</pubDate><content:encoded>&lt;h1&gt;从KV迁移&lt;/h1&gt;
 &lt;p&gt;由于原项目于26/1/3将数据存储从KV迁移到了D1，并且配备了完备的i18n，如果你仍在运营旧版的UptimeFlare，建议升级，下面是迁移教程&lt;/p&gt;
 &lt;p&gt;首先，将你之前配置的Cloudflare API令牌添加一个新的权限 &lt;strong&gt;编辑D1&lt;/strong&gt;&lt;/p&gt;
@@ -111,7 +111,7 @@
 &lt;p&gt;::github{repo=&quot;afoim/UptimeFlare&quot;}&lt;/p&gt;
 &lt;p&gt;首先，我们先尝试将其部署到Cloudflare&lt;/p&gt;
 &lt;p&gt;创建一个Cloudflare API Token &lt;strong&gt;编辑Workers&lt;/strong&gt; 和 &lt;strong&gt;D1&lt;/strong&gt;
-&lt;img src=&quot;../assets/images/msedge_HwStEUKYVx%201.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;https://blog.acofork.com/_astro/msedge_HwStEUKYVx1.u1Stq37R.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;接下来将该Token绑定到你的Github仓库
 &lt;img src=&quot;https://blog.acofork.com/_astro/uptimeflare-4.BdTLYcyD.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;最后，来到 &lt;code&gt;Action&lt;/code&gt; 页面，手动创建一个 &lt;code&gt;Deploy to Cloudflare&lt;/code&gt; 的工作流
