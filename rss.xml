@@ -80,7 +80,8 @@
 &lt;img src=&quot;https://blog.acofork.com/_astro/Screenshot_2025-11-21-17-53-07-65_edf9c6c5202cf0a.CbtVFRh5.jpg&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/Screenshot_2025-11-21-17-53-04-92_edf9c6c5202cf0a.CHk7tnh1.jpg&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/Screenshot_2025-11-21-17-53-34-66_edf9c6c5202cf0a.B6AEGYcf.jpg&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/Screenshot_2025-11-21-18-32-58-31_edf9c6c5202cf0a.E3Kr9QCU.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;[!CAUTION]
-值得注意的是，该项目似乎仅实现了手机端的大部分API，而针对于电脑浏览器插件使用的API暂未支持，我们目前正在尝试用AI补全... Just a moment...&lt;/p&gt;
+&lt;s&gt;值得注意的是，该项目似乎仅实现了手机端的大部分API，而针对于电脑浏览器插件使用的API暂未支持，我们目前正在尝试用AI补全... Just a moment...&lt;/s&gt;
+已支持电脑端浏览器插件&lt;/p&gt;
 &lt;/blockquote&gt;
 </content:encoded></item><item><title>静态网站也需要WAF？Cloudflare不需要但是EdgeOne/ESA需要！</title><link>https://blog.acofork.com/posts/waf/</link><guid isPermaLink="true">https://blog.acofork.com/posts/waf/</guid><description>在几周前，我的网站累计被DDoS了约100TB的流量，哪怕我是静态网站，并不会被“打死”，但因为流量过大，还是被EdgeOne取消接入了，其实这件事本不会发生...</description><pubDate>Fri, 09 Jan 2026 11:34:49 GMT</pubDate><content:encoded>&lt;h1&gt;静态网站能不能被打死？&lt;/h1&gt;
 &lt;p&gt;首先，先给结论：&lt;/p&gt;
