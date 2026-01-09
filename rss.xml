@@ -7005,7 +7005,7 @@ function getProxyPrefix(hostname) {
 &lt;p&gt;最后写一条DNS解析 &lt;code&gt;CNAME gitea.afo.im --&amp;gt; 社区优选域名，如 cf.090227.xyz&lt;/code&gt; 即可&lt;/p&gt;
 &lt;h1&gt;针对于A、AAAA、CNAME（SaaS接入）&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;我们需要&lt;strong&gt;两个域名&lt;/strong&gt;（比如：onani.cn和acofork.cn）。&lt;/p&gt;
+&lt;p&gt;我们需要&lt;strong&gt;一个域名或两个域名&lt;/strong&gt;（单域名直接用子域名即可。双域名比如：onani.cn和acofork.cn）。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;如果在同一CF账号下不可用，请尝试将俩域名放置在不同账号&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;这里我们让onani.cn成为主力域名，让acofork.cn成为辅助域名&lt;/p&gt;
