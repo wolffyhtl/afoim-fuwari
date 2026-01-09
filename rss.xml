@@ -612,15 +612,24 @@ sfc /scannow
 &lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-18.BP7WNz-i.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;先添加 &lt;strong&gt;自定义域&lt;/strong&gt; ，填你的域名，因为 Worker 默认给的域名国内无法访问
 &lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-19.C7I-Oux0.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;再添加&lt;strong&gt;变量与机密&lt;/strong&gt; （注意不要有空格）&lt;/p&gt;
+&lt;p&gt;再添加&lt;strong&gt;机密环境变量&lt;/strong&gt; （注意不要有空格）&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;ALLOWED_EMAILS&lt;/code&gt; your-email@example.com&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;JWT_SECRET&lt;/code&gt; 随机的长字符串&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;JWT_REFRESH_SECRET&lt;/code&gt; 随机的长字符串
-&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-20.yelJcvXQ.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;JWT_REFRESH_SECRET&lt;/code&gt; 随机的长字符串&lt;/li&gt;
 &lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!CAUTION]
+必须使用Wrangler CLI命令添加机密环境变量，如： &lt;code&gt;wrangler secret put JWT_SECRET&lt;/code&gt; 这样添加的环境变量不会在新的部署中被覆盖&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-21.DMMxYgEx.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-23.39PZyBlU.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;此时打开手机上的 &lt;strong&gt;BitWarden&lt;/strong&gt; 软件，在你的自托管上创建账号即可（注意：密码一经设置将无法更改）
 &lt;img src=&quot;https://blog.acofork.com/_astro/Screenshot_2025-11-21-17-53-07-65_edf9c6c5202cf0a.CbtVFRh5.jpg&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/Screenshot_2025-11-21-17-53-04-92_edf9c6c5202cf0a.CHk7tnh1.jpg&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/Screenshot_2025-11-21-17-53-34-66_edf9c6c5202cf0a.B6AEGYcf.jpg&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/Screenshot_2025-11-21-18-32-58-31_edf9c6c5202cf0a.E3Kr9QCU.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!CAUTION]
+值得注意的是，该项目似乎仅实现了手机端的大部分API，而针对于电脑浏览器插件使用的API暂未支持，我们目前正在尝试用AI补全... Just a moment...&lt;/p&gt;
+&lt;/blockquote&gt;
 </content:encoded></item><item><title>解决困扰我多时的JS重复请求问题</title><link>https://blog.acofork.com/posts/swup-js/</link><guid isPermaLink="true">https://blog.acofork.com/posts/swup-js/</guid><description>如果你在我的博客初创就关注了，且具有一定的技术能力，你会发现我的博客曾经有一段时间在疯狂魔改，这可能会导致一些问题，并影响至今</description><pubDate>Tue, 18 Nov 2025 08:46:02 GMT</pubDate><content:encoded>&lt;h1&gt;正式开始&lt;/h1&gt;
 &lt;p&gt;就如封面所说，我的博客是 &lt;strong&gt;魔改&lt;/strong&gt; 而来的，而母版为 &lt;a href=&quot;https://github.com/saicaca/fuwari&quot;&gt;saicaca/fuwari: ✨A static blog template built with Astro.&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;就如Fuwari原版所称，该项目是一个 &lt;strong&gt;静态博客&lt;/strong&gt; ，也就是写文章和部署网站是分离的，而文章是一个个MarkDown文件，构建后输出为HTML&lt;/p&gt;
