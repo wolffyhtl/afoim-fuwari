@@ -13,6 +13,75 @@
 &lt;p&gt;粉丝自建&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;a href=&quot;https://t.me/blog2x&quot;&gt;Telegram: View @blog2x&lt;/a&gt;&lt;/p&gt;
+</content:encoded></item><item><title>你可曾想过，直接将BitWarden部署到Cloudflare Worker？</title><link>https://blog.acofork.com/posts/warden-worker/</link><guid isPermaLink="true">https://blog.acofork.com/posts/warden-worker/</guid><description>warden-worker就是这样一个项目，它将Rust编译为WASM，然后部署到Cloudflare Worker，无需VPS，无需家里云，只需点点鼠标就可免费用上自己的密码托管！</description><pubDate>Fri, 09 Jan 2026 17:00:52 GMT</pubDate><content:encoded>&lt;h1&gt;原理&lt;/h1&gt;
+&lt;p&gt;项目参考开源的 &lt;a href=&quot;https://github.com/dani-garcia/vaultwarden&quot;&gt;dani-garcia/vaultwarden: Unofficial Bitwarden compatible server written in Rust, formerly known as bitwarden_rs&lt;/a&gt; 将Rust源码编译为WASM以支持在Cloudflare Worker上运行。其中Worker负责REST API，D1负责存储加密后的数据&lt;/p&gt;
+&lt;h1&gt;实战&lt;/h1&gt;
+&lt;p&gt;打开Cloudflare https://dash.cloudflare.com/&lt;/p&gt;
+&lt;p&gt;登录后复制这里的 &lt;strong&gt;账户ID&lt;/strong&gt; （CLOUDFLARE_ACCOUNT_ID）
+&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-2.BY9Rvy_q.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;右上角进入配置文件
+&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-1.B493mPxm.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;左上角选择API令牌
+&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-3.Bwq2gftN.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;点击创建令牌
+&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-4.CXnYi37b.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;选择 编辑Cloudflare Workers
+&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-5.Da5URiyY.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;创建后 &lt;strong&gt;复制API 令牌&lt;/strong&gt; （只会展示一次）（CLOUDFLARE_API_TOKEN）
+&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-6.BzWSUX2a.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;回到主页，进入D1数据库
+&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-7.CvBENiCR.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;选择 创建数据库
+&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-8.HYtoS-Du.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;创建完成后，进入，复制 &lt;strong&gt;D1 数据库 ID&lt;/strong&gt;（D1_DATABASE_ID）&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;由于原项目坑点太多（如：依赖不固定版本导致编译报错，必须设置的环境变量不写白，SQL初始化遇到问题直接跳过）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这里我Fork并二改了一个我的版本，跟着我的步骤走，包你成功！&lt;/p&gt;
+&lt;p&gt;Fork我的仓库（别忘了点个 &lt;strong&gt;Star&lt;/strong&gt; ） &lt;a href=&quot;https://github.com/afoim/warden-worker/&quot;&gt;afoim/warden-worker: A Bitwarden-compatible server for Cloudflare Workers&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;在仓库设置中添加上述三个机密环境变量&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;CLOUDFLARE_ACCOUNT_ID&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CLOUDFLARE_API_TOKEN&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;D1_DATABASE_ID&lt;/code&gt;
+&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-9.D5DkXDX4.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;点击 Action，运行Build工作流
+&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-10.CoSZvd_D.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Build结束，全绿
+&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-11.BvzfLWtn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;打开Cloudflare D1，查看数据库表
+&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-12.CKi9YcO6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;如果这里是空的，我们就手动建表
+&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-13.BYKjU67V.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;查看这个文件 &lt;a href=&quot;https://github.com/afoim/warden-worker/blob/main/sql/schema.sql&quot;&gt;warden-worker/sql/schema.sql at main · afoim/warden-worker&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;依次将这3个SQL块进行执行（一定要依次，不能一把梭）。每执行一次你应该都能看到新表的出现
+&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-14.DEJoF5ns.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-15.B6tE-n11.png&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-16.DhoCdIq2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;进入Workers
+&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-17.BW5hP-RW.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;进入 warden-worker
+&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-18.BP7WNz-i.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;先添加 &lt;strong&gt;自定义域&lt;/strong&gt; ，填你的域名，因为 Worker 默认给的域名国内无法访问
+&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-19.C7I-Oux0.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;再添加&lt;strong&gt;机密环境变量&lt;/strong&gt; （注意不要有空格）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ALLOWED_EMAILS&lt;/code&gt; your-email@example.com&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;JWT_SECRET&lt;/code&gt; 随机的长字符串&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;JWT_REFRESH_SECRET&lt;/code&gt; 随机的长字符串&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!CAUTION]
+必须使用Wrangler CLI命令添加机密环境变量，如： &lt;code&gt;wrangler secret put JWT_SECRET&lt;/code&gt; 这样添加的环境变量不会在新的部署中被覆盖&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-21.DMMxYgEx.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-23.39PZyBlU.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;此时打开手机上的 &lt;strong&gt;BitWarden&lt;/strong&gt; 软件，在你的自托管上创建账号即可（注意：密码一经设置将无法更改）
+&lt;img src=&quot;https://blog.acofork.com/_astro/Screenshot_2025-11-21-17-53-07-65_edf9c6c5202cf0a.CbtVFRh5.jpg&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/Screenshot_2025-11-21-17-53-04-92_edf9c6c5202cf0a.CHk7tnh1.jpg&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/Screenshot_2025-11-21-17-53-34-66_edf9c6c5202cf0a.B6AEGYcf.jpg&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/Screenshot_2025-11-21-18-32-58-31_edf9c6c5202cf0a.E3Kr9QCU.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!CAUTION]
+值得注意的是，该项目似乎仅实现了手机端的大部分API，而针对于电脑浏览器插件使用的API暂未支持，我们目前正在尝试用AI补全... Just a moment...&lt;/p&gt;
+&lt;/blockquote&gt;
 </content:encoded></item><item><title>静态网站也需要WAF？Cloudflare不需要但是EdgeOne/ESA需要！</title><link>https://blog.acofork.com/posts/waf/</link><guid isPermaLink="true">https://blog.acofork.com/posts/waf/</guid><description>在几周前，我的网站累计被DDoS了约100TB的流量，哪怕我是静态网站，并不会被“打死”，但因为流量过大，还是被EdgeOne取消接入了，其实这件事本不会发生...</description><pubDate>Fri, 09 Jan 2026 11:34:49 GMT</pubDate><content:encoded>&lt;h1&gt;静态网站能不能被打死？&lt;/h1&gt;
 &lt;p&gt;首先，先给结论：&lt;/p&gt;
 &lt;p&gt;如果你托管在 &lt;strong&gt;Cloudflare Page&lt;/strong&gt; ，那确实不用担心，因为它既不对静态请求计费，自身的CDN网络也足够强大，只要不是一天一PB，都是稳如老狗的&lt;/p&gt;
@@ -561,75 +630,6 @@ sfc /scannow
 &lt;p&gt;你还可能会遇到点击 Win 弹出开始菜单后打不开设置，我是这样解决的
 &lt;img src=&quot;https://blog.acofork.com/_astro/explorer_DqoWvdqpPS.CUWF22lg.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;至此，已完美“升级”为Windows10&lt;/p&gt;
-</content:encoded></item><item><title>你可曾想过，直接将BitWarden部署到Cloudflare Worker？</title><link>https://blog.acofork.com/posts/warden-worker/</link><guid isPermaLink="true">https://blog.acofork.com/posts/warden-worker/</guid><description>warden-worker就是这样一个项目，它将Rust编译为WASM，然后部署到Cloudflare Worker，无需VPS，无需家里云，只需点点鼠标就可免费用上自己的密码托管！</description><pubDate>Fri, 21 Nov 2025 17:07:52 GMT</pubDate><content:encoded>&lt;h1&gt;原理&lt;/h1&gt;
-&lt;p&gt;项目参考开源的 &lt;a href=&quot;https://github.com/dani-garcia/vaultwarden&quot;&gt;dani-garcia/vaultwarden: Unofficial Bitwarden compatible server written in Rust, formerly known as bitwarden_rs&lt;/a&gt; 将Rust源码编译为WASM以支持在Cloudflare Worker上运行。其中Worker负责REST API，D1负责存储加密后的数据&lt;/p&gt;
-&lt;h1&gt;实战&lt;/h1&gt;
-&lt;p&gt;打开Cloudflare https://dash.cloudflare.com/&lt;/p&gt;
-&lt;p&gt;登录后复制这里的 &lt;strong&gt;账户ID&lt;/strong&gt; （CLOUDFLARE_ACCOUNT_ID）
-&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-2.BY9Rvy_q.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;右上角进入配置文件
-&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-1.B493mPxm.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;左上角选择API令牌
-&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-3.Bwq2gftN.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;点击创建令牌
-&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-4.CXnYi37b.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;选择 编辑Cloudflare Workers
-&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-5.Da5URiyY.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;创建后 &lt;strong&gt;复制API 令牌&lt;/strong&gt; （只会展示一次）（CLOUDFLARE_API_TOKEN）
-&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-6.BzWSUX2a.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;回到主页，进入D1数据库
-&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-7.CvBENiCR.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;选择 创建数据库
-&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-8.HYtoS-Du.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;创建完成后，进入，复制 &lt;strong&gt;D1 数据库 ID&lt;/strong&gt;（D1_DATABASE_ID）&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;由于原项目坑点太多（如：依赖不固定版本导致编译报错，必须设置的环境变量不写白，SQL初始化遇到问题直接跳过）&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;这里我Fork并二改了一个我的版本，跟着我的步骤走，包你成功！&lt;/p&gt;
-&lt;p&gt;Fork我的仓库（别忘了点个 &lt;strong&gt;Star&lt;/strong&gt; ） &lt;a href=&quot;https://github.com/afoim/warden-worker/&quot;&gt;afoim/warden-worker: A Bitwarden-compatible server for Cloudflare Workers&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;在仓库设置中添加上述三个机密环境变量&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;CLOUDFLARE_ACCOUNT_ID&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;CLOUDFLARE_API_TOKEN&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;D1_DATABASE_ID&lt;/code&gt;
-&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-9.D5DkXDX4.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;点击 Action，运行Build工作流
-&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-10.CoSZvd_D.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;Build结束，全绿
-&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-11.BvzfLWtn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;打开Cloudflare D1，查看数据库表
-&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-12.CKi9YcO6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;如果这里是空的，我们就手动建表
-&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-13.BYKjU67V.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;查看这个文件 &lt;a href=&quot;https://github.com/afoim/warden-worker/blob/main/sql/schema.sql&quot;&gt;warden-worker/sql/schema.sql at main · afoim/warden-worker&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;依次将这3个SQL块进行执行（一定要依次，不能一把梭）。每执行一次你应该都能看到新表的出现
-&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-14.DEJoF5ns.png&quot; alt=&quot;&quot; /&gt;
-&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-15.B6tE-n11.png&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-16.DhoCdIq2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;进入Workers
-&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-17.BW5hP-RW.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;进入 warden-worker
-&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-18.BP7WNz-i.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;先添加 &lt;strong&gt;自定义域&lt;/strong&gt; ，填你的域名，因为 Worker 默认给的域名国内无法访问
-&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-19.C7I-Oux0.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;再添加&lt;strong&gt;机密环境变量&lt;/strong&gt; （注意不要有空格）&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;ALLOWED_EMAILS&lt;/code&gt; your-email@example.com&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;JWT_SECRET&lt;/code&gt; 随机的长字符串&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;JWT_REFRESH_SECRET&lt;/code&gt; 随机的长字符串&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;[!CAUTION]
-必须使用Wrangler CLI命令添加机密环境变量，如： &lt;code&gt;wrangler secret put JWT_SECRET&lt;/code&gt; 这样添加的环境变量不会在新的部署中被覆盖&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-21.DMMxYgEx.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/warden-worker-23.39PZyBlU.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;此时打开手机上的 &lt;strong&gt;BitWarden&lt;/strong&gt; 软件，在你的自托管上创建账号即可（注意：密码一经设置将无法更改）
-&lt;img src=&quot;https://blog.acofork.com/_astro/Screenshot_2025-11-21-17-53-07-65_edf9c6c5202cf0a.CbtVFRh5.jpg&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/Screenshot_2025-11-21-17-53-04-92_edf9c6c5202cf0a.CHk7tnh1.jpg&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/Screenshot_2025-11-21-17-53-34-66_edf9c6c5202cf0a.B6AEGYcf.jpg&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/Screenshot_2025-11-21-18-32-58-31_edf9c6c5202cf0a.E3Kr9QCU.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;[!CAUTION]
-值得注意的是，该项目似乎仅实现了手机端的大部分API，而针对于电脑浏览器插件使用的API暂未支持，我们目前正在尝试用AI补全... Just a moment...&lt;/p&gt;
-&lt;/blockquote&gt;
 </content:encoded></item><item><title>解决困扰我多时的JS重复请求问题</title><link>https://blog.acofork.com/posts/swup-js/</link><guid isPermaLink="true">https://blog.acofork.com/posts/swup-js/</guid><description>如果你在我的博客初创就关注了，且具有一定的技术能力，你会发现我的博客曾经有一段时间在疯狂魔改，这可能会导致一些问题，并影响至今</description><pubDate>Tue, 18 Nov 2025 08:46:02 GMT</pubDate><content:encoded>&lt;h1&gt;正式开始&lt;/h1&gt;
 &lt;p&gt;就如封面所说，我的博客是 &lt;strong&gt;魔改&lt;/strong&gt; 而来的，而母版为 &lt;a href=&quot;https://github.com/saicaca/fuwari&quot;&gt;saicaca/fuwari: ✨A static blog template built with Astro.&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;就如Fuwari原版所称，该项目是一个 &lt;strong&gt;静态博客&lt;/strong&gt; ，也就是写文章和部署网站是分离的，而文章是一个个MarkDown文件，构建后输出为HTML&lt;/p&gt;
