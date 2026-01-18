@@ -585,85 +585,7 @@ const umamiConfig = {"enable":true,"baseUrl":"https://umami.acofork.com","shareI
     } else {
         fetchPageViews();
     }
-})();</script> <!-- word count, read time and page views --> <div class="text-sm text-black/30 dark:text-white/30 flex gap-4 transition" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">2025-05-05</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">|</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">152 字</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">|</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">1 分钟</div> </div> </div> <a href="/posts/s3cloudrive/" aria-label="让Vercel对接你的S3对象存储（仅下载）" class="group max-h-none mx-0 mt-0 w-[var(--coverWidth)] absolute top-3 bottom-3 right-3 rounded-xl overflow-hidden active:scale-95" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <div class="absolute pointer-events-none z-10 w-full h-full group-hover:bg-black/30 group-active:bg-black/50 transition" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"></div> <!-- 封面图上的箭头 --> <div class="absolute pointer-events-none z-20 w-full h-full flex items-center justify-center " data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <svg width="1em" height="1em" viewBox="0 0 24 24" class="transition opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 text-white text-5xl" data-astro-cid-iyiqi2so="true" data-icon="material-symbols:chevron-right-rounded">   <use href="#ai:material-symbols:chevron-right-rounded"></use>  </svg> </div> <div class="w-full h-full overflow-hidden relative image-wrapper" style="--theme-hue: 361" data-astro-cid-i2xmscho> <!-- 加载条 --> <div class="loading-bar absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-1 bg-gray-200 dark:bg-gray-700 z-10 rounded-full overflow-hidden" data-astro-cid-i2xmscho> <div class="loading-progress h-full w-8 bg-[oklch(0.70_0.14_var(--theme-hue))] animate-loading-progress rounded-full" data-astro-cid-i2xmscho></div> </div> <!-- 图片内容 --> <img src="/_astro/c110d70117c487d289f5da71ec42b4a3.DZeJ9rEw_wldOM.webp" alt="Cover Image of the Post" style="object-position: center" onload="this.style.opacity='1'; this.parentElement.querySelector('.loading-bar').style.opacity='0';" data-astro-cid-i2xmscho="true" width="894" height="663" loading="lazy" decoding="async" class="w-full h-full object-cover image-content opacity-0 transition-opacity duration-500">  </div>  </a>  </div> <div class="transition border-t-[1px] border-dashed mx-6 border-black/10 dark:border-white/[0.15] last:border-t-0 hidden" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"></div>   </div><div class="onload-animation" style="animation-delay: calc(var(--content-delay) + 250ms);"> <div class="card-base card-hover flex flex-col w-full relative" style="undefined; --coverWidth: 28%;" data-astro-cid-iyiqi2so> <div class="pl-9 pr-2 pt-6 pb-6 relative w-[calc(100%_-_var(--coverWidth)_-_12px)]" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <a href="/posts/discourse/" class="transition group w-full block font-bold mb-2 md:mb-3 text-xl md:text-3xl text-90 relative
-        hover:text-[var(--primary)] dark:hover:text-[var(--primary)]
-        active:text-[var(--title-active)] dark:active:text-[var(--title-active)]
-        before:w-1 before:h-5 before:rounded-md before:bg-[var(--primary)]
-        before:absolute before:top-1 md:before:top-2 before:-left-[1.125rem] before:block
-        " data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> 手把手教你部署Discourse </a> <!-- description --> <div class="transition text-75 mb-3.5 pr-4 line-clamp-1 md:line-clamp-2" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> Discourse是一个开源的强大的论坛系统，让你马上就能拥有自己的BBS </div> <!-- metadata --> <div class="flex flex-wrap text-neutral-500 dark:text-neutral-400 items-center gap-4 gap-x-4 gap-y-2 mb-2 md:mb-4"> <!-- publish date -->  <!-- update date -->  <!-- page views & visitors -->  <div class="flex items-center"> <div class="meta-icon"> <svg width="1em" height="1em" viewBox="0 0 24 24" class="text-xl" data-icon="material-symbols:visibility-outline-rounded">   <use href="#ai:material-symbols:visibility-outline-rounded"></use>  </svg> </div> <span class="text-50 text-sm font-medium" id="page-views-discourse">0 次</span> </div> <div class="flex items-center"> <div class="meta-icon"> <svg width="1em" height="1em" viewBox="0 0 24 24" class="text-xl" data-icon="material-symbols:person">   <use href="#ai:material-symbols:person"></use>  </svg> </div> <span class="text-50 text-sm font-medium" id="page-visitors-discourse">0 人</span> </div>  </div> <script>(function(){const slug = "discourse";
-const umamiConfig = {"enable":true,"baseUrl":"https://umami.acofork.com","shareId":"CdkXbGgZr6ECKOyK","timezone":"Asia/Shanghai"};
-
-    // 数字动画函数
-    function animateValue(obj, start, end, duration, suffix = '') {
-        let startTimestamp = null;
-        const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            obj.innerHTML = `${Math.floor(progress * (end - start) + start)} ${suffix}`;
-            if (progress < 1) {
-                window.requestAnimationFrame(step);
-            } else {
-                obj.innerHTML = `${end} ${suffix}`;
-            }
-        };
-        window.requestAnimationFrame(step);
-    }
-
-    // 获取访问量统计
-    async function fetchPageViews() {
-        if (!umamiConfig.enable) return;
-        try {
-            const statsData = await fetchUmamiStats(umamiConfig.baseUrl, umamiConfig.shareId, {
-                timezone: umamiConfig.timezone,
-                path: `eq./posts/${slug}/`
-            });
-            
-            const pageViews = (statsData.pageviews && statsData.pageviews.value) || statsData.pageviews || 0;
-            const visits = (statsData.visitors && statsData.visitors.value) || statsData.visitors || 0;
-            
-            const viewsElement = document.getElementById(`page-views-${slug}`);
-            const visitorsElement = document.getElementById(`page-visitors-${slug}`);
-            
-            // 如果数据来自缓存，直接显示结果，跳过动画
-            if (statsData._fromCache) {
-                if (viewsElement) viewsElement.innerHTML = `${pageViews} 次`;
-                if (visitorsElement) visitorsElement.innerHTML = `${visits} 人`;
-                return;
-            }
-
-            if (viewsElement) {
-                const currentViews = parseInt(viewsElement.textContent) || 0;
-                if (currentViews !== pageViews) {
-                    if (currentViews === 0) {
-                         animateValue(viewsElement, currentViews, pageViews, 1000, '次');
-                    } else {
-                         viewsElement.innerHTML = `${pageViews} 次`;
-                    }
-                }
-            }
-            
-            if (visitorsElement) {
-                const currentVisits = parseInt(visitorsElement.textContent) || 0;
-                if (currentVisits !== visits) {
-                    if (currentVisits === 0) {
-                         animateValue(visitorsElement, currentVisits, visits, 1000, '人');
-                    } else {
-                         visitorsElement.innerHTML = `${visits} 人`;
-                    }
-                }
-            }
-        } catch (error) {
-            console.error('Error fetching page views:', error);
-        }
-    }
-
-    // 页面加载完成后获取统计数据
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fetchPageViews);
-    } else {
-        fetchPageViews();
-    }
-})();</script> <!-- word count, read time and page views --> <div class="text-sm text-black/30 dark:text-white/30 flex gap-4 transition" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">2025-05-02</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">|</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">578 字</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">|</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">3 分钟</div> </div> </div> <a href="/posts/discourse/" aria-label="手把手教你部署Discourse" class="group max-h-none mx-0 mt-0 w-[var(--coverWidth)] absolute top-3 bottom-3 right-3 rounded-xl overflow-hidden active:scale-95" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <div class="absolute pointer-events-none z-10 w-full h-full group-hover:bg-black/30 group-active:bg-black/50 transition" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"></div> <!-- 封面图上的箭头 --> <div class="absolute pointer-events-none z-20 w-full h-full flex items-center justify-center " data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <svg width="1em" height="1em" viewBox="0 0 24 24" class="transition opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 text-white text-5xl" data-astro-cid-iyiqi2so="true" data-icon="material-symbols:chevron-right-rounded">   <use href="#ai:material-symbols:chevron-right-rounded"></use>  </svg> </div> <div class="w-full h-full overflow-hidden relative image-wrapper" style="--theme-hue: 361" data-astro-cid-i2xmscho> <!-- 加载条 --> <div class="loading-bar absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-1 bg-gray-200 dark:bg-gray-700 z-10 rounded-full overflow-hidden" data-astro-cid-i2xmscho> <div class="loading-progress h-full w-8 bg-[oklch(0.70_0.14_var(--theme-hue))] animate-loading-progress rounded-full" data-astro-cid-i2xmscho></div> </div> <!-- 图片内容 --> <img src="/_astro/be815560094315e06a01b8883c26dad9.DjdZmao2_jouLc.webp" alt="Cover Image of the Post" style="object-position: center" onload="this.style.opacity='1'; this.parentElement.querySelector('.loading-bar').style.opacity='0';" data-astro-cid-i2xmscho="true" width="1363" height="916" loading="lazy" decoding="async" class="w-full h-full object-cover image-content opacity-0 transition-opacity duration-500">  </div>  </a>  </div> <div class="transition border-t-[1px] border-dashed mx-6 border-black/10 dark:border-white/[0.15] last:border-t-0 hidden" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"></div>   </div><div class="onload-animation" style="animation-delay: calc(var(--content-delay) + 300ms);"> <div class="card-base card-hover flex flex-col w-full relative" style="undefined; --coverWidth: 28%;" data-astro-cid-iyiqi2so> <div class="pl-9 pr-2 pt-6 pb-6 relative w-[calc(100%_-_var(--coverWidth)_-_12px)]" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <a href="/posts/exmail-qq/" class="transition group w-full block font-bold mb-2 md:mb-3 text-xl md:text-3xl text-90 relative
+})();</script> <!-- word count, read time and page views --> <div class="text-sm text-black/30 dark:text-white/30 flex gap-4 transition" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">2025-05-05</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">|</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">152 字</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">|</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">1 分钟</div> </div> </div> <a href="/posts/s3cloudrive/" aria-label="让Vercel对接你的S3对象存储（仅下载）" class="group max-h-none mx-0 mt-0 w-[var(--coverWidth)] absolute top-3 bottom-3 right-3 rounded-xl overflow-hidden active:scale-95" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <div class="absolute pointer-events-none z-10 w-full h-full group-hover:bg-black/30 group-active:bg-black/50 transition" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"></div> <!-- 封面图上的箭头 --> <div class="absolute pointer-events-none z-20 w-full h-full flex items-center justify-center " data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <svg width="1em" height="1em" viewBox="0 0 24 24" class="transition opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 text-white text-5xl" data-astro-cid-iyiqi2so="true" data-icon="material-symbols:chevron-right-rounded">   <use href="#ai:material-symbols:chevron-right-rounded"></use>  </svg> </div> <div class="w-full h-full overflow-hidden relative image-wrapper" style="--theme-hue: 361" data-astro-cid-i2xmscho> <!-- 加载条 --> <div class="loading-bar absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-1 bg-gray-200 dark:bg-gray-700 z-10 rounded-full overflow-hidden" data-astro-cid-i2xmscho> <div class="loading-progress h-full w-8 bg-[oklch(0.70_0.14_var(--theme-hue))] animate-loading-progress rounded-full" data-astro-cid-i2xmscho></div> </div> <!-- 图片内容 --> <img src="/_astro/c110d70117c487d289f5da71ec42b4a3.DZeJ9rEw_wldOM.webp" alt="Cover Image of the Post" style="object-position: center" onload="this.style.opacity='1'; this.parentElement.querySelector('.loading-bar').style.opacity='0';" data-astro-cid-i2xmscho="true" width="894" height="663" loading="lazy" decoding="async" class="w-full h-full object-cover image-content opacity-0 transition-opacity duration-500">  </div>  </a>  </div> <div class="transition border-t-[1px] border-dashed mx-6 border-black/10 dark:border-white/[0.15] last:border-t-0 hidden" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"></div>   </div><div class="onload-animation" style="animation-delay: calc(var(--content-delay) + 250ms);"> <div class="card-base card-hover flex flex-col w-full relative" style="undefined; --coverWidth: 28%;" data-astro-cid-iyiqi2so> <div class="pl-9 pr-2 pt-6 pb-6 relative w-[calc(100%_-_var(--coverWidth)_-_12px)]" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <a href="/posts/exmail-qq/" class="transition group w-full block font-bold mb-2 md:mb-3 text-xl md:text-3xl text-90 relative
         hover:text-[var(--primary)] dark:hover:text-[var(--primary)]
         active:text-[var(--title-active)] dark:active:text-[var(--title-active)]
         before:w-1 before:h-5 before:rounded-md before:bg-[var(--primary)]
@@ -741,7 +663,85 @@ const umamiConfig = {"enable":true,"baseUrl":"https://umami.acofork.com","shareI
     } else {
         fetchPageViews();
     }
-})();</script> <!-- word count, read time and page views --> <div class="text-sm text-black/30 dark:text-white/30 flex gap-4 transition" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">2025-05-02</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">|</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">352 字</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">|</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">2 分钟</div> </div> </div> <a href="/posts/exmail-qq/" aria-label="手把手教你用上微信企业（域名）邮箱（免费！）" class="group max-h-none mx-0 mt-0 w-[var(--coverWidth)] absolute top-3 bottom-3 right-3 rounded-xl overflow-hidden active:scale-95" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <div class="absolute pointer-events-none z-10 w-full h-full group-hover:bg-black/30 group-active:bg-black/50 transition" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"></div> <!-- 封面图上的箭头 --> <div class="absolute pointer-events-none z-20 w-full h-full flex items-center justify-center " data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <svg width="1em" height="1em" viewBox="0 0 24 24" class="transition opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 text-white text-5xl" data-astro-cid-iyiqi2so="true" data-icon="material-symbols:chevron-right-rounded">   <use href="#ai:material-symbols:chevron-right-rounded"></use>  </svg> </div> <div class="w-full h-full overflow-hidden relative image-wrapper" style="--theme-hue: 361" data-astro-cid-i2xmscho> <!-- 加载条 --> <div class="loading-bar absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-1 bg-gray-200 dark:bg-gray-700 z-10 rounded-full overflow-hidden" data-astro-cid-i2xmscho> <div class="loading-progress h-full w-8 bg-[oklch(0.70_0.14_var(--theme-hue))] animate-loading-progress rounded-full" data-astro-cid-i2xmscho></div> </div> <!-- 图片内容 --> <img src="/_astro/b7c4e3faa1ad455842a3efec914b32f1.Cg_ioG7T_Z14Ohke.webp" alt="Cover Image of the Post" style="object-position: center" onload="this.style.opacity='1'; this.parentElement.querySelector('.loading-bar').style.opacity='0';" data-astro-cid-i2xmscho="true" width="840" height="827" loading="lazy" decoding="async" class="w-full h-full object-cover image-content opacity-0 transition-opacity duration-500">  </div>  </a>  </div> <div class="transition border-t-[1px] border-dashed mx-6 border-black/10 dark:border-white/[0.15] last:border-t-0 hidden" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"></div>   </div><div class="onload-animation" style="animation-delay: calc(var(--content-delay) + 350ms);"> <div class="card-base card-hover flex flex-col w-full relative" style="undefined; --coverWidth: 28%;" data-astro-cid-iyiqi2so> <div class="pl-9 pr-2 pt-6 pb-6 relative w-[calc(100%_-_var(--coverWidth)_-_12px)]" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <a href="/posts/h3c-debug/" class="transition group w-full block font-bold mb-2 md:mb-3 text-xl md:text-3xl text-90 relative
+})();</script> <!-- word count, read time and page views --> <div class="text-sm text-black/30 dark:text-white/30 flex gap-4 transition" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">2025-05-02</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">|</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">352 字</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">|</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">2 分钟</div> </div> </div> <a href="/posts/exmail-qq/" aria-label="手把手教你用上微信企业（域名）邮箱（免费！）" class="group max-h-none mx-0 mt-0 w-[var(--coverWidth)] absolute top-3 bottom-3 right-3 rounded-xl overflow-hidden active:scale-95" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <div class="absolute pointer-events-none z-10 w-full h-full group-hover:bg-black/30 group-active:bg-black/50 transition" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"></div> <!-- 封面图上的箭头 --> <div class="absolute pointer-events-none z-20 w-full h-full flex items-center justify-center " data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <svg width="1em" height="1em" viewBox="0 0 24 24" class="transition opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 text-white text-5xl" data-astro-cid-iyiqi2so="true" data-icon="material-symbols:chevron-right-rounded">   <use href="#ai:material-symbols:chevron-right-rounded"></use>  </svg> </div> <div class="w-full h-full overflow-hidden relative image-wrapper" style="--theme-hue: 361" data-astro-cid-i2xmscho> <!-- 加载条 --> <div class="loading-bar absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-1 bg-gray-200 dark:bg-gray-700 z-10 rounded-full overflow-hidden" data-astro-cid-i2xmscho> <div class="loading-progress h-full w-8 bg-[oklch(0.70_0.14_var(--theme-hue))] animate-loading-progress rounded-full" data-astro-cid-i2xmscho></div> </div> <!-- 图片内容 --> <img src="/_astro/b7c4e3faa1ad455842a3efec914b32f1.Cg_ioG7T_Z14Ohke.webp" alt="Cover Image of the Post" style="object-position: center" onload="this.style.opacity='1'; this.parentElement.querySelector('.loading-bar').style.opacity='0';" data-astro-cid-i2xmscho="true" width="840" height="827" loading="lazy" decoding="async" class="w-full h-full object-cover image-content opacity-0 transition-opacity duration-500">  </div>  </a>  </div> <div class="transition border-t-[1px] border-dashed mx-6 border-black/10 dark:border-white/[0.15] last:border-t-0 hidden" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"></div>   </div><div class="onload-animation" style="animation-delay: calc(var(--content-delay) + 300ms);"> <div class="card-base card-hover flex flex-col w-full relative" style="undefined; --coverWidth: 28%;" data-astro-cid-iyiqi2so> <div class="pl-9 pr-2 pt-6 pb-6 relative w-[calc(100%_-_var(--coverWidth)_-_12px)]" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <a href="/posts/discourse/" class="transition group w-full block font-bold mb-2 md:mb-3 text-xl md:text-3xl text-90 relative
+        hover:text-[var(--primary)] dark:hover:text-[var(--primary)]
+        active:text-[var(--title-active)] dark:active:text-[var(--title-active)]
+        before:w-1 before:h-5 before:rounded-md before:bg-[var(--primary)]
+        before:absolute before:top-1 md:before:top-2 before:-left-[1.125rem] before:block
+        " data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> 手把手教你部署Discourse </a> <!-- description --> <div class="transition text-75 mb-3.5 pr-4 line-clamp-1 md:line-clamp-2" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> Discourse是一个开源的强大的论坛系统，让你马上就能拥有自己的BBS </div> <!-- metadata --> <div class="flex flex-wrap text-neutral-500 dark:text-neutral-400 items-center gap-4 gap-x-4 gap-y-2 mb-2 md:mb-4"> <!-- publish date -->  <!-- update date -->  <!-- page views & visitors -->  <div class="flex items-center"> <div class="meta-icon"> <svg width="1em" height="1em" viewBox="0 0 24 24" class="text-xl" data-icon="material-symbols:visibility-outline-rounded">   <use href="#ai:material-symbols:visibility-outline-rounded"></use>  </svg> </div> <span class="text-50 text-sm font-medium" id="page-views-discourse">0 次</span> </div> <div class="flex items-center"> <div class="meta-icon"> <svg width="1em" height="1em" viewBox="0 0 24 24" class="text-xl" data-icon="material-symbols:person">   <use href="#ai:material-symbols:person"></use>  </svg> </div> <span class="text-50 text-sm font-medium" id="page-visitors-discourse">0 人</span> </div>  </div> <script>(function(){const slug = "discourse";
+const umamiConfig = {"enable":true,"baseUrl":"https://umami.acofork.com","shareId":"CdkXbGgZr6ECKOyK","timezone":"Asia/Shanghai"};
+
+    // 数字动画函数
+    function animateValue(obj, start, end, duration, suffix = '') {
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            obj.innerHTML = `${Math.floor(progress * (end - start) + start)} ${suffix}`;
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            } else {
+                obj.innerHTML = `${end} ${suffix}`;
+            }
+        };
+        window.requestAnimationFrame(step);
+    }
+
+    // 获取访问量统计
+    async function fetchPageViews() {
+        if (!umamiConfig.enable) return;
+        try {
+            const statsData = await fetchUmamiStats(umamiConfig.baseUrl, umamiConfig.shareId, {
+                timezone: umamiConfig.timezone,
+                path: `eq./posts/${slug}/`
+            });
+            
+            const pageViews = (statsData.pageviews && statsData.pageviews.value) || statsData.pageviews || 0;
+            const visits = (statsData.visitors && statsData.visitors.value) || statsData.visitors || 0;
+            
+            const viewsElement = document.getElementById(`page-views-${slug}`);
+            const visitorsElement = document.getElementById(`page-visitors-${slug}`);
+            
+            // 如果数据来自缓存，直接显示结果，跳过动画
+            if (statsData._fromCache) {
+                if (viewsElement) viewsElement.innerHTML = `${pageViews} 次`;
+                if (visitorsElement) visitorsElement.innerHTML = `${visits} 人`;
+                return;
+            }
+
+            if (viewsElement) {
+                const currentViews = parseInt(viewsElement.textContent) || 0;
+                if (currentViews !== pageViews) {
+                    if (currentViews === 0) {
+                         animateValue(viewsElement, currentViews, pageViews, 1000, '次');
+                    } else {
+                         viewsElement.innerHTML = `${pageViews} 次`;
+                    }
+                }
+            }
+            
+            if (visitorsElement) {
+                const currentVisits = parseInt(visitorsElement.textContent) || 0;
+                if (currentVisits !== visits) {
+                    if (currentVisits === 0) {
+                         animateValue(visitorsElement, currentVisits, visits, 1000, '人');
+                    } else {
+                         visitorsElement.innerHTML = `${visits} 人`;
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('Error fetching page views:', error);
+        }
+    }
+
+    // 页面加载完成后获取统计数据
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fetchPageViews);
+    } else {
+        fetchPageViews();
+    }
+})();</script> <!-- word count, read time and page views --> <div class="text-sm text-black/30 dark:text-white/30 flex gap-4 transition" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">2025-05-02</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">|</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">578 字</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">|</div> <div data-astro-cid-iyiqi2so style="--coverWidth: 28%;">3 分钟</div> </div> </div> <a href="/posts/discourse/" aria-label="手把手教你部署Discourse" class="group max-h-none mx-0 mt-0 w-[var(--coverWidth)] absolute top-3 bottom-3 right-3 rounded-xl overflow-hidden active:scale-95" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <div class="absolute pointer-events-none z-10 w-full h-full group-hover:bg-black/30 group-active:bg-black/50 transition" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"></div> <!-- 封面图上的箭头 --> <div class="absolute pointer-events-none z-20 w-full h-full flex items-center justify-center " data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <svg width="1em" height="1em" viewBox="0 0 24 24" class="transition opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 text-white text-5xl" data-astro-cid-iyiqi2so="true" data-icon="material-symbols:chevron-right-rounded">   <use href="#ai:material-symbols:chevron-right-rounded"></use>  </svg> </div> <div class="w-full h-full overflow-hidden relative image-wrapper" style="--theme-hue: 361" data-astro-cid-i2xmscho> <!-- 加载条 --> <div class="loading-bar absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-1 bg-gray-200 dark:bg-gray-700 z-10 rounded-full overflow-hidden" data-astro-cid-i2xmscho> <div class="loading-progress h-full w-8 bg-[oklch(0.70_0.14_var(--theme-hue))] animate-loading-progress rounded-full" data-astro-cid-i2xmscho></div> </div> <!-- 图片内容 --> <img src="/_astro/be815560094315e06a01b8883c26dad9.DjdZmao2_jouLc.webp" alt="Cover Image of the Post" style="object-position: center" onload="this.style.opacity='1'; this.parentElement.querySelector('.loading-bar').style.opacity='0';" data-astro-cid-i2xmscho="true" width="1363" height="916" loading="lazy" decoding="async" class="w-full h-full object-cover image-content opacity-0 transition-opacity duration-500">  </div>  </a>  </div> <div class="transition border-t-[1px] border-dashed mx-6 border-black/10 dark:border-white/[0.15] last:border-t-0 hidden" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"></div>   </div><div class="onload-animation" style="animation-delay: calc(var(--content-delay) + 350ms);"> <div class="card-base card-hover flex flex-col w-full relative" style="undefined; --coverWidth: 28%;" data-astro-cid-iyiqi2so> <div class="pl-9 pr-2 pt-6 pb-6 relative w-[calc(100%_-_var(--coverWidth)_-_12px)]" data-astro-cid-iyiqi2so style="--coverWidth: 28%;"> <a href="/posts/h3c-debug/" class="transition group w-full block font-bold mb-2 md:mb-3 text-xl md:text-3xl text-90 relative
         hover:text-[var(--primary)] dark:hover:text-[var(--primary)]
         active:text-[var(--title-active)] dark:active:text-[var(--title-active)]
         before:w-1 before:h-5 before:rounded-md before:bg-[var(--primary)]
@@ -830,7 +830,7 @@ const umamiConfig = {"enable":true,"baseUrl":"https://umami.acofork.com","shareI
 <a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/saicaca/fuwari">Fuwari</a> 强力驱动
 <br>
 本网站代码
-<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/afoim/fuwari">已开源</a> <a class="transition link text-black/30 dark:text-white/30 hover:text-[var(--primary)] text-xs ml-1" target="_blank" href="https://github.com/afoim/fuwari/commit/6802311">(6802311 @ 2026-01-18 16:12:40)</a> <br> <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank"><img alt="" src="/favicon/foot-icp.png" class="h-4 mr-1">皖ICP备2025099787号-2</a> <br> <div class="server-info-container flex flex-col items-center justify-center gap-1 mt-1"> <!-- Server info will be injected here --> </div> <!-- <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.mps.gov.cn/#/query/webSearch?code=34010302002608" target="_blank"><img alt="" src="/favicon/foot-ga.png" class="h-4 mr-1">皖公网安备34010302002608号</a>
+<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/afoim/fuwari">已开源</a> <a class="transition link text-black/30 dark:text-white/30 hover:text-[var(--primary)] text-xs ml-1" target="_blank" href="https://github.com/afoim/fuwari/commit/7856ae5">(7856ae5 @ 2026-01-18 16:13:20)</a> <br> <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank"><img alt="" src="/favicon/foot-icp.png" class="h-4 mr-1">皖ICP备2025099787号-2</a> <br> <div class="server-info-container flex flex-col items-center justify-center gap-1 mt-1"> <!-- Server info will be injected here --> </div> <!-- <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.mps.gov.cn/#/query/webSearch?code=34010302002608" target="_blank"><img alt="" src="/favicon/foot-ga.png" class="h-4 mr-1">皖公网安备34010302002608号</a>
         <br> --> </div> </div> <script>(function(){const serverConfig = [{"url":"","text":"博客本体节点"},{"url":"https://umami.acofork.com","text":"Umami节点"}];
 
     (() => {
