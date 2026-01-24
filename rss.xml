@@ -2199,56 +2199,6 @@ lang: &apos;&apos;
 &lt;p&gt;随后，你只需要在本地编写文章，然后&lt;a href=&quot;#%E6%9C%AC%E5%9C%B0%E9%A2%84%E8%A7%88%E7%84%B6%E5%90%8E%E5%8F%91%E5%B8%83%E5%88%B0github&quot;&gt;使用Git将更改推送到远程仓库&lt;/a&gt;，Cloudflare就会自动部署，更新你的博客！&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-</content:encoded></item><item><title>全自动ICP查询API</title><link>https://blog.acofork.com/posts/auto-icp-query/</link><guid isPermaLink="true">https://blog.acofork.com/posts/auto-icp-query/</guid><description>突然听到个很有意思的项目：自动ICP查询，搜集了一下市面上的轮子然后改改，嗯！能用了！</description><pubDate>Fri, 12 Sep 2025 04:50:10 GMT</pubDate><content:encoded>&lt;h1&gt;原理&lt;/h1&gt;
-&lt;p&gt;由 &lt;a href=&quot;https://github.com/ravizhan/ICP-spider&quot;&gt;ravizhan/ICP-spider: 基于yolov8+孪生网络识别验证码的ICP备案查询程序。从工业和信息化部政务服务平台查询实时数据，高精度过验证码&lt;/a&gt; 提供图形验证码支持&lt;/p&gt;
-&lt;p&gt;因为验证码识别成功后得到的Token有效时间大概为30s，此期间无需再次重新识别，故开发一个Token生命周期管理器，后台始终维护有效的Token，用户查询时直接使用有效的Token查询，方便快速&lt;/p&gt;
-&lt;h1&gt;使用&lt;/h1&gt;
-&lt;p&gt;查询 qq.com 的ICP备案信息：&lt;/p&gt;
-&lt;p&gt;http://icp.2x.nz/?domain=qq.com&lt;/p&gt;
-&lt;p&gt;理应返回如下信息，若未返回结果，则刚好Token失效且生命周期管理器正在获取新的Token，等待几秒后再次查询即可&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;{
-  &quot;code&quot;: 200,
-  &quot;msg&quot;: &quot;操作成功&quot;,
-  &quot;params&quot;: {
-    &quot;endRow&quot;: 0,
-    &quot;hasNextPage&quot;: false,
-    &quot;hasPreviousPage&quot;: false,
-    &quot;isFirstPage&quot;: true,
-    &quot;isLastPage&quot;: true,
-    &quot;list&quot;: [
-      {
-        &quot;contentTypeName&quot;: &quot;文化、文化、宗教、出版、文化、新闻、文化、宗教、宗教、出版&quot;,
-        &quot;domain&quot;: &quot;qq.com&quot;,
-        &quot;domainId&quot;: 190000203203,
-        &quot;leaderName&quot;: &quot;&quot;,
-        &quot;limitAccess&quot;: &quot;否&quot;,
-        &quot;mainId&quot;: 547280,
-        &quot;mainLicence&quot;: &quot;粤B2-20090059&quot;,
-        &quot;natureName&quot;: &quot;企业&quot;,
-        &quot;serviceId&quot;: 4134047,
-        &quot;serviceLicence&quot;: &quot;粤B2-20090059-5&quot;,
-        &quot;unitName&quot;: &quot;深圳市腾讯计算机系统有限公司&quot;,
-        &quot;updateRecordTime&quot;: &quot;2022-09-06 15:51:52&quot;
-      }
-    ],
-    &quot;navigateFirstPage&quot;: 1,
-    &quot;navigateLastPage&quot;: 1,
-    &quot;navigatePages&quot;: 8,
-    &quot;navigatepageNums&quot;: [
-      1
-    ],
-    &quot;nextPage&quot;: 0,
-    &quot;pageNum&quot;: 1,
-    &quot;pageSize&quot;: 10,
-    &quot;pages&quot;: 1,
-    &quot;prePage&quot;: 0,
-    &quot;size&quot;: 1,
-    &quot;startRow&quot;: 0,
-    &quot;total&quot;: 1
-  },
-  &quot;success&quot;: true
-}
-&lt;/code&gt;&lt;/pre&gt;
 </content:encoded></item><item><title>禁用Astro跟弱智一般的静态构建图像优化</title><link>https://blog.acofork.com/posts/disable-astro-generating-optimized-images/</link><guid isPermaLink="true">https://blog.acofork.com/posts/disable-astro-generating-optimized-images/</guid><description>折腾了整整一天，终于解决了这傻逼Astro对于静态构建自作聪明的图片优化了，这不仅能提高构建速度，还可以减少无谓的CPU资源消耗，更环保，也更符合Unix哲学</description><pubDate>Wed, 10 Sep 2025 06:16:30 GMT</pubDate><content:encoded>&lt;blockquote&gt;
 &lt;p&gt;视频： &lt;a href=&quot;https://www.bilibili.com/video/BV12VH2z1EDb&quot;&gt;禁用Astro跟弱智一般的静态构建图像优化_哔哩哔哩_bilibili&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
