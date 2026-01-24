@@ -204,14 +204,14 @@ const umamiConfig = {"enable":true,"baseUrl":"https://umami.acofork.com","shareI
     }
 })();</script>  </div> <!-- always show cover as long as it has one --> <div id="post-cover" class="mb-8 rounded-xl banner-container onload-animation overflow-hidden relative image-wrapper" style="--theme-hue: 361" data-astro-cid-i2xmscho> <img src="/_astro/http-header-host.wYb99qhA.png" alt style="object-position: center" data-astro-cid-i2xmscho="true" width="1039" height="883" loading="lazy" decoding="async" class="w-full h-full object-cover image-content">  </div>  <div data-pagefind-body class="prose dark:prose-invert prose-base !max-w-none custom-md mb-6 markdown-content onload-animation"> <!--<div class="prose dark:prose-invert max-w-none custom-md">--> <!--<div class="max-w-none custom-md">-->  <section><h1 id="原理">原理<a class="anchor" href="#原理"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><p>CDN上托管了那么多的网站，那它是如何识别每个用户需要访问哪个网站的呢？</p><p>针对 HTTPS ，CDN 会检查SSL握手报文中的 <code>Server_Name</code> 字段。而针对 HTTP ，CDN 会检查请求头中的 <code>Host</code> 字段</p><p>也就是说，我们可以通过直接访问CDN节点，如： <code>http://blog.acofork.com.a1.initww.com</code> 并携带上 <code>Host</code> 头指定为 <code>blog.acofork.com</code> ，从而强制指定节点访问业务网站，不走分流</p><p>那么如果CDN开启了强制HTTPS呢？监测请求会被301到分流域名，这样不就没意义了吗？</p><p>并不是，我们只需要让它监测301/302是否能正常返回即可，不吃它的重定向。如果说CDN节点被打宕机了，它应该什么状态码都不返回，如果说CDN节点返回拦截页面，那它也不可能返回301/302 ，所以这样监测是有效的</p><p>经测试，EdgeOne，ESA都是先进行WAF拦截，也就是你使用HTTP访问，若该请求不合法，将会直接被拦截（EO返回418，ESA返回403），不会进行HTTPS升级</p></section>
 <section><h1 id="正式开始">正式开始<a class="anchor" href="#正式开始"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><p>部署一个Uptime Kuma（或者其他服务，监测源必须在国内。因为EO，ESA我们要做拦截海外策略）</p><p>如图写监测项目，直接使用HTTP协议监测CDN节点，并且携带Host头，将重定向设为0，只要返回 301/302 就算存活（为了减轻站点压力，建议使用HEAD请求）</p><p><img  width="2535" height="1254" loading="lazy" decoding="async" src="/_astro/http-header-host-1.B9mphNia.png" ></p><p><img  width="812" height="226" loading="lazy" decoding="async" src="/_astro/http-header-host-2.Buq50Tw2.png" ></p></section>
-<section><h1 id="demo">Demo<a class="anchor" href="#demo"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><a id="UCzo6fst-card" class="card-url fetch-waiting no-styling" href="https://status.acofork.com" target="_blank" url="https://status.acofork.com" rel="nofollow"><div id="UCzo6fst-container" class="uc-container"><div class="uc-content"><div class="uc-titlebar"><div class="uc-titlebar-left"><div id="UCzo6fst-favicon" class="uc-favicon"></div><div class="uc-domain">status.acofork.com</div></div></div><div id="UCzo6fst-title" class="uc-title-text">Loading...</div><div id="UCzo6fst-description" class="uc-description">Waiting for api.microlink.io...</div></div><div id="UCzo6fst-image" class="uc-image"></div></div><script id="UCzo6fst-script" type="text/javascript" defer>
+<section><h1 id="demo">Demo<a class="anchor" href="#demo"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><a id="UClmrc5c-card" class="card-url fetch-waiting no-styling" href="https://status.acofork.com" target="_blank" url="https://status.acofork.com" rel="nofollow"><div id="UClmrc5c-container" class="uc-container"><div class="uc-content"><div class="uc-titlebar"><div class="uc-titlebar-left"><div id="UClmrc5c-favicon" class="uc-favicon"></div><div class="uc-domain">status.acofork.com</div></div></div><div id="UClmrc5c-title" class="uc-title-text">Loading...</div><div id="UClmrc5c-description" class="uc-description">Waiting for api.microlink.io...</div></div><div id="UClmrc5c-image" class="uc-image"></div></div><script id="UClmrc5c-script" type="text/javascript" defer>
       fetch('https://api.microlink.io?url=https%3A%2F%2Fstatus.acofork.com').then(response => response.json()).then(data => {
         if (data.status === 'success') {
             const meta = data.data;
-            document.getElementById('UCzo6fst-title').innerText = meta.title || "https://status.acofork.com";
-            document.getElementById('UCzo6fst-description').innerText = meta.description || "No description available";
+            document.getElementById('UClmrc5c-title').innerText = meta.title || "https://status.acofork.com";
+            document.getElementById('UClmrc5c-description').innerText = meta.description || "No description available";
             
-            const faviconEl = document.getElementById('UCzo6fst-favicon');
+            const faviconEl = document.getElementById('UClmrc5c-favicon');
             if (meta.logo?.url) {
                 faviconEl.style.backgroundImage = 'url(' + meta.logo.url + ')';
                 faviconEl.style.backgroundColor = 'transparent';
@@ -219,25 +219,25 @@ const umamiConfig = {"enable":true,"baseUrl":"https://umami.acofork.com","shareI
                  faviconEl.style.display = 'none';
             }
 
-            const imageEl = document.getElementById('UCzo6fst-image');
+            const imageEl = document.getElementById('UClmrc5c-image');
             if (meta.image?.url) {
                 imageEl.style.backgroundImage = 'url(' + meta.image.url + ')';
             } else {
                 imageEl.style.display = 'none';
-                document.getElementById('UCzo6fst-container').classList.add('no-image');
+                document.getElementById('UClmrc5c-container').classList.add('no-image');
             }
 
-            document.getElementById('UCzo6fst-card').classList.remove("fetch-waiting");
-            console.log("[URL-CARD] Loaded card for https://status.acofork.com | UCzo6fst.")
+            document.getElementById('UClmrc5c-card').classList.remove("fetch-waiting");
+            console.log("[URL-CARD] Loaded card for https://status.acofork.com | UClmrc5c.")
         } else {
             throw new Error('Microlink API failed');
         }
       }).catch(err => {
-        const c = document.getElementById('UCzo6fst-card');
+        const c = document.getElementById('UClmrc5c-card');
         c?.classList.add("fetch-error");
-        document.getElementById('UCzo6fst-title').innerText = "Error loading preview";
-        document.getElementById('UCzo6fst-description').innerText = "Failed to fetch metadata for https://status.acofork.com";
-        console.warn("[URL-CARD] (Error) Loading card for https://status.acofork.com | UCzo6fst.", err)
+        document.getElementById('UClmrc5c-title').innerText = "Error loading preview";
+        document.getElementById('UClmrc5c-description').innerText = "Failed to fetch metadata for https://status.acofork.com";
+        console.warn("[URL-CARD] (Error) Loading card for https://status.acofork.com | UClmrc5c.", err)
       })
     </script></a></section>  </div> <script type="module">document.addEventListener("click",function(s){const t=s.target;if(t&&t.classList.contains("copy-btn")){const c=t.closest("pre")?.querySelector("code"),i=Array.from(c?.querySelectorAll(".code:not(summary *)")??[]).map(e=>e.textContent).map(e=>e===`
 `?"":e).join(`
@@ -323,7 +323,7 @@ const postUrl = "/posts/http-header-host/";
 <a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/saicaca/fuwari">Fuwari</a> 强力驱动
 <br>
 本网站代码
-<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/afoim/fuwari">已开源</a> <a class="transition link text-black/30 dark:text-white/30 hover:text-[var(--primary)] text-xs ml-1" target="_blank" href="https://github.com/afoim/fuwari/commit/935d2ff">(935d2ff @ 2026-01-24 02:31:44)</a> <br> <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank"><img alt="" src="/favicon/foot-icp.png" class="h-4 mr-1">皖ICP备2025099787号-2</a> <br> <div class="server-info-container flex flex-col items-center justify-center gap-1 mt-1"> <!-- Server info will be injected here --> </div> <!-- <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.mps.gov.cn/#/query/webSearch?code=34010302002608" target="_blank"><img alt="" src="/favicon/foot-ga.png" class="h-4 mr-1">皖公网安备34010302002608号</a>
+<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/afoim/fuwari">已开源</a> <a class="transition link text-black/30 dark:text-white/30 hover:text-[var(--primary)] text-xs ml-1" target="_blank" href="https://github.com/afoim/fuwari/commit/26c5dc7">(26c5dc7 @ 2026-01-24 02:45:00)</a> <br> <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank"><img alt="" src="/favicon/foot-icp.png" class="h-4 mr-1">皖ICP备2025099787号-2</a> <br> <div class="server-info-container flex flex-col items-center justify-center gap-1 mt-1"> <!-- Server info will be injected here --> </div> <!-- <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.mps.gov.cn/#/query/webSearch?code=34010302002608" target="_blank"><img alt="" src="/favicon/foot-ga.png" class="h-4 mr-1">皖公网安备34010302002608号</a>
         <br> --> </div> </div> <script>(function(){const serverConfig = [{"url":"","text":"Blog"},{"url":"https://umami.acofork.com","text":"Umami"},{"url":"https://pic1.acofork.com","text":"RandomPic"}];
 
     (() => {
@@ -464,12 +464,20 @@ function goToComments() {
 </script> </div> </div>  <div class="absolute w-full z-0 hidden 2xl:block"> <div class="relative max-w-[var(--page-width)] mx-auto"> <!-- TOC component --> <div id="toc-wrapper" class="hidden lg:block transition absolute top-0 -right-[var(--toc-width)] w-[var(--toc-width)] flex items-center"> <div id="toc-inner-wrapper" class="fixed top-14 w-[var(--toc-width)] h-[calc(100vh_-_20rem)] overflow-y-scroll overflow-x-hidden hide-scrollbar"> <div id="toc" class="w-full h-full transition-swup-fade "> <div class="h-8 w-full"></div> <table-of-contents class="group block relative z-0 bg-[var(--float-panel-bg-opaque)] rounded-xl p-2"><ol class="space-y-1"><li><a href="#原理" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2"><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold bg-[var(--toc-badge-bg)] text-[var(--btn-content)]">1</div><div class="transition text-sm text-50">原理</div></a></li><li><a href="#正式开始" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2"><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold bg-[var(--toc-badge-bg)] text-[var(--btn-content)]">2</div><div class="transition text-sm text-50">正式开始</div></a></li><li><a href="#demo" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2"><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold bg-[var(--toc-badge-bg)] text-[var(--btn-content)]">3</div><div class="transition text-sm text-50">Demo</div></a></li></ol><div id="active-indicator" class="-z-10 absolute bg-[var(--toc-btn-hover)] left-2 right-2 rounded-xl transition-all group-hover:bg-transparent border-2 border-[var(--toc-btn-hover)] group-hover:border-[var(--toc-btn-active)] border-dashed"></div></table-of-contents><script type="module">class o extends HTMLElement{tocEl=null;visibleClass="visible";observer;anchorNavTarget=null;headingIdxMap=new Map;headings=[];sections=[];tocEntries=[];active=[];activeIndicator=null;constructor(){super(),this.observer=new IntersectionObserver(this.markVisibleSection,{threshold:0})}markVisibleSection=t=>{if(t.forEach(e=>{const i=e.target.children[0]?.getAttribute("id"),s=i?this.headingIdxMap.get(i):void 0;s!=null&&(this.active[s]=e.isIntersecting),e.isIntersecting&&this.anchorNavTarget==e.target.firstChild&&(this.anchorNavTarget=null)}),!this.active.includes(!0)){this.activeIndicator?.setAttribute("style","display: none;"),this.fallback();return}this.update()};toggleActiveHeading=()=>{let t=this.active.length-1,e=this.active.length-1,i=0;for(;t>=0&&!this.active[t];)this.tocEntries[t].classList.remove(this.visibleClass),t--;for(;t>=0&&this.active[t];)this.tocEntries[t].classList.add(this.visibleClass),e=Math.min(e,t),i=Math.max(i,t),t--;for(;t>=0;)this.tocEntries[t].classList.remove(this.visibleClass),t--;let s=this.tocEntries[e].offsetTop,n=this.tocEntries[i].offsetTop+this.tocEntries[i].offsetHeight;this.activeIndicator?.setAttribute("style",`display: block; top: ${s}px; height: ${n-s}px`)};scrollToActiveHeading=()=>{if(this.anchorNavTarget||!this.tocEl)return;const t=document.querySelectorAll(`#toc .${this.visibleClass}`);if(!t.length)return;const e=t[0],i=t[t.length-1],s=this.tocEl.clientHeight;let n;i.getBoundingClientRect().bottom-e.getBoundingClientRect().top<.9*s?n=e.offsetTop-32:n=i.offsetTop-s*.8,this.tocEl.scrollTo({top:n,left:0,behavior:"smooth"})};update=()=>{requestAnimationFrame(()=>{this.toggleActiveHeading(),this.scrollToActiveHeading()})};fallback=()=>{if(this.sections.length)for(let t=0;t<this.sections.length;t++){let e=this.sections[t].getBoundingClientRect().top,i=this.sections[t].getBoundingClientRect().bottom;if(this.isInRange(e,0,window.innerHeight)||this.isInRange(i,0,window.innerHeight)||e<0&&i>window.innerHeight)this.markActiveHeading(t);else if(e>window.innerHeight)break}};markActiveHeading=t=>{this.active[t]=!0};handleAnchorClick=t=>{const e=t.composedPath().find(i=>i instanceof HTMLAnchorElement);if(e){const i=decodeURIComponent(e.hash?.substring(1)),s=this.headingIdxMap.get(i);s!==void 0?this.anchorNavTarget=this.headings[s]:this.anchorNavTarget=null}};isInRange(t,e,i){return e<t&&t<i}connectedCallback(){const t=document.querySelector(".prose");t?t.addEventListener("animationend",()=>{this.init()},{once:!0}):console.debug("Animation element not found")}init(){if(this.tocEl=document.getElementById("toc-inner-wrapper"),!!this.tocEl&&(this.tocEl.addEventListener("click",this.handleAnchorClick,{capture:!0}),this.activeIndicator=document.getElementById("active-indicator"),this.tocEntries=Array.from(document.querySelectorAll("#toc a[href^='#']")),this.tocEntries.length!==0)){this.sections=new Array(this.tocEntries.length),this.headings=new Array(this.tocEntries.length);for(let t=0;t<this.tocEntries.length;t++){const e=decodeURIComponent(this.tocEntries[t].hash?.substring(1)),i=document.getElementById(e),s=i?.parentElement;i instanceof HTMLElement&&s instanceof HTMLElement&&(this.headings[t]=i,this.sections[t]=s,this.headingIdxMap.set(e,t))}this.active=new Array(this.tocEntries.length).fill(!1),this.sections.forEach(t=>this.observer.observe(t)),this.fallback(),this.update()}}disconnectedCallback(){this.sections.forEach(t=>this.observer.unobserve(t)),this.observer.disconnect(),this.tocEl?.removeEventListener("click",this.handleAnchorClick)}}customElements.get("table-of-contents")||customElements.define("table-of-contents",o);</script> <div class="h-8 w-full"></div> </div> </div> </div> <!-- #toc needs to exist for Swup to work normally -->  </div> </div>  <!-- increase the page height during page transition to prevent the scrolling animation from jumping --> <div id="page-height-extend" class="hidden h-[300vh]" data-astro-cid-sckkx6r4 style="--bannerOffset: 15vh;--banner-height-home: 65vh;--banner-height: 35vh;--configHue: 361;--page-width: 75rem;--bg-url: url(https://t.alcy.cc/ycy);--bg-enable: 1;--bg-position: center;--bg-size: cover;--bg-repeat: no-repeat;--bg-attachment: fixed;--bg-opacity: 1;--configHue: 361;"></div>  <script type="module" src="/_astro/Layout.astro_astro_type_script_index_0_lang.BoB-OW5-.js"></script> <script type="module" src="/_astro/Layout.astro_astro_type_script_index_1_lang.Czhfg-Oo.js"></script> <script>
     // Giscus Loader
     function loadGiscus() {
+        console.log('[Giscus] Attempting to load Giscus...');
         const container = document.getElementById('giscus-container');
-        if (!container) return;
+        if (!container) {
+            console.log('[Giscus] No container found, skipping.');
+            return;
+        }
         
         // Prevent double loading if script is already there
-        if (container.querySelector('script[src*="giscus"]')) return;
+        if (container.querySelector('script[src*="giscus"]')) {
+             console.log('[Giscus] Script already exists, skipping.');
+             return;
+        }
 
+        console.log('[Giscus] Container found, creating script...');
         const script = document.createElement('script');
         script.src = "https://giscus.app/client.js";
         script.async = true;
@@ -491,18 +499,43 @@ function goToComments() {
 
         // Theme handling
         const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        console.log(`[Giscus] Setting initial theme to: ${theme}`);
         script.setAttribute('data-theme', theme);
 
         container.appendChild(script);
+        console.log('[Giscus] Script appended to container.');
     }
 
     function initGiscus() {
+        console.log('[Giscus] initGiscus called.');
         loadGiscus();
         
         // Listen for Swup navigation
-        if (window.swup) {
-            window.swup.hooks.on('page:view', loadGiscus);
-        }
+        // Use a polling mechanism to wait for swup if it's not immediately available
+        const checkSwup = setInterval(() => {
+            if (window.swup) {
+                console.log('[Giscus] Swup detected via polling, registering hooks.');
+                clearInterval(checkSwup);
+                
+                window.swup.hooks.on('page:view', () => {
+                    console.log('[Giscus] Swup page:view triggered.');
+                    loadGiscus();
+                });
+                
+                // Also listen for content:replace to be safe, as page:view might sometimes fire before content is fully swapped in edge cases
+                window.swup.hooks.on('content:replace', () => {
+                    console.log('[Giscus] Swup content:replace triggered.');
+                    // Small delay to ensure DOM is ready
+                    setTimeout(loadGiscus, 0);
+                });
+
+            } else {
+                console.log('[Giscus] Waiting for Swup...');
+            }
+        }, 200);
+        
+        // Stop polling after 5 seconds to prevent infinite loop
+        setTimeout(() => clearInterval(checkSwup), 5000);
     }
 
     if (document.readyState === 'loading') {
@@ -518,6 +551,7 @@ function goToComments() {
                 const iframe = document.querySelector('iframe.giscus-frame');
                 if (iframe) {
                     const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+                    console.log(`[Giscus] Theme changed to: ${theme}, updating iframe.`);
                     iframe.contentWindow.postMessage({
                         giscus: { setConfig: { theme: theme } }
                     }, 'https://giscus.app');

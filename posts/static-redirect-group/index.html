@@ -205,22 +205,22 @@ const umamiConfig = {"enable":true,"baseUrl":"https://umami.acofork.com","shareI
 })();</script>  </div> <!-- always show cover as long as it has one --> <div id="post-cover" class="mb-8 rounded-xl banner-container onload-animation overflow-hidden relative image-wrapper" style="--theme-hue: 361" data-astro-cid-i2xmscho> <img src="/_astro/static-redirect-group.CIeDcnB3.png" alt style="object-position: center" data-astro-cid-i2xmscho="true" width="691" height="702" loading="lazy" decoding="async" class="w-full h-full object-cover image-content">  </div>  <div data-pagefind-body class="prose dark:prose-invert prose-base !max-w-none custom-md mb-6 markdown-content onload-animation"> <!--<div class="prose dark:prose-invert max-w-none custom-md">--> <!--<div class="max-w-none custom-md">-->  <section><h1 id="前言">前言<a class="anchor" href="#前言"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><p>本来不应该有这篇文章的，因为这篇文章就是一个该项目的简单自部署教程，应该写到仓库的README中，本来应该是让AI代工的，但是我发现它非常执着于那个b Github Page+Cloudflare Worker的神奇前后端分离，而且徒增了不少工作。其实该项目仅需一个Cloudflare Worker就行了，所以既然都要我手写了，我氵篇文章也是合情合理的吧</p></section>
 <section><h1 id="项目原理">项目原理<a class="anchor" href="#项目原理"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><p>该项目和上一个短链项目差不多，但是更简化了一些东西</p><p>首先就是，这个项目我们将前后端揉在了一起，前端几乎不校验东西，所有校验在后端，也不用两个项目来回加规则了</p><p>由于该项目前端非常简单，就两个html（一个创建页面，一个重定向页面），所以将他们揉在一起也并不臃肿</p><p>再来，该项目不再使用Cloudflare服务端的 301/302 重定向，也就突破了2000个静态重定向的限制，理论上是无限，而是直接使用CDN对于静态资产命中404时会fullback到 404.html 再在该文件用 JavaScript 做短链查询和重定向（也就跟Nginx伪静态差不多）</p><p>再接着，如果一个pathname没命中任何规则，也会被catch到一个默认的回退源，可以兼容类似 <a href="https://2x.nz/posts/pin/" rel="nofollow" target="_blank">https://2x.nz/posts/pin/</a> —> <a href="https://blog.acofork.com/posts/pin/" rel="nofollow" target="_blank">https://blog.acofork.com/posts/pin/</a></p><p>然后就是创建短链的逻辑，其实跟上一个项目差不多，就是Worker代理访问Github，改一下js，添加一条新的短链规则，然后推送，这会自动触发Cloudflare Worker的重新构建，稍等片刻后，访问新的 pathname 就可以得到正确的重定向了</p><p>最后就是我们支持了有效期，原理也非常简单，前端创建短链的时候给后端传一个什么时候过期的字段，后端再写入文件，最后借助 Github Action 的定时巡查清除过期短链</p></section>
 <section><h1 id="在哪搞个短链">在哪搞个短链<a class="anchor" href="#在哪搞个短链"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><p>我的 2x.nz 是在 <a href="https://porkbun.com" rel="nofollow" target="_blank">https://porkbun.com</a> 买的，一年一百左右。其他后缀也不错，如 <code>.im</code> <code>.mk</code></p></section>
-<section><h1 id="正式搭建你的短链服务">正式搭建你的短链服务<a class="anchor" href="#正式搭建你的短链服务"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><p>首先，Fork仓库</p><a id="GCpdwgpv-card" class="card-github fetch-waiting no-styling" href="https://github.com/afoim/Static_Redirect_Group" target="_blank" repo="afoim/Static_Redirect_Group" rel="nofollow"><div class="gc-titlebar"><div class="gc-titlebar-left"><div class="gc-owner"><div id="GCpdwgpv-avatar" class="gc-avatar"></div><div class="gc-user">afoim</div></div><div class="gc-divider">/</div><div class="gc-repo">Static_Redirect_Group</div></div><div class="github-logo"></div></div><div id="GCpdwgpv-description" class="gc-description">Waiting for api.github.com...</div><div class="gc-infobar"><div id="GCpdwgpv-stars" class="gc-stars">00K</div><div id="GCpdwgpv-forks" class="gc-forks">0K</div><div id="GCpdwgpv-license" class="gc-license">0K</div><span id="GCpdwgpv-language" class="gc-language">Waiting...</span></div><script id="GCpdwgpv-script" type="text/javascript" defer>
+<section><h1 id="正式搭建你的短链服务">正式搭建你的短链服务<a class="anchor" href="#正式搭建你的短链服务"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><p>首先，Fork仓库</p><a id="GCd4kq89-card" class="card-github fetch-waiting no-styling" href="https://github.com/afoim/Static_Redirect_Group" target="_blank" repo="afoim/Static_Redirect_Group" rel="nofollow"><div class="gc-titlebar"><div class="gc-titlebar-left"><div class="gc-owner"><div id="GCd4kq89-avatar" class="gc-avatar"></div><div class="gc-user">afoim</div></div><div class="gc-divider">/</div><div class="gc-repo">Static_Redirect_Group</div></div><div class="github-logo"></div></div><div id="GCd4kq89-description" class="gc-description">Waiting for api.github.com...</div><div class="gc-infobar"><div id="GCd4kq89-stars" class="gc-stars">00K</div><div id="GCd4kq89-forks" class="gc-forks">0K</div><div id="GCd4kq89-license" class="gc-license">0K</div><span id="GCd4kq89-language" class="gc-language">Waiting...</span></div><script id="GCd4kq89-script" type="text/javascript" defer>
       fetch('https://api.github.com/repos/afoim/Static_Redirect_Group', { referrerPolicy: "no-referrer" }).then(response => response.json()).then(data => {
-        document.getElementById('GCpdwgpv-description').innerText = data.description?.replace(/:[a-zA-Z0-9_]+:/g, '') || "Description not set";
-        document.getElementById('GCpdwgpv-language').innerText = data.language;
-        document.getElementById('GCpdwgpv-forks').innerText = Intl.NumberFormat('en-us', { notation: "compact", maximumFractionDigits: 1 }).format(data.forks).replaceAll(" ", '');
-        document.getElementById('GCpdwgpv-stars').innerText = Intl.NumberFormat('en-us', { notation: "compact", maximumFractionDigits: 1 }).format(data.stargazers_count).replaceAll(" ", '');
-        const avatarEl = document.getElementById('GCpdwgpv-avatar');
+        document.getElementById('GCd4kq89-description').innerText = data.description?.replace(/:[a-zA-Z0-9_]+:/g, '') || "Description not set";
+        document.getElementById('GCd4kq89-language').innerText = data.language;
+        document.getElementById('GCd4kq89-forks').innerText = Intl.NumberFormat('en-us', { notation: "compact", maximumFractionDigits: 1 }).format(data.forks).replaceAll(" ", '');
+        document.getElementById('GCd4kq89-stars').innerText = Intl.NumberFormat('en-us', { notation: "compact", maximumFractionDigits: 1 }).format(data.stargazers_count).replaceAll(" ", '');
+        const avatarEl = document.getElementById('GCd4kq89-avatar');
         avatarEl.style.backgroundImage = 'url(' + data.owner.avatar_url + ')';
         avatarEl.style.backgroundColor = 'transparent';
-        document.getElementById('GCpdwgpv-license').innerText = data.license?.spdx_id || "no-license";
-        document.getElementById('GCpdwgpv-card').classList.remove("fetch-waiting");
-        console.log("[GITHUB-CARD] Loaded card for afoim/Static_Redirect_Group | GCpdwgpv.")
+        document.getElementById('GCd4kq89-license').innerText = data.license?.spdx_id || "no-license";
+        document.getElementById('GCd4kq89-card').classList.remove("fetch-waiting");
+        console.log("[GITHUB-CARD] Loaded card for afoim/Static_Redirect_Group | GCd4kq89.")
       }).catch(err => {
-        const c = document.getElementById('GCpdwgpv-card');
+        const c = document.getElementById('GCd4kq89-card');
         c?.classList.add("fetch-error");
-        console.warn("[GITHUB-CARD] (Error) Loading card for afoim/Static_Redirect_Group | GCpdwgpv.")
+        console.warn("[GITHUB-CARD] (Error) Loading card for afoim/Static_Redirect_Group | GCd4kq89.")
       })
     </script></a><p>接下来，先更改一些硬编码的东西，由于Cloudflare Worker对于静态资产不能使用环境变量，所以有些东西是硬编码的，请在所有HTML文件中尝试搜索 <code>afoim</code> 进行更改，改成你的（你也可以多加一层，写一个配置，然后通过构建来注入内容，随你）</p><p>然后，请编辑js文件夹里面的短链，改为你想要的</p><p>再接着，创建一个Github Token，只需要有 <code>repo</code> 权限即可</p><p>继续，绑定机密环境变量，使用 <code>wrangler secret put XXX</code></p>
 
@@ -337,7 +337,7 @@ const postUrl = "/posts/static-redirect-group/";
 <a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/saicaca/fuwari">Fuwari</a> 强力驱动
 <br>
 本网站代码
-<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/afoim/fuwari">已开源</a> <a class="transition link text-black/30 dark:text-white/30 hover:text-[var(--primary)] text-xs ml-1" target="_blank" href="https://github.com/afoim/fuwari/commit/935d2ff">(935d2ff @ 2026-01-24 02:31:44)</a> <br> <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank"><img alt="" src="/favicon/foot-icp.png" class="h-4 mr-1">皖ICP备2025099787号-2</a> <br> <div class="server-info-container flex flex-col items-center justify-center gap-1 mt-1"> <!-- Server info will be injected here --> </div> <!-- <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.mps.gov.cn/#/query/webSearch?code=34010302002608" target="_blank"><img alt="" src="/favicon/foot-ga.png" class="h-4 mr-1">皖公网安备34010302002608号</a>
+<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/afoim/fuwari">已开源</a> <a class="transition link text-black/30 dark:text-white/30 hover:text-[var(--primary)] text-xs ml-1" target="_blank" href="https://github.com/afoim/fuwari/commit/26c5dc7">(26c5dc7 @ 2026-01-24 02:45:00)</a> <br> <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank"><img alt="" src="/favicon/foot-icp.png" class="h-4 mr-1">皖ICP备2025099787号-2</a> <br> <div class="server-info-container flex flex-col items-center justify-center gap-1 mt-1"> <!-- Server info will be injected here --> </div> <!-- <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.mps.gov.cn/#/query/webSearch?code=34010302002608" target="_blank"><img alt="" src="/favicon/foot-ga.png" class="h-4 mr-1">皖公网安备34010302002608号</a>
         <br> --> </div> </div> <script>(function(){const serverConfig = [{"url":"","text":"Blog"},{"url":"https://umami.acofork.com","text":"Umami"},{"url":"https://pic1.acofork.com","text":"RandomPic"}];
 
     (() => {
@@ -478,12 +478,20 @@ function goToComments() {
 </script> </div> </div>  <div class="absolute w-full z-0 hidden 2xl:block"> <div class="relative max-w-[var(--page-width)] mx-auto"> <!-- TOC component --> <div id="toc-wrapper" class="hidden lg:block transition absolute top-0 -right-[var(--toc-width)] w-[var(--toc-width)] flex items-center"> <div id="toc-inner-wrapper" class="fixed top-14 w-[var(--toc-width)] h-[calc(100vh_-_20rem)] overflow-y-scroll overflow-x-hidden hide-scrollbar"> <div id="toc" class="w-full h-full transition-swup-fade "> <div class="h-8 w-full"></div> <table-of-contents class="group block relative z-0 bg-[var(--float-panel-bg-opaque)] rounded-xl p-2"><ol class="space-y-1"><li><a href="#前言" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2"><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold bg-[var(--toc-badge-bg)] text-[var(--btn-content)]">1</div><div class="transition text-sm text-50">前言</div></a></li><li><a href="#项目原理" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2"><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold bg-[var(--toc-badge-bg)] text-[var(--btn-content)]">2</div><div class="transition text-sm text-50">项目原理</div></a></li><li><a href="#在哪搞个短链" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2"><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold bg-[var(--toc-badge-bg)] text-[var(--btn-content)]">3</div><div class="transition text-sm text-50">在哪搞个短链</div></a></li><li><a href="#正式搭建你的短链服务" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2"><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold bg-[var(--toc-badge-bg)] text-[var(--btn-content)]">4</div><div class="transition text-sm text-50">正式搭建你的短链服务</div></a></li><li><a href="#防护" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2"><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold bg-[var(--toc-badge-bg)] text-[var(--btn-content)]">5</div><div class="transition text-sm text-50">防护</div></a></li></ol><div id="active-indicator" class="-z-10 absolute bg-[var(--toc-btn-hover)] left-2 right-2 rounded-xl transition-all group-hover:bg-transparent border-2 border-[var(--toc-btn-hover)] group-hover:border-[var(--toc-btn-active)] border-dashed"></div></table-of-contents><script type="module">class o extends HTMLElement{tocEl=null;visibleClass="visible";observer;anchorNavTarget=null;headingIdxMap=new Map;headings=[];sections=[];tocEntries=[];active=[];activeIndicator=null;constructor(){super(),this.observer=new IntersectionObserver(this.markVisibleSection,{threshold:0})}markVisibleSection=t=>{if(t.forEach(e=>{const i=e.target.children[0]?.getAttribute("id"),s=i?this.headingIdxMap.get(i):void 0;s!=null&&(this.active[s]=e.isIntersecting),e.isIntersecting&&this.anchorNavTarget==e.target.firstChild&&(this.anchorNavTarget=null)}),!this.active.includes(!0)){this.activeIndicator?.setAttribute("style","display: none;"),this.fallback();return}this.update()};toggleActiveHeading=()=>{let t=this.active.length-1,e=this.active.length-1,i=0;for(;t>=0&&!this.active[t];)this.tocEntries[t].classList.remove(this.visibleClass),t--;for(;t>=0&&this.active[t];)this.tocEntries[t].classList.add(this.visibleClass),e=Math.min(e,t),i=Math.max(i,t),t--;for(;t>=0;)this.tocEntries[t].classList.remove(this.visibleClass),t--;let s=this.tocEntries[e].offsetTop,n=this.tocEntries[i].offsetTop+this.tocEntries[i].offsetHeight;this.activeIndicator?.setAttribute("style",`display: block; top: ${s}px; height: ${n-s}px`)};scrollToActiveHeading=()=>{if(this.anchorNavTarget||!this.tocEl)return;const t=document.querySelectorAll(`#toc .${this.visibleClass}`);if(!t.length)return;const e=t[0],i=t[t.length-1],s=this.tocEl.clientHeight;let n;i.getBoundingClientRect().bottom-e.getBoundingClientRect().top<.9*s?n=e.offsetTop-32:n=i.offsetTop-s*.8,this.tocEl.scrollTo({top:n,left:0,behavior:"smooth"})};update=()=>{requestAnimationFrame(()=>{this.toggleActiveHeading(),this.scrollToActiveHeading()})};fallback=()=>{if(this.sections.length)for(let t=0;t<this.sections.length;t++){let e=this.sections[t].getBoundingClientRect().top,i=this.sections[t].getBoundingClientRect().bottom;if(this.isInRange(e,0,window.innerHeight)||this.isInRange(i,0,window.innerHeight)||e<0&&i>window.innerHeight)this.markActiveHeading(t);else if(e>window.innerHeight)break}};markActiveHeading=t=>{this.active[t]=!0};handleAnchorClick=t=>{const e=t.composedPath().find(i=>i instanceof HTMLAnchorElement);if(e){const i=decodeURIComponent(e.hash?.substring(1)),s=this.headingIdxMap.get(i);s!==void 0?this.anchorNavTarget=this.headings[s]:this.anchorNavTarget=null}};isInRange(t,e,i){return e<t&&t<i}connectedCallback(){const t=document.querySelector(".prose");t?t.addEventListener("animationend",()=>{this.init()},{once:!0}):console.debug("Animation element not found")}init(){if(this.tocEl=document.getElementById("toc-inner-wrapper"),!!this.tocEl&&(this.tocEl.addEventListener("click",this.handleAnchorClick,{capture:!0}),this.activeIndicator=document.getElementById("active-indicator"),this.tocEntries=Array.from(document.querySelectorAll("#toc a[href^='#']")),this.tocEntries.length!==0)){this.sections=new Array(this.tocEntries.length),this.headings=new Array(this.tocEntries.length);for(let t=0;t<this.tocEntries.length;t++){const e=decodeURIComponent(this.tocEntries[t].hash?.substring(1)),i=document.getElementById(e),s=i?.parentElement;i instanceof HTMLElement&&s instanceof HTMLElement&&(this.headings[t]=i,this.sections[t]=s,this.headingIdxMap.set(e,t))}this.active=new Array(this.tocEntries.length).fill(!1),this.sections.forEach(t=>this.observer.observe(t)),this.fallback(),this.update()}}disconnectedCallback(){this.sections.forEach(t=>this.observer.unobserve(t)),this.observer.disconnect(),this.tocEl?.removeEventListener("click",this.handleAnchorClick)}}customElements.get("table-of-contents")||customElements.define("table-of-contents",o);</script> <div class="h-8 w-full"></div> </div> </div> </div> <!-- #toc needs to exist for Swup to work normally -->  </div> </div>  <!-- increase the page height during page transition to prevent the scrolling animation from jumping --> <div id="page-height-extend" class="hidden h-[300vh]" data-astro-cid-sckkx6r4 style="--bannerOffset: 15vh;--banner-height-home: 65vh;--banner-height: 35vh;--configHue: 361;--page-width: 75rem;--bg-url: url(https://t.alcy.cc/ycy);--bg-enable: 1;--bg-position: center;--bg-size: cover;--bg-repeat: no-repeat;--bg-attachment: fixed;--bg-opacity: 1;--configHue: 361;"></div>  <script type="module" src="/_astro/Layout.astro_astro_type_script_index_0_lang.BoB-OW5-.js"></script> <script type="module" src="/_astro/Layout.astro_astro_type_script_index_1_lang.Czhfg-Oo.js"></script> <script>
     // Giscus Loader
     function loadGiscus() {
+        console.log('[Giscus] Attempting to load Giscus...');
         const container = document.getElementById('giscus-container');
-        if (!container) return;
+        if (!container) {
+            console.log('[Giscus] No container found, skipping.');
+            return;
+        }
         
         // Prevent double loading if script is already there
-        if (container.querySelector('script[src*="giscus"]')) return;
+        if (container.querySelector('script[src*="giscus"]')) {
+             console.log('[Giscus] Script already exists, skipping.');
+             return;
+        }
 
+        console.log('[Giscus] Container found, creating script...');
         const script = document.createElement('script');
         script.src = "https://giscus.app/client.js";
         script.async = true;
@@ -505,18 +513,43 @@ function goToComments() {
 
         // Theme handling
         const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        console.log(`[Giscus] Setting initial theme to: ${theme}`);
         script.setAttribute('data-theme', theme);
 
         container.appendChild(script);
+        console.log('[Giscus] Script appended to container.');
     }
 
     function initGiscus() {
+        console.log('[Giscus] initGiscus called.');
         loadGiscus();
         
         // Listen for Swup navigation
-        if (window.swup) {
-            window.swup.hooks.on('page:view', loadGiscus);
-        }
+        // Use a polling mechanism to wait for swup if it's not immediately available
+        const checkSwup = setInterval(() => {
+            if (window.swup) {
+                console.log('[Giscus] Swup detected via polling, registering hooks.');
+                clearInterval(checkSwup);
+                
+                window.swup.hooks.on('page:view', () => {
+                    console.log('[Giscus] Swup page:view triggered.');
+                    loadGiscus();
+                });
+                
+                // Also listen for content:replace to be safe, as page:view might sometimes fire before content is fully swapped in edge cases
+                window.swup.hooks.on('content:replace', () => {
+                    console.log('[Giscus] Swup content:replace triggered.');
+                    // Small delay to ensure DOM is ready
+                    setTimeout(loadGiscus, 0);
+                });
+
+            } else {
+                console.log('[Giscus] Waiting for Swup...');
+            }
+        }, 200);
+        
+        // Stop polling after 5 seconds to prevent infinite loop
+        setTimeout(() => clearInterval(checkSwup), 5000);
     }
 
     if (document.readyState === 'loading') {
@@ -532,6 +565,7 @@ function goToComments() {
                 const iframe = document.querySelector('iframe.giscus-frame');
                 if (iframe) {
                     const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+                    console.log(`[Giscus] Theme changed to: ${theme}, updating iframe.`);
                     iframe.contentWindow.postMessage({
                         giscus: { setConfig: { theme: theme } }
                     }, 'https://giscus.app');
