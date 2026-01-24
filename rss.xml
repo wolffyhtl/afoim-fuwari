@@ -32,10 +32,11 @@
 &lt;p&gt;执行后它会查找该文件所在仓库的所有提交，并仅将该文件剔除，若某一提交中仅对该文件做了更改，则一整条提交直接消失（因为提交中无文件更改）；若某一提交中除了对该文件做了更改，还有其他文件，则该条提交仍然存在，但是文件变更记录中不再有该文件&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;git filter-repo --force --path src/secret.txt --invert-paths
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;比如这里我们一不小心提交了个 &lt;strong&gt;微信密码&lt;/strong&gt; ，就可以用该命令剔除它&lt;/p&gt;
+&lt;p&gt;比如这里我们一不小心提交了个 &lt;strong&gt;微信密码&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/del-git-commit-2.DsDzq7jn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;我们可以用该命令将其 &lt;strong&gt;剔除&lt;/strong&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;git filter-repo --force --path 微信密码.txt --invert-paths
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/del-git-commit-2.DsDzq7jn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/del-git-commit-4.DamxbiCC.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;可以看到，效果非常拔群， &lt;strong&gt;微信密码.txt&lt;/strong&gt; 已经不翼而飞了&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;https://blog.acofork.com/_astro/del-git-commit-3.Bghn_drv.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
