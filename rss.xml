@@ -21,6 +21,8 @@
 &lt;p&gt;假设这个仓库有1000+提交又不想合并所有提交历史呢？&lt;/p&gt;
 &lt;h1&gt;正式开始&lt;/h1&gt;
 &lt;p&gt;有个PIP包正好可以满足我们的需求， &lt;strong&gt;git-filter-repo&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;pip install git-filter-repo
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;安装后，进入你的Git仓库运行，接下来，我们只需要传一个文件路径给它即可&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;--path&lt;/strong&gt; 是传入的文件路径，可以是相对路径也可以是绝对路径。但是注意，要用 &lt;strong&gt;/&lt;/strong&gt; 分割路径&lt;/li&gt;
