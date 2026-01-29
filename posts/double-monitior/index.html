@@ -38,8 +38,8 @@ const forceDarkMode = false;
 			let offset = Math.floor(window.innerHeight * (BANNER_HEIGHT_EXTEND / 100));
 			offset = offset - offset % 4;
 			document.documentElement.style.setProperty('--banner-height-extend', `${offset}px`);
-		})();</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"你有一个全球网站？如何做好监控？","description":"如果你正好在运营一个全球性的网站，它可能在不同地区有不同节点，我们要如何做好宕机提醒？","author":{"@type":"Person","name":"二叉树树","url":"https://blog.acofork.com/"},"datePublished":"2026-01-09","inLanguage":"zh-CN"}</script><link rel="alternate" type="application/rss+xml" title="二叉树树" href="https://blog.acofork.com/rss.xml"><link rel="stylesheet" href="/_astro/Layout.Ds13mcav.css">
-<link rel="stylesheet" href="/_astro/Layout.BuewHHUq.css">
+		})();</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"你有一个全球网站？如何做好监控？","description":"如果你正好在运营一个全球性的网站，它可能在不同地区有不同节点，我们要如何做好宕机提醒？","author":{"@type":"Person","name":"二叉树树","url":"https://blog.acofork.com/"},"datePublished":"2026-01-09","inLanguage":"zh-CN"}</script><link rel="alternate" type="application/rss+xml" title="二叉树树" href="https://blog.acofork.com/rss.xml"><link rel="stylesheet" href="/_astro/Layout.BuewHHUq.css">
+<link rel="stylesheet" href="/_astro/Layout.Ds13mcav.css">
 <link rel="stylesheet" href="/_astro/_slug_.Bf2USRy1.css">
 <link rel="stylesheet" href="/_astro/_page_.Duy76CKh.css">
 <link rel="stylesheet" href="/_astro/_page_.DupG3mc-.css">
@@ -219,14 +219,14 @@ const umamiConfig = {"enable":true,"baseUrl":"https://umami.acofork.com","shareI
     }
 })();</script>  </div> <!-- always show cover as long as it has one --> <div id="post-cover" class="mb-8 rounded-xl banner-container onload-animation overflow-hidden relative image-wrapper" style="--theme-hue: 361" data-astro-cid-i2xmscho> <img src="/_astro/double-monitior.BTzfG31T.png" alt style="object-position: center" data-astro-cid-i2xmscho="true" width="1496" height="1274" loading="lazy" decoding="async" class="w-full h-full object-cover image-content">  </div>  <div data-pagefind-body class="prose dark:prose-invert prose-base !max-w-none custom-md break-words mb-6 markdown-content onload-animation"> <!--<div class="prose dark:prose-invert max-w-none custom-md">--> <!--<div class="max-w-none custom-md">-->  <section><h1 id="正式开始">正式开始<a class="anchor" href="#正式开始"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><blockquote>
 <p>视频： <a href="https://www.bilibili.com/video/BV14dqwBVEa5/" rel="nofollow" target="_blank">https://www.bilibili.com/video/BV14dqwBVEa5/</a></p>
-</blockquote><p>比如说我的博客</p><a id="UCcxipgn-card" class="card-url fetch-waiting no-styling" href="https://blog.acofork.com" target="_blank" url="https://blog.acofork.com" rel="nofollow"><div id="UCcxipgn-container" class="uc-container"><div class="uc-content"><div class="uc-titlebar"><div class="uc-titlebar-left"><div id="UCcxipgn-favicon" class="uc-favicon"></div><div class="uc-domain">blog.acofork.com</div></div></div><div id="UCcxipgn-title" class="uc-title-text">Loading...</div><div id="UCcxipgn-description" class="uc-description">Waiting for api.microlink.io...</div></div><div id="UCcxipgn-image" class="uc-image"></div></div><script id="UCcxipgn-script" type="text/javascript" defer>
+</blockquote><p>比如说我的博客</p><a id="UCj9h24g-card" class="card-url fetch-waiting no-styling" href="https://blog.acofork.com" target="_blank" url="https://blog.acofork.com" rel="nofollow"><div id="UCj9h24g-container" class="uc-container"><div class="uc-content"><div class="uc-titlebar"><div class="uc-titlebar-left"><div id="UCj9h24g-favicon" class="uc-favicon"></div><div class="uc-domain">blog.acofork.com</div></div></div><div id="UCj9h24g-title" class="uc-title-text">Loading...</div><div id="UCj9h24g-description" class="uc-description">Waiting for api.microlink.io...</div></div><div id="UCj9h24g-image" class="uc-image"></div></div><script id="UCj9h24g-script" type="text/javascript" defer>
       fetch('https://api.microlink.io?url=https%3A%2F%2Fblog.acofork.com').then(response => response.json()).then(data => {
         if (data.status === 'success') {
             const meta = data.data;
-            document.getElementById('UCcxipgn-title').innerText = meta.title || "https://blog.acofork.com";
-            document.getElementById('UCcxipgn-description').innerText = meta.description || "No description available";
+            document.getElementById('UCj9h24g-title').innerText = meta.title || "https://blog.acofork.com";
+            document.getElementById('UCj9h24g-description').innerText = meta.description || "No description available";
             
-            const faviconEl = document.getElementById('UCcxipgn-favicon');
+            const faviconEl = document.getElementById('UCj9h24g-favicon');
             if (meta.logo?.url) {
                 faviconEl.style.backgroundImage = 'url(' + meta.logo.url + ')';
                 faviconEl.style.backgroundColor = 'transparent';
@@ -234,34 +234,34 @@ const umamiConfig = {"enable":true,"baseUrl":"https://umami.acofork.com","shareI
                  faviconEl.style.display = 'none';
             }
 
-            const imageEl = document.getElementById('UCcxipgn-image');
+            const imageEl = document.getElementById('UCj9h24g-image');
             if (meta.image?.url) {
                 imageEl.style.backgroundImage = 'url(' + meta.image.url + ')';
             } else {
                 imageEl.style.display = 'none';
-                document.getElementById('UCcxipgn-container').classList.add('no-image');
+                document.getElementById('UCj9h24g-container').classList.add('no-image');
             }
 
-            document.getElementById('UCcxipgn-card').classList.remove("fetch-waiting");
-            console.log("[URL-CARD] Loaded card for https://blog.acofork.com | UCcxipgn.")
+            document.getElementById('UCj9h24g-card').classList.remove("fetch-waiting");
+            console.log("[URL-CARD] Loaded card for https://blog.acofork.com | UCj9h24g.")
         } else {
             throw new Error('Microlink API failed');
         }
       }).catch(err => {
-        const c = document.getElementById('UCcxipgn-card');
+        const c = document.getElementById('UCj9h24g-card');
         c?.classList.add("fetch-error");
-        document.getElementById('UCcxipgn-title').innerText = "Error loading preview";
-        document.getElementById('UCcxipgn-description').innerText = "Failed to fetch metadata for https://blog.acofork.com";
-        console.warn("[URL-CARD] (Error) Loading card for https://blog.acofork.com | UCcxipgn.", err)
+        document.getElementById('UCj9h24g-title').innerText = "Error loading preview";
+        document.getElementById('UCj9h24g-description').innerText = "Failed to fetch metadata for https://blog.acofork.com";
+        console.warn("[URL-CARD] (Error) Loading card for https://blog.acofork.com | UCj9h24g.", err)
       })
-    </script></a><p>它在国内的节点是 <strong>阿里云 ESA Pages/EdgeOne Pages</strong> ，而在国外的节点是 <strong>Cloudflare Page</strong></p><p>我使用的方案是在国内自托管一个 <strong>Uptime Kuma</strong> 服务，而在海外使用一些大厂的云监控，如 <strong>BetterStack</strong> <strong>UptimeRobot</strong> 等等，并且让他们互相监控</p><p>对于大厂的监控，我们不必做防护，但对于你自托管的监控，推荐套 <strong>Cloudflare Tunnel</strong> ，防止被DDoS</p><p>国内监控：</p><a id="UC4uzjlw-card" class="card-url fetch-waiting no-styling" href="https://kuma.2x.nz" target="_blank" url="https://kuma.2x.nz" rel="nofollow"><div id="UC4uzjlw-container" class="uc-container"><div class="uc-content"><div class="uc-titlebar"><div class="uc-titlebar-left"><div id="UC4uzjlw-favicon" class="uc-favicon"></div><div class="uc-domain">kuma.2x.nz</div></div></div><div id="UC4uzjlw-title" class="uc-title-text">Loading...</div><div id="UC4uzjlw-description" class="uc-description">Waiting for api.microlink.io...</div></div><div id="UC4uzjlw-image" class="uc-image"></div></div><script id="UC4uzjlw-script" type="text/javascript" defer>
+    </script></a><p>它在国内的节点是 <strong>阿里云 ESA Pages/EdgeOne Pages</strong> ，而在国外的节点是 <strong>Cloudflare Page</strong></p><p>我使用的方案是在国内自托管一个 <strong>Uptime Kuma</strong> 服务，而在海外使用一些大厂的云监控，如 <strong>BetterStack</strong> <strong>UptimeRobot</strong> 等等，并且让他们互相监控</p><p>对于大厂的监控，我们不必做防护，但对于你自托管的监控，推荐套 <strong>Cloudflare Tunnel</strong> ，防止被DDoS</p><p>国内监控：</p><a id="UCesf5zh-card" class="card-url fetch-waiting no-styling" href="https://kuma.2x.nz" target="_blank" url="https://kuma.2x.nz" rel="nofollow"><div id="UCesf5zh-container" class="uc-container"><div class="uc-content"><div class="uc-titlebar"><div class="uc-titlebar-left"><div id="UCesf5zh-favicon" class="uc-favicon"></div><div class="uc-domain">kuma.2x.nz</div></div></div><div id="UCesf5zh-title" class="uc-title-text">Loading...</div><div id="UCesf5zh-description" class="uc-description">Waiting for api.microlink.io...</div></div><div id="UCesf5zh-image" class="uc-image"></div></div><script id="UCesf5zh-script" type="text/javascript" defer>
       fetch('https://api.microlink.io?url=https%3A%2F%2Fkuma.2x.nz').then(response => response.json()).then(data => {
         if (data.status === 'success') {
             const meta = data.data;
-            document.getElementById('UC4uzjlw-title').innerText = meta.title || "https://kuma.2x.nz";
-            document.getElementById('UC4uzjlw-description').innerText = meta.description || "No description available";
+            document.getElementById('UCesf5zh-title').innerText = meta.title || "https://kuma.2x.nz";
+            document.getElementById('UCesf5zh-description').innerText = meta.description || "No description available";
             
-            const faviconEl = document.getElementById('UC4uzjlw-favicon');
+            const faviconEl = document.getElementById('UCesf5zh-favicon');
             if (meta.logo?.url) {
                 faviconEl.style.backgroundImage = 'url(' + meta.logo.url + ')';
                 faviconEl.style.backgroundColor = 'transparent';
@@ -269,34 +269,34 @@ const umamiConfig = {"enable":true,"baseUrl":"https://umami.acofork.com","shareI
                  faviconEl.style.display = 'none';
             }
 
-            const imageEl = document.getElementById('UC4uzjlw-image');
+            const imageEl = document.getElementById('UCesf5zh-image');
             if (meta.image?.url) {
                 imageEl.style.backgroundImage = 'url(' + meta.image.url + ')';
             } else {
                 imageEl.style.display = 'none';
-                document.getElementById('UC4uzjlw-container').classList.add('no-image');
+                document.getElementById('UCesf5zh-container').classList.add('no-image');
             }
 
-            document.getElementById('UC4uzjlw-card').classList.remove("fetch-waiting");
-            console.log("[URL-CARD] Loaded card for https://kuma.2x.nz | UC4uzjlw.")
+            document.getElementById('UCesf5zh-card').classList.remove("fetch-waiting");
+            console.log("[URL-CARD] Loaded card for https://kuma.2x.nz | UCesf5zh.")
         } else {
             throw new Error('Microlink API failed');
         }
       }).catch(err => {
-        const c = document.getElementById('UC4uzjlw-card');
+        const c = document.getElementById('UCesf5zh-card');
         c?.classList.add("fetch-error");
-        document.getElementById('UC4uzjlw-title').innerText = "Error loading preview";
-        document.getElementById('UC4uzjlw-description').innerText = "Failed to fetch metadata for https://kuma.2x.nz";
-        console.warn("[URL-CARD] (Error) Loading card for https://kuma.2x.nz | UC4uzjlw.", err)
+        document.getElementById('UCesf5zh-title').innerText = "Error loading preview";
+        document.getElementById('UCesf5zh-description').innerText = "Failed to fetch metadata for https://kuma.2x.nz";
+        console.warn("[URL-CARD] (Error) Loading card for https://kuma.2x.nz | UCesf5zh.", err)
       })
-    </script></a><p>海外监控：</p><a id="UC07sv86-card" class="card-url fetch-waiting no-styling" href="https://vps.2x.nz" target="_blank" url="https://vps.2x.nz" rel="nofollow"><div id="UC07sv86-container" class="uc-container"><div class="uc-content"><div class="uc-titlebar"><div class="uc-titlebar-left"><div id="UC07sv86-favicon" class="uc-favicon"></div><div class="uc-domain">vps.2x.nz</div></div></div><div id="UC07sv86-title" class="uc-title-text">Loading...</div><div id="UC07sv86-description" class="uc-description">Waiting for api.microlink.io...</div></div><div id="UC07sv86-image" class="uc-image"></div></div><script id="UC07sv86-script" type="text/javascript" defer>
+    </script></a><p>海外监控：</p><a id="UCdkjb3i-card" class="card-url fetch-waiting no-styling" href="https://vps.2x.nz" target="_blank" url="https://vps.2x.nz" rel="nofollow"><div id="UCdkjb3i-container" class="uc-container"><div class="uc-content"><div class="uc-titlebar"><div class="uc-titlebar-left"><div id="UCdkjb3i-favicon" class="uc-favicon"></div><div class="uc-domain">vps.2x.nz</div></div></div><div id="UCdkjb3i-title" class="uc-title-text">Loading...</div><div id="UCdkjb3i-description" class="uc-description">Waiting for api.microlink.io...</div></div><div id="UCdkjb3i-image" class="uc-image"></div></div><script id="UCdkjb3i-script" type="text/javascript" defer>
       fetch('https://api.microlink.io?url=https%3A%2F%2Fvps.2x.nz').then(response => response.json()).then(data => {
         if (data.status === 'success') {
             const meta = data.data;
-            document.getElementById('UC07sv86-title').innerText = meta.title || "https://vps.2x.nz";
-            document.getElementById('UC07sv86-description').innerText = meta.description || "No description available";
+            document.getElementById('UCdkjb3i-title').innerText = meta.title || "https://vps.2x.nz";
+            document.getElementById('UCdkjb3i-description').innerText = meta.description || "No description available";
             
-            const faviconEl = document.getElementById('UC07sv86-favicon');
+            const faviconEl = document.getElementById('UCdkjb3i-favicon');
             if (meta.logo?.url) {
                 faviconEl.style.backgroundImage = 'url(' + meta.logo.url + ')';
                 faviconEl.style.backgroundColor = 'transparent';
@@ -304,25 +304,25 @@ const umamiConfig = {"enable":true,"baseUrl":"https://umami.acofork.com","shareI
                  faviconEl.style.display = 'none';
             }
 
-            const imageEl = document.getElementById('UC07sv86-image');
+            const imageEl = document.getElementById('UCdkjb3i-image');
             if (meta.image?.url) {
                 imageEl.style.backgroundImage = 'url(' + meta.image.url + ')';
             } else {
                 imageEl.style.display = 'none';
-                document.getElementById('UC07sv86-container').classList.add('no-image');
+                document.getElementById('UCdkjb3i-container').classList.add('no-image');
             }
 
-            document.getElementById('UC07sv86-card').classList.remove("fetch-waiting");
-            console.log("[URL-CARD] Loaded card for https://vps.2x.nz | UC07sv86.")
+            document.getElementById('UCdkjb3i-card').classList.remove("fetch-waiting");
+            console.log("[URL-CARD] Loaded card for https://vps.2x.nz | UCdkjb3i.")
         } else {
             throw new Error('Microlink API failed');
         }
       }).catch(err => {
-        const c = document.getElementById('UC07sv86-card');
+        const c = document.getElementById('UCdkjb3i-card');
         c?.classList.add("fetch-error");
-        document.getElementById('UC07sv86-title').innerText = "Error loading preview";
-        document.getElementById('UC07sv86-description').innerText = "Failed to fetch metadata for https://vps.2x.nz";
-        console.warn("[URL-CARD] (Error) Loading card for https://vps.2x.nz | UC07sv86.", err)
+        document.getElementById('UCdkjb3i-title').innerText = "Error loading preview";
+        document.getElementById('UCdkjb3i-description').innerText = "Failed to fetch metadata for https://vps.2x.nz";
+        console.warn("[URL-CARD] (Error) Loading card for https://vps.2x.nz | UCdkjb3i.", err)
       })
     </script></a></section>  </div> <script type="module">document.addEventListener("click",function(s){const t=s.target;if(t&&t.classList.contains("copy-btn")){const c=t.closest("pre")?.querySelector("code"),i=Array.from(c?.querySelectorAll(".code:not(summary *)")??[]).map(e=>e.textContent).map(e=>e===`
 `?"":e).join(`
@@ -409,7 +409,7 @@ const postUrl = "/posts/double-monitior/";
 <a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/saicaca/fuwari">Fuwari</a> 强力驱动
 <br>
 本网站代码
-<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/afoim/fuwari">已开源</a> <a class="transition link text-black/30 dark:text-white/30 hover:text-[var(--primary)] text-xs ml-1" target="_blank" href="https://github.com/afoim/fuwari/commit/ea9e721">(ea9e721 @ 2026-01-29 19:39:05)</a> <br> <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank"><img alt="" src="/favicon/foot-icp.png" class="h-4 mr-1">皖ICP备2025099787号-2</a> <br> <div class="server-info-container flex flex-col items-center justify-center gap-1 mt-1"> <!-- Server info will be injected here --> </div> <!-- <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.mps.gov.cn/#/query/webSearch?code=34010302002608" target="_blank"><img alt="" src="/favicon/foot-ga.png" class="h-4 mr-1">皖公网安备34010302002608号</a>
+<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/afoim/fuwari">已开源</a> <a class="transition link text-black/30 dark:text-white/30 hover:text-[var(--primary)] text-xs ml-1" target="_blank" href="https://github.com/afoim/fuwari/commit/2f76470">(2f76470 @ 2026-01-29 19:45:08)</a> <br> <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank"><img alt="" src="/favicon/foot-icp.png" class="h-4 mr-1">皖ICP备2025099787号-2</a> <br> <div class="server-info-container flex flex-col items-center justify-center gap-1 mt-1"> <!-- Server info will be injected here --> </div> <!-- <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.mps.gov.cn/#/query/webSearch?code=34010302002608" target="_blank"><img alt="" src="/favicon/foot-ga.png" class="h-4 mr-1">皖公网安备34010302002608号</a>
         <br> --> </div> </div> <script>(function(){const serverConfig = [{"url":"","text":"Blog"},{"url":"https://umami.acofork.com","text":"Umami"},{"url":"https://pic1.acofork.com","text":"RandomPic"}];
 
     (() => {
