@@ -58,18 +58,6 @@ input.svelte-wkye0l:focus{outline:0}.search-panel.svelte-wkye0l{background-color
 		}
 	};
 
-	const getHue = () => {
-		try {
-			const stored = localStorage.getItem("hue");
-			if (stored) return Number.parseInt(stored);
-		} catch {
-		}
-		const configCarrier = document.getElementById("config-carrier");
-		const fallback = "250";
-		const raw = configCarrier?.dataset.hue || fallback;
-		return Number.parseInt(raw);
-	};
-
 	const getPalette = () => {
 		const theme = getStoredTheme();
 		if (theme === "dark") return "dark";
@@ -144,7 +132,6 @@ input.svelte-wkye0l:focus{outline:0}.search-panel.svelte-wkye0l{background-color
 				.forEach(el => {
 					el.classList.remove("dark", "light");
 					el.classList.add(palette);
-					el.style.setProperty("--hue", String(getHue()));
 				});
 		});
 	};
@@ -157,19 +144,6 @@ input.svelte-wkye0l:focus{outline:0}.search-panel.svelte-wkye0l{background-color
 	};
 
 	document.addEventListener("DOMContentLoaded", () => {
-		const ensureOverrides = () => {
-			if (document.getElementById("cookie-consent-overrides")) return;
-			const style = document.createElement("style");
-			style.id = "cookie-consent-overrides";
-			style.textContent = `
-.termsfeed-com---nb a, .termsfeed-com---pc a, .termsfeed-com---cp a { color: oklch(0.75 0.14 var(--hue)); }
-.termsfeed-com---palette-dark .cc-nb-okagree, .termsfeed-com---palette-light .cc-nb-okagree { background-color: oklch(0.7 0.14 var(--hue)); border-color: oklch(0.7 0.14 var(--hue)); }
-.termsfeed-com---palette-dark .cc-cp-footer-save, .termsfeed-com---palette-light .cc-cp-footer-save { background-color: oklch(0.7 0.14 var(--hue)); border-color: oklch(0.7 0.14 var(--hue)); }
-`.trim();
-			document.head.appendChild(style);
-		};
-
-		ensureOverrides();
 		markCookieConsentHeadAssetsPersistent();
 		new MutationObserver(markCookieConsentHeadAssetsPersistent).observe(document.head, {
 			childList: true,
@@ -180,7 +154,7 @@ input.svelte-wkye0l:focus{outline:0}.search-panel.svelte-wkye0l{background-color
 
 		new MutationObserver(scheduleApplyPalette).observe(document.documentElement, {
 			attributes: true,
-			attributeFilter: ["class", "style"],
+			attributeFilter: ["class"],
 		});
 
 		new MutationObserver(scheduleApplyPalette).observe(document.body, {
@@ -451,7 +425,7 @@ const postUrl = "/posts/mac-gal/";
 <a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/saicaca/fuwari">Fuwari</a> 强力驱动
 <br>
 本网站代码
-<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/afoim/fuwari">已开源</a> <a class="transition link text-black/30 dark:text-white/30 hover:text-[var(--primary)] text-xs ml-1" target="_blank" href="https://github.com/afoim/fuwari/commit/67726af">(67726af @ 2026-01-31 18:51:53)</a> <br> <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank"><img alt="" src="/favicon/foot-icp.png" class="h-4 mr-1">皖ICP备2025099787号-2</a> <br> <div class="server-info-container flex flex-col items-center justify-center gap-1 mt-1"> <!-- Server info will be injected here --> </div> <!-- <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.mps.gov.cn/#/query/webSearch?code=34010302002608" target="_blank"><img alt="" src="/favicon/foot-ga.png" class="h-4 mr-1">皖公网安备34010302002608号</a>
+<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/afoim/fuwari">已开源</a> <a class="transition link text-black/30 dark:text-white/30 hover:text-[var(--primary)] text-xs ml-1" target="_blank" href="https://github.com/afoim/fuwari/commit/9e80333">(9e80333 @ 2026-01-31 19:07:40)</a> <br> <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank"><img alt="" src="/favicon/foot-icp.png" class="h-4 mr-1">皖ICP备2025099787号-2</a> <br> <div class="server-info-container flex flex-col items-center justify-center gap-1 mt-1"> <!-- Server info will be injected here --> </div> <!-- <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.mps.gov.cn/#/query/webSearch?code=34010302002608" target="_blank"><img alt="" src="/favicon/foot-ga.png" class="h-4 mr-1">皖公网安备34010302002608号</a>
         <br> --> </div> </div> <script>(function(){const serverConfig = [{"url":"","text":"Blog"},{"url":"https://umami.acofork.com","text":"Umami"},{"url":"https://pic1.acofork.com","text":"RandomPic"}];
 
     (() => {

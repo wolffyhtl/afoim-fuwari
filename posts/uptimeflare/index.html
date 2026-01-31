@@ -58,18 +58,6 @@ input.svelte-wkye0l:focus{outline:0}.search-panel.svelte-wkye0l{background-color
 		}
 	};
 
-	const getHue = () => {
-		try {
-			const stored = localStorage.getItem("hue");
-			if (stored) return Number.parseInt(stored);
-		} catch {
-		}
-		const configCarrier = document.getElementById("config-carrier");
-		const fallback = "250";
-		const raw = configCarrier?.dataset.hue || fallback;
-		return Number.parseInt(raw);
-	};
-
 	const getPalette = () => {
 		const theme = getStoredTheme();
 		if (theme === "dark") return "dark";
@@ -144,7 +132,6 @@ input.svelte-wkye0l:focus{outline:0}.search-panel.svelte-wkye0l{background-color
 				.forEach(el => {
 					el.classList.remove("dark", "light");
 					el.classList.add(palette);
-					el.style.setProperty("--hue", String(getHue()));
 				});
 		});
 	};
@@ -157,19 +144,6 @@ input.svelte-wkye0l:focus{outline:0}.search-panel.svelte-wkye0l{background-color
 	};
 
 	document.addEventListener("DOMContentLoaded", () => {
-		const ensureOverrides = () => {
-			if (document.getElementById("cookie-consent-overrides")) return;
-			const style = document.createElement("style");
-			style.id = "cookie-consent-overrides";
-			style.textContent = `
-.termsfeed-com---nb a, .termsfeed-com---pc a, .termsfeed-com---cp a { color: oklch(0.75 0.14 var(--hue)); }
-.termsfeed-com---palette-dark .cc-nb-okagree, .termsfeed-com---palette-light .cc-nb-okagree { background-color: oklch(0.7 0.14 var(--hue)); border-color: oklch(0.7 0.14 var(--hue)); }
-.termsfeed-com---palette-dark .cc-cp-footer-save, .termsfeed-com---palette-light .cc-cp-footer-save { background-color: oklch(0.7 0.14 var(--hue)); border-color: oklch(0.7 0.14 var(--hue)); }
-`.trim();
-			document.head.appendChild(style);
-		};
-
-		ensureOverrides();
 		markCookieConsentHeadAssetsPersistent();
 		new MutationObserver(markCookieConsentHeadAssetsPersistent).observe(document.head, {
 			childList: true,
@@ -180,7 +154,7 @@ input.svelte-wkye0l:focus{outline:0}.search-panel.svelte-wkye0l{background-color
 
 		new MutationObserver(scheduleApplyPalette).observe(document.documentElement, {
 			attributes: true,
-			attributeFilter: ["class", "style"],
+			attributeFilter: ["class"],
 		});
 
 		new MutationObserver(scheduleApplyPalette).observe(document.body, {
@@ -355,22 +329,22 @@ const umamiConfig = {"enable":true,"baseUrl":"https://umami.acofork.com","shareI
     } else {
         fetchPageViews();
     }
-})();</script>  </div> <!-- always show cover as long as it has one --> <div id="post-cover" class="mb-8 rounded-xl banner-container onload-animation overflow-hidden relative image-wrapper" style="--theme-hue: 361" data-astro-cid-i2xmscho> <img src="/_astro/uptimeflare.CpVCjNmm.png" alt style="object-position: center" data-astro-cid-i2xmscho="true" width="1600" height="900" loading="lazy" decoding="async" class="w-full h-full object-cover image-content">  </div>  <div data-pagefind-body class="prose dark:prose-invert prose-base !max-w-none custom-md break-words mb-6 markdown-content onload-animation"> <!--<div class="prose dark:prose-invert max-w-none custom-md">--> <!--<div class="max-w-none custom-md">-->  <section><h1 id="从kv迁移">从KV迁移<a class="anchor" href="#从kv迁移"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><p>由于原项目于26/1/3将数据存储从KV迁移到了D1，并且配备了完备的i18n，如果你仍在运营旧版的UptimeFlare，建议升级，下面是迁移教程</p><p>首先，将你之前配置的Cloudflare API令牌添加一个新的权限 <strong>编辑D1</strong></p><p>然后备份根目录的 <code>uptime.config.ts</code> ，直接 把原仓库删了（但是不要删KV，Worker，Page），Fork我的仓库</p><a id="GCvxpq5f-card" class="card-github fetch-waiting no-styling" href="https://github.com/afoim/UptimeFlare" target="_blank" repo="afoim/UptimeFlare" rel="nofollow"><div class="gc-titlebar"><div class="gc-titlebar-left"><div class="gc-owner"><div id="GCvxpq5f-avatar" class="gc-avatar"></div><div class="gc-user">afoim</div></div><div class="gc-divider">/</div><div class="gc-repo">UptimeFlare</div></div><div class="github-logo"></div></div><div id="GCvxpq5f-description" class="gc-description">Waiting for api.github.com...</div><div class="gc-infobar"><div id="GCvxpq5f-stars" class="gc-stars">00K</div><div id="GCvxpq5f-forks" class="gc-forks">0K</div><div id="GCvxpq5f-license" class="gc-license">0K</div><span id="GCvxpq5f-language" class="gc-language">Waiting...</span></div><script id="GCvxpq5f-script" type="text/javascript" defer>
+})();</script>  </div> <!-- always show cover as long as it has one --> <div id="post-cover" class="mb-8 rounded-xl banner-container onload-animation overflow-hidden relative image-wrapper" style="--theme-hue: 361" data-astro-cid-i2xmscho> <img src="/_astro/uptimeflare.CpVCjNmm.png" alt style="object-position: center" data-astro-cid-i2xmscho="true" width="1600" height="900" loading="lazy" decoding="async" class="w-full h-full object-cover image-content">  </div>  <div data-pagefind-body class="prose dark:prose-invert prose-base !max-w-none custom-md break-words mb-6 markdown-content onload-animation"> <!--<div class="prose dark:prose-invert max-w-none custom-md">--> <!--<div class="max-w-none custom-md">-->  <section><h1 id="从kv迁移">从KV迁移<a class="anchor" href="#从kv迁移"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><p>由于原项目于26/1/3将数据存储从KV迁移到了D1，并且配备了完备的i18n，如果你仍在运营旧版的UptimeFlare，建议升级，下面是迁移教程</p><p>首先，将你之前配置的Cloudflare API令牌添加一个新的权限 <strong>编辑D1</strong></p><p>然后备份根目录的 <code>uptime.config.ts</code> ，直接 把原仓库删了（但是不要删KV，Worker，Page），Fork我的仓库</p><a id="GC88vouu-card" class="card-github fetch-waiting no-styling" href="https://github.com/afoim/UptimeFlare" target="_blank" repo="afoim/UptimeFlare" rel="nofollow"><div class="gc-titlebar"><div class="gc-titlebar-left"><div class="gc-owner"><div id="GC88vouu-avatar" class="gc-avatar"></div><div class="gc-user">afoim</div></div><div class="gc-divider">/</div><div class="gc-repo">UptimeFlare</div></div><div class="github-logo"></div></div><div id="GC88vouu-description" class="gc-description">Waiting for api.github.com...</div><div class="gc-infobar"><div id="GC88vouu-stars" class="gc-stars">00K</div><div id="GC88vouu-forks" class="gc-forks">0K</div><div id="GC88vouu-license" class="gc-license">0K</div><span id="GC88vouu-language" class="gc-language">Waiting...</span></div><script id="GC88vouu-script" type="text/javascript" defer>
       fetch('https://api.github.com/repos/afoim/UptimeFlare', { referrerPolicy: "no-referrer" }).then(response => response.json()).then(data => {
-        document.getElementById('GCvxpq5f-description').innerText = data.description?.replace(/:[a-zA-Z0-9_]+:/g, '') || "Description not set";
-        document.getElementById('GCvxpq5f-language').innerText = data.language;
-        document.getElementById('GCvxpq5f-forks').innerText = Intl.NumberFormat('en-us', { notation: "compact", maximumFractionDigits: 1 }).format(data.forks).replaceAll(" ", '');
-        document.getElementById('GCvxpq5f-stars').innerText = Intl.NumberFormat('en-us', { notation: "compact", maximumFractionDigits: 1 }).format(data.stargazers_count).replaceAll(" ", '');
-        const avatarEl = document.getElementById('GCvxpq5f-avatar');
+        document.getElementById('GC88vouu-description').innerText = data.description?.replace(/:[a-zA-Z0-9_]+:/g, '') || "Description not set";
+        document.getElementById('GC88vouu-language').innerText = data.language;
+        document.getElementById('GC88vouu-forks').innerText = Intl.NumberFormat('en-us', { notation: "compact", maximumFractionDigits: 1 }).format(data.forks).replaceAll(" ", '');
+        document.getElementById('GC88vouu-stars').innerText = Intl.NumberFormat('en-us', { notation: "compact", maximumFractionDigits: 1 }).format(data.stargazers_count).replaceAll(" ", '');
+        const avatarEl = document.getElementById('GC88vouu-avatar');
         avatarEl.style.backgroundImage = 'url(' + data.owner.avatar_url + ')';
         avatarEl.style.backgroundColor = 'transparent';
-        document.getElementById('GCvxpq5f-license').innerText = data.license?.spdx_id || "no-license";
-        document.getElementById('GCvxpq5f-card').classList.remove("fetch-waiting");
-        console.log("[GITHUB-CARD] Loaded card for afoim/UptimeFlare | GCvxpq5f.")
+        document.getElementById('GC88vouu-license').innerText = data.license?.spdx_id || "no-license";
+        document.getElementById('GC88vouu-card').classList.remove("fetch-waiting");
+        console.log("[GITHUB-CARD] Loaded card for afoim/UptimeFlare | GC88vouu.")
       }).catch(err => {
-        const c = document.getElementById('GCvxpq5f-card');
+        const c = document.getElementById('GC88vouu-card');
         c?.classList.add("fetch-error");
-        console.warn("[GITHUB-CARD] (Error) Loading card for afoim/UptimeFlare | GCvxpq5f.")
+        console.warn("[GITHUB-CARD] (Error) Loading card for afoim/UptimeFlare | GC88vouu.")
       })
     </script></a><p>接下来编辑新的 <code>uptime.config.ts</code></p><p>参阅 <a href="https://github.com/afoim/UptimeFlare/blob/main/uptime.config.ts" rel="nofollow" target="_blank">UptimeFlare/uptime.config.ts at main · afoim/UptimeFlare</a> 主要就是将自定义callback迁移到官方的WebHook方法</p><p>编辑后推送，会自动触发Github Action的自动部署，它会自动将KV内的数据迁移到D1</p><p>这迁移到D1何意味
 <img  width="1000" height="442" loading="lazy" decoding="async" src="/_astro/uptimeflare-16.DOE6xDob.png" ></p></section>
@@ -381,22 +355,22 @@ const umamiConfig = {"enable":true,"baseUrl":"https://umami.acofork.com","shareI
 <img  width="920" height="189" loading="lazy" decoding="async" src="/_astro/uptimeflare-1.BKhlEp5q.png" >
 <img  width="935" height="270" loading="lazy" decoding="async" src="/_astro/uptimeflare-14.DgUuEFgo.png" ></li>
 </ul></section>
-<section><h1 id="正式开始">正式开始<a class="anchor" href="#正式开始"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><p>首先我们需要 <strong>Fork</strong> 项目，建议Fork我的项目（由于原项目不知道为什么不给在某些地方注入环境变量，所以建议Fork我的）</p><a id="GCykuuvb-card" class="card-github fetch-waiting no-styling" href="https://github.com/afoim/UptimeFlare" target="_blank" repo="afoim/UptimeFlare" rel="nofollow"><div class="gc-titlebar"><div class="gc-titlebar-left"><div class="gc-owner"><div id="GCykuuvb-avatar" class="gc-avatar"></div><div class="gc-user">afoim</div></div><div class="gc-divider">/</div><div class="gc-repo">UptimeFlare</div></div><div class="github-logo"></div></div><div id="GCykuuvb-description" class="gc-description">Waiting for api.github.com...</div><div class="gc-infobar"><div id="GCykuuvb-stars" class="gc-stars">00K</div><div id="GCykuuvb-forks" class="gc-forks">0K</div><div id="GCykuuvb-license" class="gc-license">0K</div><span id="GCykuuvb-language" class="gc-language">Waiting...</span></div><script id="GCykuuvb-script" type="text/javascript" defer>
+<section><h1 id="正式开始">正式开始<a class="anchor" href="#正式开始"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><p>首先我们需要 <strong>Fork</strong> 项目，建议Fork我的项目（由于原项目不知道为什么不给在某些地方注入环境变量，所以建议Fork我的）</p><a id="GC1db47f-card" class="card-github fetch-waiting no-styling" href="https://github.com/afoim/UptimeFlare" target="_blank" repo="afoim/UptimeFlare" rel="nofollow"><div class="gc-titlebar"><div class="gc-titlebar-left"><div class="gc-owner"><div id="GC1db47f-avatar" class="gc-avatar"></div><div class="gc-user">afoim</div></div><div class="gc-divider">/</div><div class="gc-repo">UptimeFlare</div></div><div class="github-logo"></div></div><div id="GC1db47f-description" class="gc-description">Waiting for api.github.com...</div><div class="gc-infobar"><div id="GC1db47f-stars" class="gc-stars">00K</div><div id="GC1db47f-forks" class="gc-forks">0K</div><div id="GC1db47f-license" class="gc-license">0K</div><span id="GC1db47f-language" class="gc-language">Waiting...</span></div><script id="GC1db47f-script" type="text/javascript" defer>
       fetch('https://api.github.com/repos/afoim/UptimeFlare', { referrerPolicy: "no-referrer" }).then(response => response.json()).then(data => {
-        document.getElementById('GCykuuvb-description').innerText = data.description?.replace(/:[a-zA-Z0-9_]+:/g, '') || "Description not set";
-        document.getElementById('GCykuuvb-language').innerText = data.language;
-        document.getElementById('GCykuuvb-forks').innerText = Intl.NumberFormat('en-us', { notation: "compact", maximumFractionDigits: 1 }).format(data.forks).replaceAll(" ", '');
-        document.getElementById('GCykuuvb-stars').innerText = Intl.NumberFormat('en-us', { notation: "compact", maximumFractionDigits: 1 }).format(data.stargazers_count).replaceAll(" ", '');
-        const avatarEl = document.getElementById('GCykuuvb-avatar');
+        document.getElementById('GC1db47f-description').innerText = data.description?.replace(/:[a-zA-Z0-9_]+:/g, '') || "Description not set";
+        document.getElementById('GC1db47f-language').innerText = data.language;
+        document.getElementById('GC1db47f-forks').innerText = Intl.NumberFormat('en-us', { notation: "compact", maximumFractionDigits: 1 }).format(data.forks).replaceAll(" ", '');
+        document.getElementById('GC1db47f-stars').innerText = Intl.NumberFormat('en-us', { notation: "compact", maximumFractionDigits: 1 }).format(data.stargazers_count).replaceAll(" ", '');
+        const avatarEl = document.getElementById('GC1db47f-avatar');
         avatarEl.style.backgroundImage = 'url(' + data.owner.avatar_url + ')';
         avatarEl.style.backgroundColor = 'transparent';
-        document.getElementById('GCykuuvb-license').innerText = data.license?.spdx_id || "no-license";
-        document.getElementById('GCykuuvb-card').classList.remove("fetch-waiting");
-        console.log("[GITHUB-CARD] Loaded card for afoim/UptimeFlare | GCykuuvb.")
+        document.getElementById('GC1db47f-license').innerText = data.license?.spdx_id || "no-license";
+        document.getElementById('GC1db47f-card').classList.remove("fetch-waiting");
+        console.log("[GITHUB-CARD] Loaded card for afoim/UptimeFlare | GC1db47f.")
       }).catch(err => {
-        const c = document.getElementById('GCykuuvb-card');
+        const c = document.getElementById('GC1db47f-card');
         c?.classList.add("fetch-error");
-        console.warn("[GITHUB-CARD] (Error) Loading card for afoim/UptimeFlare | GCykuuvb.")
+        console.warn("[GITHUB-CARD] (Error) Loading card for afoim/UptimeFlare | GC1db47f.")
       })
     </script></a><p>首先，我们先尝试将其部署到Cloudflare</p><p>创建一个Cloudflare API Token <strong>编辑Workers</strong> 和 <strong>D1</strong>
 <img  width="1458" height="1077" loading="lazy" decoding="async" src="/_astro/msedge_HwStEUKYVx1.u1Stq37R.gif" ></p><p>接下来将该Token绑定到你的Github仓库
@@ -408,14 +382,14 @@ const umamiConfig = {"enable":true,"baseUrl":"https://umami.acofork.com","shareI
 <img  width="995" height="707" loading="lazy" decoding="async" src="/_astro/uptimeflare-10.CYOFmuCg.png" ></p><p>接下来，我们开始自定义该监控</p><p>编辑根目录的 <code>uptime.config.ts</code></p><p>如果服务故障如何做通知？</p><p>UptimeFlare非常自由，你可以在 <code>callbacks</code> 中编写故障时要做的任何事情，这里以发送 <code>POST</code> 请求让 <code>Resend</code> 发送邮件给你举例</p><p>首先前往 <a href="https://resend.com/" rel="nofollow" target="_blank">https://resend.com/</a></p><p>添加一个域名（作为你的发信域名）
 <img  width="1424" height="482" loading="lazy" decoding="async" src="/_astro/uptimeflare-11.BGV9fH6W.png" ></p><p>创建一个发信API Key
 <img  width="1146" height="281" loading="lazy" decoding="async" src="/_astro/uptimeflare-12.BJnKCA9W.png" ></p><p>添加环境变量： <code>RESEND_API_KEY</code> 将其绑定到 <strong>Action</strong></p><p><img  width="1380" height="1063" loading="lazy" decoding="async" src="/_astro/uptimeflare-13.C5fIUV0y.png" ></p><p>编辑 <code>uptime.config.ts</code> 的 <code>webhook.payload</code> 部分</p><p>示例代码：</p><div class="expressive-code"><link rel="stylesheet" href="/_astro/ec.4l8yc.css"><script type="module" src="/_astro/ec.g1fg5.js"></script><figure class="frame"><figcaption class="header"></figcaption><pre data-language="ts" class="wrap" style="--ecMaxLine:52ch"><code><div class="ec-line" style="--ecIndent:8ch"><div class="gutter"><div class="ln" aria-hidden="true">1</div></div><div class="code"><span class="indent">        </span><span style="--0:#B392F0;--1:#B392F0">payload</span><span style="--0:#E1E4E8;--1:#E1E4E8">: {</span></div></div><div class="ec-line" style="--ecIndent:8ch"><div class="gutter"><div class="ln" aria-hidden="true">2</div></div><div class="code"><span class="indent">        </span><span style="--0:#9ECBFF;--1:#9ECBFF">"from"</span><span style="--0:#E1E4E8;--1:#E1E4E8">: </span><span style="--0:#9ECBFF;--1:#9ECBFF">"系统状态更新 &#x3C;uptimeflare@update.2x.nz>"</span><span style="--0:#E1E4E8;--1:#E1E4E8">,</span></div></div><div class="ec-line" style="--ecIndent:8ch"><div class="gutter"><div class="ln" aria-hidden="true">3</div></div><div class="code"><span class="indent">        </span><span style="--0:#9ECBFF;--1:#9ECBFF">"to"</span><span style="--0:#E1E4E8;--1:#E1E4E8">: [</span><span style="--0:#9ECBFF;--1:#9ECBFF">"acofork@foxmail.com"</span><span style="--0:#E1E4E8;--1:#E1E4E8">],</span></div></div><div class="ec-line" style="--ecIndent:8ch"><div class="gutter"><div class="ln" aria-hidden="true">4</div></div><div class="code"><span class="indent">        </span><span style="--0:#9ECBFF;--1:#9ECBFF">"subject"</span><span style="--0:#E1E4E8;--1:#E1E4E8">: </span><span style="--0:#9ECBFF;--1:#9ECBFF">"UptimeFlare 状态更新"</span><span style="--0:#E1E4E8;--1:#E1E4E8">,</span></div></div><div class="ec-line" style="--ecIndent:8ch"><div class="gutter"><div class="ln" aria-hidden="true">5</div></div><div class="code"><span class="indent">        </span><span style="--0:#9ECBFF;--1:#9ECBFF">"text"</span><span style="--0:#E1E4E8;--1:#E1E4E8">: </span><span style="--0:#9ECBFF;--1:#9ECBFF">"$MSG"</span></div></div><div class="ec-line" style="--ecIndent:6ch"><div class="gutter"><div class="ln" aria-hidden="true">6</div></div><div class="code"><span class="indent"><span style="--0:#E1E4E8;--1:#E1E4E8">      </span></span><span style="--0:#E1E4E8;--1:#E1E4E8">},</span></div></div></code><button class="copy-btn" aria-label="Copy code"><div class="copy-btn-icon"><svg viewBox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg" class="copy-btn-icon copy-icon"><path d="M368.37-237.37q-34.48 0-58.74-24.26-24.26-24.26-24.26-58.74v-474.26q0-34.48 24.26-58.74 24.26-24.26 58.74-24.26h378.26q34.48 0 58.74 24.26 24.26 24.26 24.26 58.74v474.26q0 34.48-24.26 58.74-24.26 24.26-58.74 24.26H368.37Zm0-83h378.26v-474.26H368.37v474.26Zm-155 238q-34.48 0-58.74-24.26-24.26-24.26-24.26-58.74v-515.76q0-17.45 11.96-29.48 11.97-12.02 29.33-12.02t29.54 12.02q12.17 12.03 12.17 29.48v515.76h419.76q17.45 0 29.48 11.96 12.02 11.97 12.02 29.33t-12.02 29.54q-12.03 12.17-29.48 12.17H213.37Zm155-238v-474.26 474.26Z"></path></svg><svg viewBox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg" class="copy-btn-icon success-icon"><path d="m389-377.13 294.7-294.7q12.58-12.67 29.52-12.67 16.93 0 29.61 12.67 12.67 12.68 12.67 29.53 0 16.86-12.28 29.14L419.07-288.41q-12.59 12.67-29.52 12.67-16.94 0-29.62-12.67L217.41-430.93q-12.67-12.68-12.79-29.45-.12-16.77 12.55-29.45 12.68-12.67 29.62-12.67 16.93 0 29.28 12.67L389-377.13Z"></path></svg></div></button></pre></figure></div><p>接下来，当服务故障/重新上线就会通知你啦~
-<img  width="722" height="748" loading="lazy" decoding="async" src="/_astro/1dc1a98a404db83e909c1f87e8a115cf.CVNrDOmh.png" ></p><p>最终效果：</p><a id="UC2f7gaj-card" class="card-url fetch-waiting no-styling" href="https://ok.2x.nz" target="_blank" url="https://ok.2x.nz" rel="nofollow"><div id="UC2f7gaj-container" class="uc-container"><div class="uc-content"><div class="uc-titlebar"><div class="uc-titlebar-left"><div id="UC2f7gaj-favicon" class="uc-favicon"></div><div class="uc-domain">ok.2x.nz</div></div></div><div id="UC2f7gaj-title" class="uc-title-text">Loading...</div><div id="UC2f7gaj-description" class="uc-description">Waiting for api.microlink.io...</div></div><div id="UC2f7gaj-image" class="uc-image"></div></div><script id="UC2f7gaj-script" type="text/javascript" defer>
+<img  width="722" height="748" loading="lazy" decoding="async" src="/_astro/1dc1a98a404db83e909c1f87e8a115cf.CVNrDOmh.png" ></p><p>最终效果：</p><a id="UCai5mhb-card" class="card-url fetch-waiting no-styling" href="https://ok.2x.nz" target="_blank" url="https://ok.2x.nz" rel="nofollow"><div id="UCai5mhb-container" class="uc-container"><div class="uc-content"><div class="uc-titlebar"><div class="uc-titlebar-left"><div id="UCai5mhb-favicon" class="uc-favicon"></div><div class="uc-domain">ok.2x.nz</div></div></div><div id="UCai5mhb-title" class="uc-title-text">Loading...</div><div id="UCai5mhb-description" class="uc-description">Waiting for api.microlink.io...</div></div><div id="UCai5mhb-image" class="uc-image"></div></div><script id="UCai5mhb-script" type="text/javascript" defer>
       fetch('https://api.microlink.io?url=https%3A%2F%2Fok.2x.nz').then(response => response.json()).then(data => {
         if (data.status === 'success') {
             const meta = data.data;
-            document.getElementById('UC2f7gaj-title').innerText = meta.title || "https://ok.2x.nz";
-            document.getElementById('UC2f7gaj-description').innerText = meta.description || "No description available";
+            document.getElementById('UCai5mhb-title').innerText = meta.title || "https://ok.2x.nz";
+            document.getElementById('UCai5mhb-description').innerText = meta.description || "No description available";
             
-            const faviconEl = document.getElementById('UC2f7gaj-favicon');
+            const faviconEl = document.getElementById('UCai5mhb-favicon');
             if (meta.logo?.url) {
                 faviconEl.style.backgroundImage = 'url(' + meta.logo.url + ')';
                 faviconEl.style.backgroundColor = 'transparent';
@@ -423,25 +397,25 @@ const umamiConfig = {"enable":true,"baseUrl":"https://umami.acofork.com","shareI
                  faviconEl.style.display = 'none';
             }
 
-            const imageEl = document.getElementById('UC2f7gaj-image');
+            const imageEl = document.getElementById('UCai5mhb-image');
             if (meta.image?.url) {
                 imageEl.style.backgroundImage = 'url(' + meta.image.url + ')';
             } else {
                 imageEl.style.display = 'none';
-                document.getElementById('UC2f7gaj-container').classList.add('no-image');
+                document.getElementById('UCai5mhb-container').classList.add('no-image');
             }
 
-            document.getElementById('UC2f7gaj-card').classList.remove("fetch-waiting");
-            console.log("[URL-CARD] Loaded card for https://ok.2x.nz | UC2f7gaj.")
+            document.getElementById('UCai5mhb-card').classList.remove("fetch-waiting");
+            console.log("[URL-CARD] Loaded card for https://ok.2x.nz | UCai5mhb.")
         } else {
             throw new Error('Microlink API failed');
         }
       }).catch(err => {
-        const c = document.getElementById('UC2f7gaj-card');
+        const c = document.getElementById('UCai5mhb-card');
         c?.classList.add("fetch-error");
-        document.getElementById('UC2f7gaj-title').innerText = "Error loading preview";
-        document.getElementById('UC2f7gaj-description').innerText = "Failed to fetch metadata for https://ok.2x.nz";
-        console.warn("[URL-CARD] (Error) Loading card for https://ok.2x.nz | UC2f7gaj.", err)
+        document.getElementById('UCai5mhb-title').innerText = "Error loading preview";
+        document.getElementById('UCai5mhb-description').innerText = "Failed to fetch metadata for https://ok.2x.nz";
+        console.warn("[URL-CARD] (Error) Loading card for https://ok.2x.nz | UCai5mhb.", err)
       })
     </script></a></section>  </div> <script type="module">document.addEventListener("click",function(s){const t=s.target;if(t&&t.classList.contains("copy-btn")){const c=t.closest("pre")?.querySelector("code"),i=Array.from(c?.querySelectorAll(".code:not(summary *)")??[]).map(e=>e.textContent).map(e=>e===`
 `?"":e).join(`
@@ -528,7 +502,7 @@ const postUrl = "/posts/uptimeflare/";
 <a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/saicaca/fuwari">Fuwari</a> 强力驱动
 <br>
 本网站代码
-<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/afoim/fuwari">已开源</a> <a class="transition link text-black/30 dark:text-white/30 hover:text-[var(--primary)] text-xs ml-1" target="_blank" href="https://github.com/afoim/fuwari/commit/67726af">(67726af @ 2026-01-31 18:51:51)</a> <br> <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank"><img alt="" src="/favicon/foot-icp.png" class="h-4 mr-1">皖ICP备2025099787号-2</a> <br> <div class="server-info-container flex flex-col items-center justify-center gap-1 mt-1"> <!-- Server info will be injected here --> </div> <!-- <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.mps.gov.cn/#/query/webSearch?code=34010302002608" target="_blank"><img alt="" src="/favicon/foot-ga.png" class="h-4 mr-1">皖公网安备34010302002608号</a>
+<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/afoim/fuwari">已开源</a> <a class="transition link text-black/30 dark:text-white/30 hover:text-[var(--primary)] text-xs ml-1" target="_blank" href="https://github.com/afoim/fuwari/commit/9e80333">(9e80333 @ 2026-01-31 19:07:38)</a> <br> <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank"><img alt="" src="/favicon/foot-icp.png" class="h-4 mr-1">皖ICP备2025099787号-2</a> <br> <div class="server-info-container flex flex-col items-center justify-center gap-1 mt-1"> <!-- Server info will be injected here --> </div> <!-- <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.mps.gov.cn/#/query/webSearch?code=34010302002608" target="_blank"><img alt="" src="/favicon/foot-ga.png" class="h-4 mr-1">皖公网安备34010302002608号</a>
         <br> --> </div> </div> <script>(function(){const serverConfig = [{"url":"","text":"Blog"},{"url":"https://umami.acofork.com","text":"Umami"},{"url":"https://pic1.acofork.com","text":"RandomPic"}];
 
     (() => {
