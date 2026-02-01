@@ -38,8 +38,8 @@ const forceDarkMode = false;
 			let offset = Math.floor(window.innerHeight * (BANNER_HEIGHT_EXTEND / 100));
 			offset = offset - offset % 4;
 			document.documentElement.style.setProperty('--banner-height-extend', `${offset}px`);
-		})();</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"利用自定义HTTP请求头Host字段实现单节点分流域名的监控","description":"如果说你有个分流域名，正常来说我们需要两个监测源模拟国内和海外用户访问，但真的需要这么麻烦吗...","author":{"@type":"Person","name":"二叉树树","url":"https://blog.acofork.com/"},"datePublished":"2026-01-13","inLanguage":"zh-CN"}</script><link rel="alternate" type="application/rss+xml" title="二叉树树" href="https://blog.acofork.com/rss.xml"><link rel="stylesheet" href="/_astro/Layout.Ds13mcav.css">
-<link rel="stylesheet" href="/_astro/Layout.BuewHHUq.css">
+		})();</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"利用自定义HTTP请求头Host字段实现单节点分流域名的监控","description":"如果说你有个分流域名，正常来说我们需要两个监测源模拟国内和海外用户访问，但真的需要这么麻烦吗...","author":{"@type":"Person","name":"二叉树树","url":"https://blog.acofork.com/"},"datePublished":"2026-01-13","inLanguage":"zh-CN"}</script><link rel="alternate" type="application/rss+xml" title="二叉树树" href="https://blog.acofork.com/rss.xml"><link rel="stylesheet" href="/_astro/Layout.BuewHHUq.css">
+<link rel="stylesheet" href="/_astro/Layout.Ds13mcav.css">
 <link rel="stylesheet" href="/_astro/_slug_.Bf2USRy1.css">
 <link rel="stylesheet" href="/_astro/_page_.jlLzC2Xx.css">
 <link rel="stylesheet" href="/_astro/_page_.DupG3mc-.css">
@@ -335,14 +335,14 @@ const umamiConfig = {"enable":true,"baseUrl":"https://umami.acofork.com","shareI
 <li>Github： <strong><a href="http://pages.github.com" rel="nofollow" target="_blank">http://pages.github.com</a></strong></li>
 </ul></section>
 <section><h1 id="正式开始">正式开始<a class="anchor" href="#正式开始"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><p>部署一个Uptime Kuma（或者其他服务，监测源必须在国内。因为EO，ESA我们要做拦截海外策略）</p><p>如图写监测项目，直接使用HTTP协议监测CDN节点，并且携带Host头，将重定向设为0，只要返回 200 就算存活（为了减轻站点压力，建议使用HEAD请求）</p><p><img  width="2535" height="1254" loading="lazy" decoding="async" src="/_astro/http-header-host-1.B9mphNia.png" ></p><p><img  width="812" height="226" loading="lazy" decoding="async" src="/_astro/http-header-host-2.Buq50Tw2.png" ></p></section>
-<section><h1 id="demo">Demo<a class="anchor" href="#demo"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><a id="UC9kch0n-card" class="card-url fetch-waiting no-styling" href="https://status.acofork.com" target="_blank" url="https://status.acofork.com" rel="nofollow"><div id="UC9kch0n-container" class="uc-container"><div class="uc-content"><div class="uc-titlebar"><div class="uc-titlebar-left"><div id="UC9kch0n-favicon" class="uc-favicon"></div><div class="uc-domain">status.acofork.com</div></div></div><div id="UC9kch0n-title" class="uc-title-text">Loading...</div><div id="UC9kch0n-description" class="uc-description">Waiting for api.microlink.io...</div></div><div id="UC9kch0n-image" class="uc-image"></div></div><script id="UC9kch0n-script" type="text/javascript" defer>
+<section><h1 id="demo">Demo<a class="anchor" href="#demo"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><a id="UC193hvr-card" class="card-url fetch-waiting no-styling" href="https://status.acofork.com" target="_blank" url="https://status.acofork.com" rel="nofollow"><div id="UC193hvr-container" class="uc-container"><div class="uc-content"><div class="uc-titlebar"><div class="uc-titlebar-left"><div id="UC193hvr-favicon" class="uc-favicon"></div><div class="uc-domain">status.acofork.com</div></div></div><div id="UC193hvr-title" class="uc-title-text">Loading...</div><div id="UC193hvr-description" class="uc-description">Waiting for api.microlink.io...</div></div><div id="UC193hvr-image" class="uc-image"></div></div><script id="UC193hvr-script" type="text/javascript" defer>
       fetch('https://api.microlink.io?url=https%3A%2F%2Fstatus.acofork.com').then(response => response.json()).then(data => {
         if (data.status === 'success') {
             const meta = data.data;
-            document.getElementById('UC9kch0n-title').innerText = meta.title || "https://status.acofork.com";
-            document.getElementById('UC9kch0n-description').innerText = meta.description || "No description available";
+            document.getElementById('UC193hvr-title').innerText = meta.title || "https://status.acofork.com";
+            document.getElementById('UC193hvr-description').innerText = meta.description || "No description available";
             
-            const faviconEl = document.getElementById('UC9kch0n-favicon');
+            const faviconEl = document.getElementById('UC193hvr-favicon');
             if (meta.logo?.url) {
                 faviconEl.style.backgroundImage = 'url(' + meta.logo.url + ')';
                 faviconEl.style.backgroundColor = 'transparent';
@@ -350,25 +350,25 @@ const umamiConfig = {"enable":true,"baseUrl":"https://umami.acofork.com","shareI
                  faviconEl.style.display = 'none';
             }
 
-            const imageEl = document.getElementById('UC9kch0n-image');
+            const imageEl = document.getElementById('UC193hvr-image');
             if (meta.image?.url) {
                 imageEl.style.backgroundImage = 'url(' + meta.image.url + ')';
             } else {
                 imageEl.style.display = 'none';
-                document.getElementById('UC9kch0n-container').classList.add('no-image');
+                document.getElementById('UC193hvr-container').classList.add('no-image');
             }
 
-            document.getElementById('UC9kch0n-card').classList.remove("fetch-waiting");
-            console.log("[URL-CARD] Loaded card for https://status.acofork.com | UC9kch0n.")
+            document.getElementById('UC193hvr-card').classList.remove("fetch-waiting");
+            console.log("[URL-CARD] Loaded card for https://status.acofork.com | UC193hvr.")
         } else {
             throw new Error('Microlink API failed');
         }
       }).catch(err => {
-        const c = document.getElementById('UC9kch0n-card');
+        const c = document.getElementById('UC193hvr-card');
         c?.classList.add("fetch-error");
-        document.getElementById('UC9kch0n-title').innerText = "Error loading preview";
-        document.getElementById('UC9kch0n-description').innerText = "Failed to fetch metadata for https://status.acofork.com";
-        console.warn("[URL-CARD] (Error) Loading card for https://status.acofork.com | UC9kch0n.", err)
+        document.getElementById('UC193hvr-title').innerText = "Error loading preview";
+        document.getElementById('UC193hvr-description').innerText = "Failed to fetch metadata for https://status.acofork.com";
+        console.warn("[URL-CARD] (Error) Loading card for https://status.acofork.com | UC193hvr.", err)
       })
     </script></a></section>  </div> <script type="module">document.addEventListener("click",function(s){const t=s.target;if(t&&t.classList.contains("copy-btn")){const c=t.closest("pre")?.querySelector("code"),i=Array.from(c?.querySelectorAll(".code:not(summary *)")??[]).map(e=>e.textContent).map(e=>e===`
 `?"":e).join(`
@@ -455,7 +455,7 @@ const postUrl = "/posts/http-header-host/";
 <a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/saicaca/fuwari">Fuwari</a> 强力驱动
 <br>
 本网站代码
-<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/afoim/fuwari">已开源</a> <a class="transition link text-black/30 dark:text-white/30 hover:text-[var(--primary)] text-xs ml-1" target="_blank" href="https://github.com/afoim/fuwari/commit/97daff9">(97daff9 @ 2026-02-01 11:49:29)</a> <br> <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank"><img alt="" src="/favicon/foot-icp.png" class="h-4 mr-1">皖ICP备2025099787号-2</a> <br> <div class="server-info-container flex flex-col items-center justify-center gap-1 mt-1"> <!-- Server info will be injected here --> </div> <!-- <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.mps.gov.cn/#/query/webSearch?code=34010302002608" target="_blank"><img alt="" src="/favicon/foot-ga.png" class="h-4 mr-1">皖公网安备34010302002608号</a>
+<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/afoim/fuwari">已开源</a> <a class="transition link text-black/30 dark:text-white/30 hover:text-[var(--primary)] text-xs ml-1" target="_blank" href="https://github.com/afoim/fuwari/commit/c2a26a6">(c2a26a6 @ 2026-02-01 11:53:59)</a> <br> <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank"><img alt="" src="/favicon/foot-icp.png" class="h-4 mr-1">皖ICP备2025099787号-2</a> <br> <div class="server-info-container flex flex-col items-center justify-center gap-1 mt-1"> <!-- Server info will be injected here --> </div> <!-- <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.mps.gov.cn/#/query/webSearch?code=34010302002608" target="_blank"><img alt="" src="/favicon/foot-ga.png" class="h-4 mr-1">皖公网安备34010302002608号</a>
         <br> --> </div> </div> <script>(function(){const serverConfig = [{"url":"","text":"Blog"},{"url":"https://umami.acofork.com","text":"Umami"},{"url":"https://pic1.acofork.com","text":"RandomPic"}];
 
     (() => {
