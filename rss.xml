@@ -11256,8 +11256,8 @@ git push -f   //强制将更改提交到远程仓库
 </content:encoded></item><item><title>隐私政策</title><link>https://blog.acofork.com/posts/privacy-policy/</link><guid isPermaLink="true">https://blog.acofork.com/posts/privacy-policy/</guid><description>本隐私政策适用于AcoFork Blog（以下简称“我们”）。</description><pubDate>Fri, 01 Jan 1999 03:20:15 GMT</pubDate><content:encoded>&lt;h1&gt;All Cookies&lt;/h1&gt;
 &lt;h3&gt;Strictly necessary cookies（必要的cookies）&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;Umami：收集站点的基本访问情况，并对外显示浏览量，由本站直接提供&lt;/li&gt;
-&lt;li&gt;Giscus：提供评论功能，由 Github 提供&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://umami.acofork.com&quot;&gt;Umami&lt;/a&gt;：收集站点的基本访问情况，并对外显示浏览量，由本站直接提供&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://giscus.app&quot;&gt;Giscus&lt;/a&gt;：提供评论功能，由 Github 提供&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3&gt;Functionality cookies（功能性cookies）&lt;/h3&gt;
 &lt;ul&gt;
@@ -11265,14 +11265,15 @@ git push -f   //强制将更改提交到远程仓库
 &lt;/ul&gt;
 &lt;h3&gt;Tracking cookies（追蹤cookies）&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;Google Analytics：收集站点访问情况，由 Google 提供&lt;/li&gt;
-&lt;li&gt;Microsoft Clarity：收集站点访问情况，由 Microsoft 提供&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://tongji.baidu.com/&quot;&gt;百度统计&lt;/a&gt;：收集站点的基本访问情况&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://analytics.google.com&quot;&gt;Google Analytics&lt;/a&gt;：收集站点访问情况&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://clarity.microsoft.com&quot;&gt;Microsoft Clarity&lt;/a&gt;：收集站点访问情况&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3&gt;Targeting and advertising cookies（定位和廣告cookies）&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;Google Adsense：提供广告服务，由 Google 提供&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://adsense.google.com/&quot;&gt;Google Adsense&lt;/a&gt;：提供广告服务&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;em&gt;latest update: 2026/01/30&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;latest update: 2026/02/04&lt;/em&gt;&lt;/p&gt;
 </content:encoded></item><item><title>Gal</title><link>https://blog.acofork.com/posts/gal/</link><guid isPermaLink="true">https://blog.acofork.com/posts/gal/</guid><pubDate>Fri, 01 Jan 1999 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;KARAKARA&lt;/h1&gt;
 &lt;p&gt;有美少女的神秘问话：“你的尾巴怎么长在前面“
 我草 还有2&lt;/p&gt;
