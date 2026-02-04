@@ -340,20 +340,20 @@ const umamiConfig = {"enable":true,"baseUrl":"https://umami.acofork.com","shareI
     } else {
         fetchPageViews();
     }
-})();</script>  </div> <!-- always show cover as long as it has one --> <div id="post-cover" class="mb-8 rounded-xl banner-container onload-animation overflow-hidden relative image-wrapper" style="--theme-hue: 361" data-astro-cid-i2xmscho> <img src="/_astro/http-header-host.wYb99qhA.png" alt style="object-position: center" data-astro-cid-i2xmscho="true" width="1039" height="883" loading="lazy" decoding="async" class="w-full h-full object-cover image-content">  </div>  <div data-pagefind-body class="prose dark:prose-invert prose-base !max-w-none custom-md break-words mb-6 markdown-content onload-animation"> <!--<div class="prose dark:prose-invert max-w-none custom-md">--> <!--<div class="max-w-none custom-md">-->  <section><h1 id="原理">原理<a class="anchor" href="#原理"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><p>CDN上托管了那么多的网站，那它是如何识别每个用户需要访问哪个网站的呢？</p><p>针对 HTTPS ，CDN 会检查SSL握手报文中的 <code>Server_Name</code> 字段。而针对 HTTP ，CDN 会检查请求头中的 <code>Host</code> 字段</p><p>也就是说，对于海外CDN是否存活，我们可以通过直接访问CDN节点，如： <code>http://blog.acofork.com.a1.initww.com</code> 并携带上 <code>Host</code> 头指定为 <code>blog.acofork.com</code> ，从而强制指定节点访问业务网站，不走分流</p><p>那么如果CDN开启了强制HTTPS呢？那就关掉</p><p><img  width="1003" height="1072" loading="lazy" decoding="async" src="/_astro/http-header-host-3.Dj6YCMD4.png" ></p></section>
+})();</script>  </div> <!-- always show cover as long as it has one --> <div id="post-cover" class="mb-8 rounded-xl banner-container onload-animation overflow-hidden relative image-wrapper" style="--theme-hue: 361" data-astro-cid-i2xmscho> <img src="/_astro/http-header-host.wYb99qhA_1zx3fm.webp" alt style="object-position: center" data-astro-cid-i2xmscho="true" width="1039" height="883" loading="lazy" decoding="async" class="w-full h-full object-cover image-content">  </div>  <div data-pagefind-body class="prose dark:prose-invert prose-base !max-w-none custom-md break-words mb-6 markdown-content onload-animation"> <!--<div class="prose dark:prose-invert max-w-none custom-md">--> <!--<div class="max-w-none custom-md">-->  <section><h1 id="原理">原理<a class="anchor" href="#原理"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><p>CDN上托管了那么多的网站，那它是如何识别每个用户需要访问哪个网站的呢？</p><p>针对 HTTPS ，CDN 会检查SSL握手报文中的 <code>Server_Name</code> 字段。而针对 HTTP ，CDN 会检查请求头中的 <code>Host</code> 字段</p><p>也就是说，对于海外CDN是否存活，我们可以通过直接访问CDN节点，如： <code>http://blog.acofork.com.a1.initww.com</code> 并携带上 <code>Host</code> 头指定为 <code>blog.acofork.com</code> ，从而强制指定节点访问业务网站，不走分流</p><p>那么如果CDN开启了强制HTTPS呢？那就关掉</p><p><img  width="1003" height="1072" loading="lazy" decoding="async" src="/_astro/http-header-host-3.Dj6YCMD4_1JGSiu.webp" ></p></section>
 <section><h1 id="常用cdn节点">常用CDN节点<a class="anchor" href="#常用cdn节点"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><ul>
 <li>Cloudflare：你自己的优选域名，如 <strong><a href="http://cdn.2x.nz" rel="nofollow" target="_blank">http://cdn.2x.nz</a></strong></li>
 <li>Github： <strong><a href="http://pages.github.com" rel="nofollow" target="_blank">http://pages.github.com</a></strong></li>
 </ul></section>
-<section><h1 id="正式开始">正式开始<a class="anchor" href="#正式开始"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><p>部署一个Uptime Kuma（或者其他服务，监测源必须在国内。因为EO，ESA我们要做拦截海外策略）</p><p>如图写监测项目，直接使用HTTP协议监测CDN节点，并且携带Host头，将重定向设为0，只要返回 200 就算存活（为了减轻站点压力，建议使用HEAD请求）</p><p><img  width="2535" height="1254" loading="lazy" decoding="async" src="/_astro/http-header-host-1.B9mphNia.png" ></p><p><img  width="812" height="226" loading="lazy" decoding="async" src="/_astro/http-header-host-2.Buq50Tw2.png" ></p></section>
-<section><h1 id="demo">Demo<a class="anchor" href="#demo"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><a id="UCffboia-card" class="card-url fetch-waiting no-styling" href="https://status.acofork.com" target="_blank" url="https://status.acofork.com" rel="nofollow"><div id="UCffboia-container" class="uc-container"><div class="uc-content"><div class="uc-titlebar"><div class="uc-titlebar-left"><div id="UCffboia-favicon" class="uc-favicon"></div><div class="uc-domain">status.acofork.com</div></div></div><div id="UCffboia-title" class="uc-title-text">Loading...</div><div id="UCffboia-description" class="uc-description">Waiting for api.microlink.io...</div></div><div id="UCffboia-image" class="uc-image"></div></div><script id="UCffboia-script" type="text/javascript" defer>
+<section><h1 id="正式开始">正式开始<a class="anchor" href="#正式开始"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><p>部署一个Uptime Kuma（或者其他服务，监测源必须在国内。因为EO，ESA我们要做拦截海外策略）</p><p>如图写监测项目，直接使用HTTP协议监测CDN节点，并且携带Host头，将重定向设为0，只要返回 200 就算存活（为了减轻站点压力，建议使用HEAD请求）</p><p><img  width="2535" height="1254" loading="lazy" decoding="async" src="/_astro/http-header-host-1.B9mphNia_Z1DBl9K.webp" ></p><p><img  width="812" height="226" loading="lazy" decoding="async" src="/_astro/http-header-host-2.Buq50Tw2_1hcdGl.webp" ></p></section>
+<section><h1 id="demo">Demo<a class="anchor" href="#demo"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><a id="UCnv0228-card" class="card-url fetch-waiting no-styling" href="https://status.acofork.com" target="_blank" url="https://status.acofork.com" rel="nofollow"><div id="UCnv0228-container" class="uc-container"><div class="uc-content"><div class="uc-titlebar"><div class="uc-titlebar-left"><div id="UCnv0228-favicon" class="uc-favicon"></div><div class="uc-domain">status.acofork.com</div></div></div><div id="UCnv0228-title" class="uc-title-text">Loading...</div><div id="UCnv0228-description" class="uc-description">Waiting for api.microlink.io...</div></div><div id="UCnv0228-image" class="uc-image"></div></div><script id="UCnv0228-script" type="text/javascript" defer>
       fetch('https://api.microlink.io?url=https%3A%2F%2Fstatus.acofork.com').then(response => response.json()).then(data => {
         if (data.status === 'success') {
             const meta = data.data;
-            document.getElementById('UCffboia-title').innerText = meta.title || "https://status.acofork.com";
-            document.getElementById('UCffboia-description').innerText = meta.description || "No description available";
+            document.getElementById('UCnv0228-title').innerText = meta.title || "https://status.acofork.com";
+            document.getElementById('UCnv0228-description').innerText = meta.description || "No description available";
             
-            const faviconEl = document.getElementById('UCffboia-favicon');
+            const faviconEl = document.getElementById('UCnv0228-favicon');
             if (meta.logo?.url) {
                 faviconEl.style.backgroundImage = 'url(' + meta.logo.url + ')';
                 faviconEl.style.backgroundColor = 'transparent';
@@ -361,25 +361,25 @@ const umamiConfig = {"enable":true,"baseUrl":"https://umami.acofork.com","shareI
                  faviconEl.style.display = 'none';
             }
 
-            const imageEl = document.getElementById('UCffboia-image');
+            const imageEl = document.getElementById('UCnv0228-image');
             if (meta.image?.url) {
                 imageEl.style.backgroundImage = 'url(' + meta.image.url + ')';
             } else {
                 imageEl.style.display = 'none';
-                document.getElementById('UCffboia-container').classList.add('no-image');
+                document.getElementById('UCnv0228-container').classList.add('no-image');
             }
 
-            document.getElementById('UCffboia-card').classList.remove("fetch-waiting");
-            console.log("[URL-CARD] Loaded card for https://status.acofork.com | UCffboia.")
+            document.getElementById('UCnv0228-card').classList.remove("fetch-waiting");
+            console.log("[URL-CARD] Loaded card for https://status.acofork.com | UCnv0228.")
         } else {
             throw new Error('Microlink API failed');
         }
       }).catch(err => {
-        const c = document.getElementById('UCffboia-card');
+        const c = document.getElementById('UCnv0228-card');
         c?.classList.add("fetch-error");
-        document.getElementById('UCffboia-title').innerText = "Error loading preview";
-        document.getElementById('UCffboia-description').innerText = "Failed to fetch metadata for https://status.acofork.com";
-        console.warn("[URL-CARD] (Error) Loading card for https://status.acofork.com | UCffboia.", err)
+        document.getElementById('UCnv0228-title').innerText = "Error loading preview";
+        document.getElementById('UCnv0228-description').innerText = "Failed to fetch metadata for https://status.acofork.com";
+        console.warn("[URL-CARD] (Error) Loading card for https://status.acofork.com | UCnv0228.", err)
       })
     </script></a></section>  </div> <script type="module">document.addEventListener("click",function(s){const t=s.target;if(t&&t.classList.contains("copy-btn")){const c=t.closest("pre")?.querySelector("code"),i=Array.from(c?.querySelectorAll(".code:not(summary *)")??[]).map(e=>e.textContent).map(e=>e===`
 `?"":e).join(`
@@ -466,7 +466,7 @@ const postUrl = "/posts/http-header-host/";
 <a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/saicaca/fuwari">Fuwari</a> 强力驱动
 <br>
 本网站代码
-<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/afoim/fuwari">已开源</a> <a class="transition link text-black/30 dark:text-white/30 hover:text-[var(--primary)] text-xs ml-1" target="_blank" href="https://github.com/afoim/fuwari/commit/7e7abda">(7e7abda @ 2026-02-04 03:56:00)</a> <br> <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank"><img alt="" src="/favicon/foot-icp.png" class="h-4 mr-1">皖ICP备2025099787号-2</a> <br> <div class="server-info-container flex flex-col items-center justify-center gap-1 mt-1"> <!-- Server info will be injected here --> </div> <!-- <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.mps.gov.cn/#/query/webSearch?code=34010302002608" target="_blank"><img alt="" src="/favicon/foot-ga.png" class="h-4 mr-1">皖公网安备34010302002608号</a>
+<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/afoim/fuwari">已开源</a> <a class="transition link text-black/30 dark:text-white/30 hover:text-[var(--primary)] text-xs ml-1" target="_blank" href="https://github.com/afoim/fuwari/commit/0c1be6f">(0c1be6f @ 2026-02-04 04:18:42)</a> <br> <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank"><img alt="" src="/favicon/foot-icp.png" class="h-4 mr-1">皖ICP备2025099787号-2</a> <br> <div class="server-info-container flex flex-col items-center justify-center gap-1 mt-1"> <!-- Server info will be injected here --> </div> <!-- <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.mps.gov.cn/#/query/webSearch?code=34010302002608" target="_blank"><img alt="" src="/favicon/foot-ga.png" class="h-4 mr-1">皖公网安备34010302002608号</a>
         <br> --> </div> </div> <script>(function(){const serverConfig = [{"url":"","text":"Blog"},{"url":"https://umami.acofork.com","text":"Umami"},{"url":"https://pic1.acofork.com","text":"RandomPic"}];
 
     (() => {
