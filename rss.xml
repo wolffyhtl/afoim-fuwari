@@ -6221,6 +6221,9 @@ auto_join_rooms:
 &lt;p&gt;谷歌搜索控制台： https://search.google.com/&lt;/p&gt;
 &lt;p&gt;谷歌分析： https://analytics.google.com/&lt;/p&gt;
 &lt;p&gt;谷歌广告： https://www.google.com/adsense/&lt;/p&gt;
+&lt;h1&gt;主动提交站点地图&lt;/h1&gt;
+&lt;p&gt;尽管大部分搜索引擎都会主动通过探测 &lt;code&gt;/robots.txt&lt;/code&gt; &lt;code&gt;/sitemap.xml&lt;/code&gt; &lt;code&gt;rss.xml&lt;/code&gt; &lt;code&gt;atom.xml&lt;/code&gt; 等路径来得知网站的架地图，但还是建议主动提交站点地图&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://acofork.com/_astro/improve-seo-1.BkgxFqZF.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 &lt;h1&gt;使用IndexNow&lt;/h1&gt;
 &lt;p&gt;曾经，如果想要提高网站的SEO，我们只能静静等待各大搜索引擎爬虫进行网站内容的爬取&lt;/p&gt;
 &lt;p&gt;而 &lt;strong&gt;IndexNow&lt;/strong&gt; 允许网站主动向各大搜索引擎提交高质量的内容。详见： &lt;a href=&quot;https://www.bing.com/indexnow&quot;&gt;Why IndexNow | Bing Webmaster Tools&lt;/a&gt;&lt;/p&gt;
