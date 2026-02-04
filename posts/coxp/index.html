@@ -340,258 +340,86 @@ const umamiConfig = {"enable":true,"baseUrl":"https://umami.acofork.com","shareI
     } else {
         fetchPageViews();
     }
-})();</script>  </div> <!-- always show cover as long as it has one --> <div id="post-cover" class="mb-8 rounded-xl banner-container onload-animation overflow-hidden relative image-wrapper" style="--theme-hue: 361" data-astro-cid-i2xmscho> <img src="/_astro/coxp.DM-RXswT_TpC3r.webp" alt style="object-position: center" loading="lazy" fetchpriority="auto" data-astro-cid-i2xmscho="true" width="344" height="199" decoding="async" class="w-full h-full object-cover image-content">  </div>  <div data-pagefind-body class="prose dark:prose-invert prose-base !max-w-none custom-md break-words mb-6 markdown-content onload-animation"> <!--<div class="prose dark:prose-invert max-w-none custom-md">--> <!--<div class="max-w-none custom-md">-->  <section><h1 id="正式开始">正式开始<a class="anchor" href="#正式开始"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><p>如果你做过网站（HTML），你就会知道，一个网页除了自身提供内容，如 <code>&#x3C;p>hello world&#x3C;/p></code> ，还可以 <strong>内嵌外链资源</strong> ，如 <code>&#x3C;img src="https://othersite.com/hello.png"></code></p><p>一方面，HTML允许我们非常自由的引用资源，另一方面，这也会造成一些问题</p><p>我们不妨设想一下，你有一个图库站点，里面全都是高清大图，网站访问量也特别高。如果这个时候有人眼红了，也想做一个这样的站点，它可以直接通过HTML做个壳，把品牌改成自己的，然后引用你的图片，这样，它只需要托管很少的文本文件（HTML壳），而无需托管实际图片</p><p>那我们肯定不能让他这样，怎么办呢，所以我们需要让我们的图片在被拉取时返回一个 <strong>CORP 响应头</strong>，并且值为 <strong>same-site</strong> ，这样，只要不是你的域名写 <code>&#x3C;img></code> ，浏览器会统统阻断加载</p><p><img  width="1071" height="905" loading="lazy" decoding="async" src="/_astro/coxp-1.CyekBs3x_Z23SJ66.webp" ></p><p>这就是 <strong>CORP（Cross-Origin Resource Policy） - 跨域资源策略</strong>，它管的是 <strong>资源给不给用</strong></p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th align="center">值</th><th align="center">描述</th></tr></thead><tbody><tr><td align="center">same-origin</td><td align="center">同源。仅允许 <code>example.com</code> 拉取对应资源</td></tr><tr><td align="center">same-site</td><td align="center">同站。仅允许 <code>*.example.com</code> <code>example.com</code> 拉取资源</td></tr><tr><td align="center">cross-origin</td><td align="center"><strong>默认值</strong>。允许所有源，任何人都可以拉取</td></tr></tbody></table><p>好的，我们解决了图片被滥用的问题。接下来更棘手的来了，我们还有一个其他网站，不过它并不提供媒体资源，而是在访问的时候获取访客IP</p><p>本来这只是你自用的一个网站，但是你发现最近后端的日志有很多乱七八糟的IP，经过一番盘查，你发现有一个网站的底部会显示访客IP，通过F12查看网络请求发现这就是请求的你的网站！</p><p>接着你查看了一下这个API返回的响应头，发现你之前为了跨域调用方便设置了 <code>Access-Control-Allow-Origin: *</code> ，该头会允许任何人调用你的API并且获取响应</p><p>再然后，你将该头的值改为了 <code>yoursite.com</code> 这样，就只允许你自己的网站来调用该API了。其他人调用依旧会被浏览器拦截</p><p><img  width="550" height="119" loading="lazy" decoding="async" src="/_astro/coxp-4.DeHCQOqk_2nvSkF.webp" ></p><p>接着，你又做了个网站，并且为各个地区访问的访客配置了不同的CDN图床，你想让该网站告诉用户您正在使用什么CDN</p><p>于是你灵机一动，想到各家CDN返回的响应头 <strong>Server</strong> 的值都不一样，于是就写了一点JS读取响应头并回写到页面上，但是你发现页面上并未显示，并且网络请求是一个奇怪的状态 <strong>200 Failed</strong></p><p>于是你思考了一下，哦！对了！由于是不同的CDN图床，且主站域名为 <code>blog.yoursite.com</code> ，图床域名为 <code>img.yoursite.com</code> ，会触发跨域！</p><p>虽然你已经经过上次的教训正确设置了 <strong>Access-Control-Allow-Origin</strong> 头，但是对于浏览器来说，你只是允许了别人读取我的响应体，并没有规定响应体，然后你打印了一下JS获取到的所有响应头，你发现只能读到 <code>Content-Type</code> 等几个无关响应头，JS根本看不见 <strong>Server</strong> 头</p><p>然后你费劲千辛万苦，终于在各大CDN都配置了返回 <code>Access-Control-Expose-Headers: server</code> ，然后，你的代码终于工作了！</p><p><img  width="214" height="69" loading="lazy" decoding="async" src="/_astro/coxp-2.cw0lD163_1amm2k.webp" ></p><p>接着，随着你的网站越做越大，你想给网站添加一个访问量显示模块，但是由于网站本身是静态的，你又不想在全是前端代码的项目里面插后端代码，于是你很聪明，想到了搭建另一个服务，Umami，然后将追踪JS嵌入你的网站，你再通过客户端JS读取Umami的公开页面获取访问量</p><p>尽管Umami的公开页面是公开的，但并不是一次请求就能成功，首先你需要先请求一个端点拿到游客token，接着携带这个游客token访问Umami访问量端点，拿到最终的访问量</p><p>不过这对你来说都不是什么难事，只需要在JS写好这一整套逻辑再封装一下函数即可</p><p>但是实际跑起来的时候又出问题了，由于一个是 <code>blog.yoursite.com</code> ，而另一个是 <code>umami.yoursite.com</code> ，由于你正确配置了 <strong>Access-Control-Allow-Origin 响应头</strong>，所以第一个请求成功发出，JS也如期拿到了游客token</p><p>问题就在第二个请求，你发现你的请求又又又被浏览器拦截了，显示 <strong>请求头: x-umami-share-token 不被对端允许</strong></p><p>你思考了一下，哦！尽管我们配置了 <strong>Access-Control-Allow-Origin 响应头</strong> ，但也只是允许获取响应体，浏览器对于 <strong>发请求头</strong> ，需要在Umami再配置一条 <strong>Access-Control-Allow-Headers 响应头</strong></p><p>接着，你配置了该响应头，为了方便，你直接写了 <code>Access-Control-Allow-Headers: *</code> ，终于，你的代码成功工作了，也拿到了正确的访问量</p><p><img  width="200" height="58" loading="lazy" decoding="async" src="/_astro/coxp-3.C_jC_N83_19RWgC.webp" ></p><p>这就是 <strong>CORS（Cross-Origin Resource Sharing）- 跨域资源共享</strong> ，它管的是 <strong>API给不给调，只能给谁调</strong></p><ul>
-<li>Access-Control-Allow-Origin（谁能跨域访问资源？<strong>默认谁都不能</strong>）</li>
-</ul>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th align="center">值</th><th align="center">描述</th></tr></thead><tbody><tr><td align="center"><code>*</code></td><td align="center">允许<strong>任意源</strong>访问资源（⚠️ 不能与 <code>Allow-Credentials: true</code> 同时使用）</td></tr><tr><td align="center"><code>https://example.com</code></td><td align="center">仅允许<strong>指定源</strong>访问资源</td></tr><tr><td align="center"><code>null</code></td><td align="center">允许 <code>Origin: null</code>（如 <code>file://</code>、沙盒 iframe）</td></tr></tbody></table><ul>
-<li>Access-Control-Allow-Methods（跨域访问允许的请求方式？<strong>默认都不允许</strong>）</li>
-</ul>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th align="center">值</th><th align="center">描述</th></tr></thead><tbody><tr><td align="center"><code>GET</code></td><td align="center">允许 GET 请求</td></tr><tr><td align="center"><code>POST</code></td><td align="center">允许 POST 请求</td></tr><tr><td align="center"><code>PUT</code></td><td align="center">允许 PUT 请求</td></tr><tr><td align="center"><code>DELETE</code></td><td align="center">允许 DELETE 请求</td></tr><tr><td align="center"><code>PATCH</code></td><td align="center">允许 PATCH 请求</td></tr><tr><td align="center"><code>OPTIONS</code></td><td align="center">允许预检请求</td></tr><tr><td align="center"><code>GET, POST, OPTIONS</code></td><td align="center">允许多个方法（逗号分隔）</td></tr></tbody></table><ul>
-<li>Access-Control-Allow-Headers（跨域访问允许带的请求头？<strong>默认只允许带 <a href="https://developer.mozilla.org/zh-CN/docs/Glossary/CORS-safelisted_request_header" rel="nofollow" target="_blank">列入 CORS 白名单的请求标头 - MDN Web 文档术语表：Web 相关术语的定义 | MDN</a></strong> ）</li>
-</ul>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th align="center">值</th><th align="center">描述</th></tr></thead><tbody><tr><td align="center"><code>Content-Type</code></td><td align="center">允许携带 <code>Content-Type</code> 请求头</td></tr><tr><td align="center"><code>Authorization</code></td><td align="center">允许携带认证头</td></tr><tr><td align="center"><code>X-Custom-Header</code></td><td align="center">允许指定的自定义请求头</td></tr><tr><td align="center"><code>*</code></td><td align="center">允许<strong>所有请求头</strong>（现代浏览器支持，主要用于非凭据请求）</td></tr></tbody></table><ul>
-<li>Access-Control-Allow-Credentials（跨域访问是否允许携带凭据？<strong>默认不允许</strong> ）</li>
-</ul>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th align="center">值</th><th align="center">描述</th></tr></thead><tbody><tr><td align="center"><code>true</code></td><td align="center">允许携带凭据（Cookie / Authorization / TLS client cert）</td></tr><tr><td align="center">（不返回）</td><td align="center"><strong>默认</strong>不允许携带凭据</td></tr></tbody></table><ul>
-<li>Access-Control-Expose-Headers（跨域访问时能读到的响应头？<strong>默认只能读到 <a href="https://developer.mozilla.org/zh-CN/docs/Glossary/CORS-safelisted_response_header" rel="nofollow" target="_blank">列入 CORS 白名单的响应标头 - MDN Web 文档术语表：Web 相关术语的定义 | MDN</a></strong></li>
-</ul>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th align="center">值</th><th align="center">描述</th></tr></thead><tbody><tr><td align="center"><code>X-Request-Id</code></td><td align="center">允许 JS 读取该响应头</td></tr><tr><td align="center"><code>Content-Length</code></td><td align="center">允许 JS 读取内容长度</td></tr><tr><td align="center"><code>X-A, X-B</code></td><td align="center">暴露多个响应头（逗号分隔）</td></tr></tbody></table><ul>
-<li>Access-Control-Max-Age（跨域访问时预检请求结果缓存多长时间（秒）？ <strong>默认不缓存</strong> ）</li>
-</ul>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th align="center">值</th><th align="center">描述</th></tr></thead><tbody><tr><td align="center"><code>0</code></td><td align="center">不缓存预检请求</td></tr><tr><td align="center"><code>600</code></td><td align="center">预检结果缓存 10 分钟</td></tr><tr><td align="center"><code>86400</code></td><td align="center">缓存 24 小时（浏览器可能有上限）</td></tr></tbody></table><p>而对于 <strong>COOP和COEP</strong> ，他们都是配在 <strong>用户正在访问的HTML上面</strong> ，分别用于以下情况</p><ul>
-<li>Cross-Origin-Opener-Policy（COOP）</li>
-</ul><p><strong>COOP（Cross-Origin Opener Policy）</strong> 是一种浏览器安全机制，用于控制<strong>不同页面之间是否可以共享同一个浏览器窗口上下文（browsing context）</strong>。它主要影响页面与通过 <code>window.open()</code> 打开的其他页面之间的关系，以及这些页面是否能够互相访问 <code>window.opener</code>。</p><p>当页面启用 COOP 后，浏览器会根据策略将跨源页面强制隔离到不同的浏览器进程中，使它们无法共享执行环境。这种隔离可以有效降低侧信道攻击（如 Spectre）的风险，同时防止跨站页面通过 <code>window.opener</code> 进行劫持或信息泄露。</p><p>COOP 关注的是<strong>页面与页面之间的隔离关系</strong>，并不参与资源（如图片、脚本、视频）的加载或校验。</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th>值</th><th>是否默认</th><th>行为描述</th><th>主要影响</th></tr></thead><tbody><tr><td><code>unsafe-none</code></td><td>✅ 是</td><td>不启用任何隔离</td><td>跨源页面可共享 browsing context 与 <code>window.opener</code></td></tr><tr><td><code>same-origin</code></td><td>❌</td><td>仅允许同源页面共享窗口与进程</td><td>跨源 <code>window.opener</code> 被置为 <code>null</code>，强制进程隔离</td></tr><tr><td><code>same-origin-allow-popups</code></td><td>❌</td><td>自身隔离，但允许弹出窗口</td><td>常用于 OAuth / 支付弹窗场景</td></tr></tbody></table><ul>
-<li>Cross-Origin-Embedder-Policy（COEP）</li>
-</ul><p><strong>COEP（Cross-Origin Embedder Policy）</strong> 是一种用于限制页面<strong>如何加载和使用跨源资源</strong>的安全策略。当页面启用 COEP 后，所有被嵌入的跨源资源都必须明确表态“允许被使用”，否则浏览器会阻止这些资源被页面消费。</p><p>COEP 的核心目标是确保页面不会在不知情的情况下加载不受信任的跨源资源，从而避免利用共享进程或共享内存进行的攻击。它通常与资源侧声明（如 CORS 或 Cross-Origin-Resource-Policy）配合使用。</p><p>COEP 并不会阻止浏览器发起网络请求，但会在资源返回后决定该资源是否可以被页面使用。</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th>值</th><th>是否默认</th><th>行为描述</th><th>主要影响</th></tr></thead><tbody><tr><td><code>unsafe-none</code></td><td>✅ 是</td><td>不启用嵌入限制</td><td>页面可加载任意跨源资源</td></tr><tr><td><code>require-corp</code></td><td>❌</td><td>仅允许明确授权的跨源资源</td><td>跨源资源必须满足 CORP 或 CORS</td></tr></tbody></table><hr><section><h3 id="什么时候浏览器才会检查-coop-和-coep">什么时候浏览器才会检查 COOP 和 COEP？<a class="anchor" href="#什么时候浏览器才会检查-coop-和-coep"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><p>这两个标头<strong>只有在页面被作为“文档（document）加载”时才会被浏览器检查</strong>，通常包括：</p><ul>
-<li>
-<p>顶级页面导航（在地址栏中直接打开页面）</p>
-</li>
-<li>
-<p>iframe 中加载的文档页面</p>
-</li>
-<li>
-<p>弹出窗口（<code>window.open()</code> 打开的页面）</p>
-</li>
-</ul><p>对于图片、音频、视频、脚本等<strong>非文档资源</strong>，浏览器不会检查其响应中的 COOP 或 COEP 标头，这些资源即使返回 200 OK，也不会因此自动获得跨源使用权限。</p><p>需要注意的是：</p><ul>
-<li>
-<p><strong>COOP</strong> 在页面创建或连接 browsing context 时生效，用于决定页面之间是否可以共享窗口和进程。</p>
-</li>
-<li>
-<p><strong>COEP</strong> 在页面尝试使用嵌入资源时生效，用于判断跨源资源是否满足安全要求。</p>
-</li>
-</ul><hr></section><section><h3 id="coop-与-coep-的联合效果">COOP 与 COEP 的联合效果<a class="anchor" href="#coop-与-coep-的联合效果"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><p>当一个页面同时启用了 COOP 和 COEP，并且所有嵌入资源都满足对应要求时，浏览器会将该页面视为**跨源隔离（cross-origin isolated）**状态。在这种状态下，页面可以安全地使用一些高权限 Web API，例如 <code>SharedArrayBuffer</code> 和高精度计时器。</p></section></section>
-<section><h1 id="浏览器安全模型完整流程图">浏览器安全模型完整流程图<a class="anchor" href="#浏览器安全模型完整流程图"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><p><img  width="1195" height="6059" loading="lazy" decoding="async" src="/_astro/coxp.69qJjpPi_Z1FEA4w.svg" ></p></section>  </div> <script type="module">document.addEventListener("click",function(s){const t=s.target;if(t&&t.classList.contains("copy-btn")){const c=t.closest("pre")?.querySelector("code"),i=Array.from(c?.querySelectorAll(".code:not(summary *)")??[]).map(e=>e.textContent).map(e=>e===`
-`?"":e).join(`
-`);navigator.clipboard.writeText(i);const o=t.getAttribute("data-timeout-id");o&&clearTimeout(parseInt(o)),t.classList.add("success");const n=setTimeout(()=>{t.classList.remove("success")},1e3);t.setAttribute("data-timeout-id",n.toString())}});</script> <!-- 文章反馈与编辑区域 --> <div class="mb-4 p-4 rounded-lg bg-[var(--license-block-bg)] border border-[var(--line-divider)] onload-animation" data-astro-cid-egg7nqdx> <!-- 反馈区域 --> <div class="flex items-center justify-between mb-4" data-astro-cid-egg7nqdx> <div class="flex items-center gap-3" data-astro-cid-egg7nqdx> <div class="h-5 w-5 rounded bg-[var(--primary)] flex items-center justify-center" data-astro-cid-egg7nqdx> <svg width="1em" height="1em" class="text-[0.75rem] text-white dark:text-black/70" data-astro-cid-egg7nqdx="true" data-icon="material-symbols:help-outline">   <symbol id="ai:material-symbols:help-outline" viewBox="0 0 24 24"><path fill="currentColor" d="M11.95 18q.525 0 .888-.363t.362-.887t-.362-.888t-.888-.362t-.887.363t-.363.887t.363.888t.887.362m-.9-3.85h1.85q0-.825.188-1.3t1.062-1.3q.65-.65 1.025-1.238T15.55 8.9q0-1.4-1.025-2.15T12.1 6q-1.425 0-2.312.75T8.55 8.55l1.65.65q.125-.45.563-.975T12.1 7.7q.8 0 1.2.438t.4.962q0 .5-.3.938t-.75.812q-1.1.975-1.35 1.475t-.25 1.825M12 22q-2.075 0-3.9-.787t-3.175-2.138T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8"/></symbol><use href="#ai:material-symbols:help-outline"></use>  </svg> </div> <p class="text-black/80 dark:text-white/80 text-sm" data-astro-cid-egg7nqdx>这篇文章是否对你有帮助？</p> </div> <div class="flex gap-2" data-astro-cid-egg7nqdx> <a href="/posts/pin/" class="group flex items-center gap-1 px-3 py-1.5 rounded bg-[var(--btn-regular-bg)] hover:bg-[var(--btn-regular-bg-hover)] active:bg-[var(--btn-regular-bg-active)] text-[var(--btn-content)] text-xs font-medium transition-all active:scale-95" data-astro-cid-egg7nqdx> <svg width="1em" height="1em" class="text-[0.875rem] group-hover:scale-110 transition-transform" data-astro-cid-egg7nqdx="true" data-icon="material-symbols:contact-mail-outline">   <symbol id="ai:material-symbols:contact-mail-outline" viewBox="0 0 24 24"><path fill="currentColor" d="M14 11h7V6h-7zm3.5-1.25L15 8V7l2.5 1.75L20 7v1zM2 21q-.825 0-1.412-.587T0 19V5q0-.825.588-1.412T2 3h20q.825 0 1.413.588T24 5v14q0 .825-.587 1.413T22 21zm13.9-2H22V5H2v14h.1q1.05-1.875 2.9-2.937T9 15t4 1.063T15.9 19M9 14q1.25 0 2.125-.875T12 11t-.875-2.125T9 8t-2.125.875T6 11t.875 2.125T9 14m-4.45 5h8.9q-.85-.95-2.013-1.475T9 17t-2.425.525T4.55 19M9 12q-.425 0-.712-.288T8 11t.288-.712T9 10t.713.288T10 11t-.288.713T9 12m3 0"/></symbol><use href="#ai:material-symbols:contact-mail-outline"></use>  </svg>
+})();</script>  </div> <!-- always show cover as long as it has one --> <div id="post-cover" class="mb-8 rounded-xl banner-container onload-animation overflow-hidden relative image-wrapper" style="--theme-hue: 361" data-astro-cid-i2xmscho> <img src="/_astro/coxp.DM-RXswT_TpC3r.webp" alt style="object-position: center" loading="lazy" fetchpriority="auto" data-astro-cid-i2xmscho="true" width="344" height="199" decoding="async" class="w-full h-full object-cover image-content">  </div>  <div data-pagefind-body class="prose dark:prose-invert prose-base !max-w-none custom-md break-words mb-6 markdown-content onload-animation"> <!--<div class="prose dark:prose-invert max-w-none custom-md">--> <!--<div class="max-w-none custom-md">-->  <div id="content-0a2z37k"></div> <script>(function(){const obfuscated = "IDxzZWN0aW<<quhzy>>9uPjxoMSBp<<!@I5#>>ZD0i5q2j5b<<xbJL5>>yP5byA5aeL<<(0XDX>>Ij7mraPlvI<<AqFg&>>/lvIDlp4s8<<6Sg&s>>YSBjbGFzcz<<t^rmZ>>0iYW5jaG9y<<4yMeL>>IiBocmVmPS<<w$O)5>>Ij5q2j5byP<<$P%4!>>5byA5aeLIj<<irWyh>>48c3BhbiBj<<Ma)8y>>bGFzcz0iYW<<7hOXV>>5jaG9yLWlj<<GR4e@>>b24iIGRhdG<<vNk1O>>EtcGFnZWZp<<9)aC6>>bmQtaWdub3<<7uq2r>>JlPSIiPiM8<<!aXvc>>L3NwYW4+PC<<lmmFW>>9hPjwvaDE+<<duSQD>>PHA+5aaC5p<<H6Q6k>>6c5L2g5YGa<<%IvM)>>6L+H572R56<<R&5Ow>>uZ77yISFRN<<z*gvH>>TO+8ie+8jO<<hCuFj>>S9oOWwseS8<<mkjFt>>muefpemBk+<<w26*a>>+8jOS4gOS4<<dFD15>>que9kemhte<<hMXfT>>mZpOS6huiH<<vcol^>>qui6q+aPkO<<J5Sr%>>S+m+WGheWu<<ofs7A>>ue+8jOWmgi<<PT*#q>>A8Y29kZT4m<<SrPyk>>I3gzQztwPm<<gUtCT>>hlbGxvIHdv<<@fEMZ>>cmxkJiN4M0<<z39oh>>M7L3A+PC9j<<VZJic>>b2RlPiDvvI<<Okt$4>>zov5jlj6/k<<bWW*0>>u6UgPHN0cm<<v*LkF>>9uZz7lhoXl<<Qt^VL>>tYzlpJbpk7<<Wghv*>>7otYTmupA8<<czNvr>>L3N0cm9uZz<<VF&^h>>4g77yM5aaC<<x1RZ9>>IDxjb2RlPi<<dD5Gz>>YjeDNDO2lt<<WYoT&>>ZyBzcmM9Im<<hq8HD>>h0dHBzOi8v<<9XInC>>b3RoZXJzaX<<)d5JX>>RlLmNvbS9o<<2%t^w>>ZWxsby5wbm<<!@gI(>>ciPjwvY29k<<ulzO6>>ZT48L3A+PH<<gORR&>>A+5LiA5pa5<<DQd^O>>6Z2i77yMSF<<(NKn^>>RNTOWFgeiu<<*fzY%>>uOaIkeS7rO<<n@#Ui>>mdnuW4uOiH<<PY&$N>>queUseeahO<<OQXFp>>W8leeUqOi1<<p)B$0>>hOa6kO+8jO<<4A$tZ>>WPpuS4gOaW<<dqdVz>>uemdou+8jO<<QY7PM>>i/meS5n+S8<<0Gc3q>>mumAoOaIkO<<ZVW1v>>S4gOS6m+mX<<aAOBm>>rumimDwvcD<<xv@N3>>48cD7miJHk<<&GvQ1>>u6zkuI3lpq<<VJpY)>>jorr7mg7Pk<<kgeb2>>uIDkuIvvvI<<SHhuH>>zkvaDmnInk<<yOshd>>uIDkuKrlm7<<MiKZj>>7lupPnq5nn<<bScEd>>grnvvIzph4<<(kQDc>>zpnaLlhajp<<^siGW>>g73mmK/pq5<<fxEvc>>jmuIXlpKfl<<ifW(C>>m77vvIznvZ<<ISob3>>Hnq5norr/p<<)mnwZ>>l67ph4/kuZ<<$81r5>>/nibnliKvp<<vHJD&>>q5jjgILlpo<<*2Duu>>Lmnpzov5nk<<XwT9*>>uKrml7blgJ<<1b30A>>nmnInkurrn<<dONqO>>nLznuqLkuo<<lvuY$>>bvvIzkuZ/m<<sAmtS>>g7PlgZrkuI<<*T*5M>>DkuKrov5nm<<ZgLGS>>oLfnmoTnq5<<GLDhv>>nngrnvvIzl<<mka57>>roPlj6/ku6<<e21P3>>Xnm7TmjqXp<<Fo^DJ>>gJrov4dIVE<<KL0ym>>1M5YGa5Liq<<EHcjL>>5aOz77yM5o<<hrNB#>>qK5ZOB54mM<<U8cCO>>5pS55oiQ6I<<%Y@DH>>eq5bex55qE<<BxjYB>>77yM54S25Z<<gM$zD>>CO5byV55So<<vvyr$>>5L2g55qE5Z<<Go99N>>u+54mH77yM<<YIK!w>>6L+Z5qC377<<Q39qM>>yM5a6D5Y+q<<2c7OD>>6ZyA6KaB5o<<%!#p!>>mY566h5b6I<<4ufwE>>5bCR55qE5p<<3zycD>>aH5pys5paH<<mP7(A>>5Lu277yISF<<NDy48>>RNTOWjs++8<<(@2mY>>ie+8jOiAjO<<dJltm>>aXoOmcgOaJ<<wwiec>>mOeuoeWunu<<5(ONW>>mZheWbvueJ<<QvQ7)>>hzwvcD48cD<<7@Fdu>>7pgqPmiJHk<<ch%hy>>u6zogq/lrp<<VTyB$>>rkuI3og73o<<22xJw>>rqnku5bov5<<W9zVW>>nmoLfvvIzm<<(gIo(>>gI7kuYjlip<<tfhe@>>7lkaLvvIzm<<nk&i$>>iYDku6XmiJ<<xcM5)>>Hku6zpnIDo<<iD9^Y>>poHorqnmiJ<<$TwKt>>Hku6znmoTl<<1pH99>>m77niYflnK<<r0!cO>>jooqvmi4nl<<N2P8F>>j5bml7bov5<<w7(RK>>Tlm57kuIDk<<rbJ4J>>uKogPHN0cm<<z$r@u>>9uZz5DT1JQ<<x!#*T>>IOWTjeW6lO<<w8u1o>>WktDwvc3Ry<<nu1rC>>b25nPu+8jO<<w2V@n>>W5tuS4lOWA<<8nsBu>>vOS4uiA8c3<<#a)fJ>>Ryb25nPnNh<<ULmP8>>bWUtc2l0ZT<<jAtev>>wvc3Ryb25n<<SP#zy>>PiDvvIzov5<<(zt8#>>nmoLfvvIzl<<IeOG!>>j6ropoHkuI<<Ev9XZ>>3mmK/kvaDn<<s*ddo>>moTln5/lkI<<OS^@j>>3lhpkgPGNv<<)yn5#>>ZGU+JiN4M0<<@7UYo>>M7aW1nPjwv<<(8cQY>>Y29kZT4g77<<8fboJ>>yM5rWP6KeI<<n&4vv>>5Zmo5Lya57<<mYbij>>uf57uf6Zi7<<@u%h%>>5pat5Yqg6L<<zexCF>>29PC9wPjxw<<oTYRZ>>PjxpbWcgIH<<tTFyN>>dpZHRoPSIx<<eRyOz>>MDcxIiBoZW<<V%Toy>>lnaHQ9Ijkw<<VcFOg>>NSIgbG9hZG<<)f^kL>>luZz0ibGF6<<9ixZv>>eSIgZGVjb2<<fTrbB>>Rpbmc9ImFz<<8Ef0L>>eW5jIiBzcm<<aJ@KX>>M9Ii9fYXN0<<KK5vz>>cm8vY294cC<<I^Eup>>0xLkN5ZWtC<<aj7c7>>czN4X1oyM1<<1mWhg>>NKNjYud2Vi<<)Xuav>>cCIgPjwvcD<<a!L#%>>48cD7ov5nl<<*NdNp>>sLHmmK8gPH<<$WzAd>>N0cm9uZz5D<<^r97M>>T1JQ77yIQ3<<Tw9eE>>Jvc3MtT3Jp<<tb&DF>>Z2luIFJlc2<<mxHu8>>91cmNlIFBv<<CCcvl>>bGljee+8iS<<yXrah>>AtIOi3qOWf<<OVPv3>>n+i1hOa6kO<<cKeys>>etlueVpTwv<<A$hh&>>c3Ryb25nPu<<lumn3>>+8jOWug+eu<<FkTKf>>oeeahOaYry<<h&Fx2>>A8c3Ryb25n<<vQhSP>>Pui1hOa6kO<<Kgft*>>e7meS4jee7<<Flcy@>>meeUqDwvc3<<aU2dg>>Ryb25nPjwv<<*C^yz>>cD4KCgoKCg<<0Nbyz>>oKCgoKCgoK<<^iza#>>CgoKCgoKCg<<mYXHm>>o8dGFibGU+<<xqqyc>>PHRoZWFkPj<<okviY>>x0cj48dGgg<<OpfuA>>YWxpZ249Im<<W*aHW>>NlbnRlciI+<<2bX5D>>5YC8PC90aD<<*zrCt>>48dGggYWxp<<1ObSu>>Z249ImNlbn<<tLTfw>>RlciI+5o+P<<PYvH&>>6L+wPC90aD<<lL7l%>>48L3RyPjwv<<Z@NNw>>dGhlYWQ+PH<<cUYcO>>Rib2R5Pjx0<<D(Xyd>>cj48dGQgYW<<ga$$$>>xpZ249ImNl<<2WmT3>>bnRlciI+c2<<J8GcD>>FtZS1vcmln<<pAk&o>>aW48L3RkPj<<TXBTN>>x0ZCBhbGln<<T^Ng6>>bj0iY2VudG<<pG7LA>>VyIj7lkIzm<<zLElz>>upDjgILku4<<ekXBa>>XlhYHorrgg<<4V5tB>>PGNvZGU+ZX<<%Aap4>>hhbXBsZS5j<<AKUft>>b208L2NvZG<<Gwap9>>U+IOaLieWP<<#ubom>>luWvueW6lO<<bIw2&>>i1hOa6kDwv<<5DcRq>>dGQ+PC90cj<<&PLej>>48dHI+PHRk<<Ljfwr>>IGFsaWduPS<<!DKKu>>JjZW50ZXIi<<cMpJ8>>PnNhbWUtc2<<4alIe>>l0ZTwvdGQ+<<oc)5y>>PHRkIGFsaW<<&#3dN>>duPSJjZW50<<iyRH#>>ZXIiPuWQjO<<)(2Y&>>ermeOAguS7<<M*@2!>>heWFgeiuuC<<bW(py>>A8Y29kZT4q<<JqhgV>>LmV4YW1wbG<<Vfrt$>>UuY29tPC9j<<qW@A$>>b2RlPiA8Y2<<q#&HL>>9kZT5leGFt<<f$fVd>>cGxlLmNvbT<<y#SY!>>wvY29kZT4g<<QB4Rc>>5ouJ5Y+W6L<<IOlbi>>WE5rqQPC90<<#YV6i>>ZD48L3RyPj<<59Bi6>>x0cj48dGQg<<haNNN>>YWxpZ249Im<<W@cDK>>NlbnRlciI+<<uJ%o3>>Y3Jvc3Mtb3<<jrzYv>>JpZ2luPC90<<w8Kjp>>ZD48dGQgYW<<5)w67>>xpZ249ImNl<<4*0*Q>>bnRlciI+PH<<0lRq9>>N0cm9uZz7p<<vf3Ur>>u5jorqTlgL<<6vQlV>>w8L3N0cm9u<<7LF8U>>Zz7jgILlhY<<DVybY>>HorrjmiYDm<<SURlY>>nInmupDvvI<<4Mjrl>>zku7vkvZXk<<p90Ex>>urrpg73lj6<<StLYH>>/ku6Xmi4nl<<UtKB8>>j5Y8L3RkPj<<I(Mcz>>wvdHI+PC90<<&5P1s>>Ym9keT48L3<<DOo)%>>RhYmxlPjxw<<KU&hv>>PuWlveeahO<<An66Z>>+8jOaIkeS7<<Wca1N>>rOino+WGs+<<2(2JV>>S6huWbvueJ<<rEr0D>>h+iiq+a7pe<<r^3zf>>eUqOeahOmX<<ZhKO7>>rumimOOAgu<<)2nv8>>aOpeS4i+ad<<&L@fj>>peabtOajmO<<Z&FS@>>aJi+eahOad<<A%Vqu>>peS6hu+8jO<<*W50h>>aIkeS7rOi/<<xgeN%>>mOacieS4gO<<k)9)t>>S4quWFtuS7<<g6Fxg>>lue9keerme<<%IuT#>>+8jOS4jei/<<7y8L^>>h+Wug+W5tu<<zlSuQ>>S4jeaPkOS+<<4PRC8>>m+WqkuS9k+<<14OFr>>i1hOa6kO+8<<k(@&t>>jOiAjOaYr+<<*uU4I>>WcqOiuv+mX<<HMpZz>>rueahOaXtu<<%e)x2>>WAmeiOt+WP<<3RGh8>>luiuv+Wuok<<Q&F5l>>lQPC9wPjxw<<v*z^E>>PuacrOadpe<<AjgLC>>i/meWPquaY<<p9A8M>>r+S9oOiHqu<<BzNTf>>eUqOeahOS4<<^3rp8>>gOS4que9ke<<n4DG1>>erme+8jOS9<<r8OJD>>huaYr+S9oO<<Mga^N>>WPkeeOsOac<<76rpK>>gOi/keWQju<<M3wZ%>>err+eahOaX<<S7Y52>>peW/l+acie<<iHp@7>>W+iOWkmuS5<<6IS@&>>seS4g+WFq+<<@Rzrt>>ezn+eahElQ<<q&X31>>77yM57uP6L<<G*$pZ>>+H5LiA55Wq<<Vaeex>>55uY5p+l77<<1lMM6>>yM5L2g5Y+R<<jaiHv>>546w5pyJ5L<<UsdQA>>iA5Liq572R<<#NAgJ>>56uZ55qE5b<<39%^l>>qV6YOo5Lya<<J2OIF>>5pi+56S66K<<q#nlk>>6/5a6iSVDv<<m5JgX>>vIzpgJrov4<<KkHHw>>dGMTLmn6Xn<<MhYT%>>nIvnvZHnu5<<axH^Z>>zor7fmsYLl<<@IHxB>>j5HnjrDov5<<Ha$P2>>nlsLHmmK/o<<5XMLf>>r7fmsYLnmo<<Y9vwU>>TkvaDnmoTn<<FP3Kt>>vZHnq5nvvI<<Cnf8V>>E8L3A+PHA+<<1EP7*>>5o6l552A5L<<evNKF>>2g5p+l55yL<<wAqQp>>5LqG5LiA5L<<&V!WL>>iL6L+Z5Liq<<I9g&)>>QVBJ6L+U5Z<<HtZtB>>ue55qE5ZON<<UYfA*>>5bqU5aS077<<Z8p$F>>yM5Y+R546w<<d9Elf>>5L2g5LmL5Y<<LoK4g>>mN5Li65LqG<<&NTN(>>6Leo5Z+f6L<<$uzTp>>CD55So5pa5<<R@%sO>>5L6/6K6+57<<6d0bt>>2u5LqGIDxj<<w@3b7>>b2RlPkFjY2<<NVEWC>>Vzcy1Db250<<Vfm5z>>cm9sLUFsbG<<A5Ko^>>93LU9yaWdp<<HX8v$>>bjogKjwvY2<<Gl2&n>>9kZT4g77yM<<%uNHv>>6K+l5aS05L<<0L77n>>ya5YWB6K64<<fzRvY>>5Lu75L2V5L<<lqMSf>>q66LCD55So<<hIKoL>>5L2g55qEQV<<vgWKB>>BJ5bm25LiU<<(O91^>>6I635Y+W5Z<<0fosP>>ON5bqUPC9w<<^mU04>>PjxwPuWGje<<G6lwV>>eEtuWQju+8<<C%413>>jOS9oOWwhu<<E2#hE>>ivpeWktOea<<lWR2V>>hOWAvOaUue<<uMiVd>>S4uuS6hiA8<<ThW^H>>Y29kZT55b3<<jTF4J>>Vyc2l0ZS5j<<0Ymq2>>b208L2NvZG<<ribQ5>>U+IOi/meag<<l934E>>t++8jOWwse<<2uTE3>>WPquWFgeiu<<vi1(3>>uOS9oOiHqu<<sy4)p>>W3seeahOe9<<cSu47>>keermeadpe<<Aya!G>>iwg+eUqOiv<<ZgzUf>>pUFQSeS6hu<<su%$m>>OAguWFtuS7<<NTm0u>>luS6uuiwg+<<o@KM#>>eUqOS+neaX<<C9QX5>>p+S8muiiq+<<hG9pk>>a1j+iniOWZ<<g8uu6>>qOaLpuaIqj<<e0zdl>>wvcD48cD48<<!XuTb>>aW1nICB3aW<<frGw#>>R0aD0iNTUw<<ryC2u>>IiBoZWlnaH<<RC4x7>>Q9IjExOSIg<<nkHDN>>bG9hZGluZz<<HZNY#>>0ibGF6eSIg<<rLL5Q>>ZGVjb2Rpbm<<3DcXa>>c9ImFzeW5j<<P%59$>>IiBzcmM9Ii<<ek7S0>>9fYXN0cm8v<<gkou8>>Y294cC00Lk<<fhEsC>>RlSENRT3Fr<<x^f!&>>XzJudlNrRi<<2SGJh>>53ZWJwIiA+<<yR^fw>>PC9wPjxwPu<<(97bo>>aOpeedgO+8<<Ve91u>>jOS9oOWPiO<<g03NG>>WBmuS6huS4<<wqeZg>>que9keerme<<RK1%I>>+8jOW5tuS4<<)6yr$>>lOS4uuWQhO<<U8T3O>>S4quWcsOWM<<wlu7l>>uuiuv+mXru<<I@$CX>>eahOiuv+Wu<<ntFUp>>oumFjee9ru<<0aa&m>>S6huS4jeWQ<<&#IwN>>jOeahENETu<<fq2CH>>WbvuW6iu+8<<2H2KS>>jOS9oOaDs+<<E#m!F>>iuqeivpee9<<Fih3*>>keermeWRiu<<r#uaK>>ivieeUqOaI<<jBVUS>>t+aCqOato+<<9O@n5>>WcqOS9v+eU<<uKjbL>>qOS7gOS5iE<<eJY&)>>NETjwvcD48<<eDSSH>>cD7kuo7mmK<<rW78B>>/kvaDngbXm<<69c#S>>nLrkuIDliq<<!cakT>>jvvIzmg7Pl<<Lm(1Z>>iLDlkITlrr<<5#0D&>>ZDRE7ov5Tl<<)KQwI>>m57nmoTlk4<<Wv%B7>>3lupTlpLQg<<*Qfl6>>PHN0cm9uZz<<cKa$J>>5TZXJ2ZXI8<<azfbz>>L3N0cm9uZz<<^%H9X>>4g55qE5YC8<<krrxo>>6YO95LiN5L<<RB4t3>>iA5qC377yM<<moD!j>>5LqO5piv5b<<3gw$!>>Cx5YaZ5LqG<<yIw&9>>5LiA54K5Sl<<AnY9^>>Por7vlj5bl<<C7PHc>>k43lupTlpL<<mTXcB>>Tlubblm57l<<xWkXn>>hpnliLDpob<<XXmUQ>>XpnaLkuIrv<<0OVLG>>vIzkvYbmmK<<(ENDd>>/kvaDlj5Hn<<KBVAK>>jrDpobXpna<<p0kXQ>>LkuIrlubbm<<$jHC0>>nKrmmL7npL<<N0tz9>>rvvIzlubbk<<#ZxN&>>uJTnvZHnu5<<#Modv>>zor7fmsYLm<<f!zG(>>mK/kuIDkuK<<*^)n1>>rlpYfmgKrn<<aWFv#>>moTnirbmgI<<GLfjL>>EgPHN0cm9u<<CmbNJ>>Zz4yMDAgRm<<^33Mw>>FpbGVkPC9z<<kWNuh>>dHJvbmc+PC<<Si595>>9wPjxwPuS6<<a#TYH>>juaYr+S9oO<<(Th2*>>aAneiAg+S6<<c9O0L>>huS4gOS4i+<<Uiz4$>>+8jOWTpu+8<<hO6Rt>>geWvueS6hu<<&w@Uz>>+8geeUseS6<<@0pup>>juaYr+S4je<<2DEm$>>WQjOeahENE<<xD(Gi>>TuWbvuW6iu<<dL7(z>>+8jOS4lOS4<<AAn0z>>u+ermeWfn+<<O62g!>>WQjeS4uiA8<<#sDa3>>Y29kZT5ibG<<R7Xv9>>9nLnlvdXJz<<dpCHG>>aXRlLmNvbT<<0QX(@>>wvY29kZT4g<<T!Qw^>>77yM5Zu+5b<<pWcwT>>qK5Z+f5ZCN<<Ktw8A>>5Li6IDxjb2<<%FrN@>>RlPmltZy55<<uHbRW>>b3Vyc2l0ZS<<jGLlf>>5jb208L2Nv<<YkTBq>>ZGU+IO+8jO<<IdQE2>>S8muinpuWP<<uZR)p>>kei3qOWfn+<<7&XIX>>+8gTwvcD48<<sHr2b>>cD7omb3nhL<<)mfdO>>bkvaDlt7Ln<<2s@uz>>u4/nu4/ov4<<Fj%w&>>fkuIrmrKHn<<q&KFJ>>moTmlZnorq<<b*Xrc>>3mraPnoa7o<<NKYhp>>rr7nva7kuo<<CGCuV>>YgPHN0cm9u<<peIJa>>Zz5BY2Nlc3<<qaxnh>>MtQ29udHJv<<UEre*>>bC1BbGxvdy<<6uz%t>>1PcmlnaW48<<3PD*L>>L3N0cm9uZz<<@#np!>>4g5aS077yM<<84DdQ>>5L2G5piv5a<<^zcy1>>+55LqO5rWP<<E4dvK>>6KeI5Zmo5p<<uu5Mf>>2l6K+077yM<<a^^Y1>>5L2g5Y+q5p<<eojJ!>>iv5YWB6K64<<jKOD(>>5LqG5Yir5L<<3v#g#>>q66K+75Y+W<<N4gHV>>5oiR55qE5Z<<ezlT!>>ON5bqU5L2T<<o%B9o>>77yM5bm25r<<8AGsX>>Kh5pyJ6KeE<<SSk7Y>>5a6a5ZON5b<<wdMus>>qU5L2T77yM<<XXwNn>>54S25ZCO5L<<zMf4Q>>2g5omT5Y2w<<KZEvQ>>5LqG5LiA5L<<51W(2>>iLSlPojrfl<<F!Qtn>>j5bliLDnmo<<T&KqI>>TmiYDmnInl<<^6$Z0>>k43lupTlpL<<UYzjC>>TvvIzkvaDl<<$x((s>>j5HnjrDlj6<<e)utv>>rog73or7vl<<On@19>>iLAgPGNvZG<<*M4Tm>>U+Q29udGVu<<OpCuE>>dC1UeXBlPC<<rynR2>>9jb2RlPiDn<<4F7R#>>rYnlh6DkuK<<LNAWk>>rml6DlhbPl<<B33e#>>k43lupTlpL<<QHeRt>>TvvIxKU+ag<<&48&)>>ueacrOeci+<<O49^e>>S4jeingSA8<<TYeDb>>c3Ryb25nPl<<xhFV@>>NlcnZlcjwv<<Hj8&R>>c3Ryb25nPi<<D8PFM>>DlpLQ8L3A+<<cWzK%>>PHA+54S25Z<<W0(5k>>CO5L2g6LS5<<EU44W>>5Yqy5Y2D6L<<V21az>>6b5LiH6Ium<<r%8(!>>77yM57uI5L<<%3dv2>>qO5Zyo5ZCE<<NRmm*>>5aSnQ0RO6Y<<nk2Wr>>O96YWN572u<<X64Fw>>5LqG6L+U5Z<<M84tk>>ueIDxjb2Rl<<tMP9w>>PkFjY2Vzcy<<mRgXz>>1Db250cm9s<<XGSvv>>LUV4cG9zZS<<5P0c)>>1IZWFkZXJz<<qMrLi>>OiBzZXJ2ZX<<9#$Fg>>I8L2NvZGU+<<MSvha>>IO+8jOeEtu<<efyQL>>WQju+8jOS9<<VDlYK>>oOeahOS7o+<<EO)1I>>eggee7iOS6<<E9)ZU>>juW3peS9nO<<dHeEq>>S6hu+8gTwv<<2Drp)>>cD48cD48aW<<Pq(U!>>1nICB3aWR0<<SRr2p>>aD0iMjE0Ii<<%GlNm>>BoZWlnaHQ9<<4711D>>IjY5IiBsb2<<RW1hQ>>FkaW5nPSJs<<3sNl!>>YXp5IiBkZW<<&gqDM>>NvZGluZz0i<<vi!nz>>YXN5bmMiIH<<zBrQB>>NyYz0iL19h<<v5zpt>>c3Ryby9jb3<<8KTtI>>hwLTIuY3cw<<H$VD2>>bEQxNjNfMW<<4J4vc>>FtbTJrLndl<<#Jrh8>>YnAiID48L3<<(o%ij>>A+PHA+5o6l<<jc$ez>>552A77yM6Z<<kvvks>>qP552A5L2g<<pKfdL>>55qE572R56<<CwAvM>>uZ6LaK5YGa<<K8QMc>>6LaK5aSn77<<ceV^D>>yM5L2g5oOz<<MS57q>>57uZ572R56<<@hnQw>>uZ5re75Yqg<<a!5(x>>5LiA5Liq6K<<1(Xwj>>6/6Zeu6YeP<<7&EwG>>5pi+56S65q<<b)qzK>>ih5Z2X77yM<<Tl@8N>>5L2G5piv55<<KoAZQ>>Sx5LqO572R<<o1a51>>56uZ5pys6L<<Xu70y>>qr5piv6Z2Z<<sKSrG>>5oCB55qE77<<XyfOh>>yM5L2g5Y+I<<rvnr(>>5LiN5oOz5Z<<yThCL>>yo5YWo5piv<<90fsp>>5YmN56uv5L<<@nj)8>>uj56CB55qE<<Q3xcY>>6aG555uu6Y<<mT&@*>>eM6Z2i5o+S<<gLNr%>>5ZCO56uv5L<<tcJX(>>uj56CB77yM<<$uv^Y>>5LqO5piv5L<<SaswM>>2g5b6I6IGq<<TLVXQ>>5piO77yM5o<<8&OlJ>>Oz5Yiw5LqG<<Nq)tc>>5pCt5bu65Y<<7OB4C>>+m5LiA5Liq<<bAiPR>>5pyN5Yqh77<<ax5Q5>>yMVW1hbWnv<<)cCKH>>vIznhLblkI<<)Gg7z>>7lsIbov73o<<VvT^n>>uKpKU+W1jO<<#dfV(>>WFpeS9oOea<<9RTPN>>hOe9keerme<<@D0Tk>>+8jOS9oOWG<<HNoh5>>jemAmui/h+<<4slHa>>WuouaIt+er<<MIfya>>r0pT6K+75Y<<gyKbt>>+WVW1hbWnn<<iW1zp>>moTlhazlvI<<evRmX>>DpobXpnaLo<<MFjOP>>jrflj5borr<<pxZAT>>/pl67ph488<<&yMXx>>L3A+PHA+5b<<c6Woq>>C9566hVW1h<<(2h^s>>bWnnmoTlha<<cxdgB>>zlvIDpobXp<<n^uBS>>naLmmK/lha<<zQ#hH>>zlvIDnmoTv<<7E!an>>vIzkvYblub<<OgaxW>>bkuI3mmK/k<<ReX2S>>uIDmrKHor7<<D6m%L>>fmsYLlsLHo<<J7$uC>>g73miJDlip<<otGI4>>/vvIzpppbl<<D&&Nk>>hYjkvaDpnI<<XlqLj>>DopoHlhYjo<<b0SEn>>r7fmsYLkuI<<F8#Mf>>DkuKrnq6/n<<j6vw&>>grnmi7/liL<<LgS4R>>DmuLjlrqJ0<<kl0ya>>b2tlbu+8jO<<pDjOB>>aOpeedgOaQ<<EeLuJ>>uuW4pui/me<<E5TkA>>S4qua4uOWu<<le!^d>>onRva2Vu6K<<XZBLH>>6/6ZeuVW1h<<m5qEW>>bWnorr/pl6<<vW9lu>>7ph4/nq6/n<<Bo1wm>>grnvvIzmi7<<AC%(s>>/liLDmnIDn<<FsXNy>>u4jnmoTorr<<iekRW>>/pl67ph488<<V6G$Z>>L3A+PHA+5L<<HsJ&P>>iN6L+H6L+Z<<uLV2#>>5a+55L2g5p<<#kpyF>>2l6K+06YO9<<1TJn2>>5LiN5piv5L<<7dhZ^>>uA5LmI6Zq+<<i7mvk>>5LqL77yM5Y<<@294#>>+q6ZyA6KaB<<iQeOg>>5ZyoSlPlhp<<wESUq>>nlpb3ov5nk<<s^@h8>>uIDmlbTlpZ<<apMd(>>fpgLvovpHl<<&@ghr>>ho3lsIHoo4<<Va07L>>XkuIDkuIvl<<9q6!&>>h73mlbDljb<<X%fk3>>Plj688L3A+<<wHjZW>>PHA+5L2G5p<<61r(H>>iv5a6e6ZmF<<U6@Pj>>6LeR6LW35p<<@V7np>>2l55qE5pe2<<yo!vx>>5YCZ5Y+I5Y<<4WX7m>>e66Zeu6aKY<<8Ihu9>>5LqG77yM55<<wj7uM>>Sx5LqO5LiA<<uL%l5>>5Liq5pivID<<v7GNA>>xjb2RlPmJs<<%o81!>>b2cueW91cn<<5ZmE%>>NpdGUuY29t<<1BoKT>>PC9jb2RlPi<<TR8KL>>DvvIzogIzl<<(*fzy>>j6bkuIDkuK<<f)*P*>>rmmK8gPGNv<<^vU#p>>ZGU+dW1hbW<<M7iUz>>kueW91cnNp<<GSIBV>>dGUuY29tPC<<fMD*7>>9jb2RlPiDv<<Y0rV%>>vIznlLHkuo<<GFluR>>7kvaDmraPn<<cYtVC>>oa7phY3nva<<2d^ME>>7kuoYgPHN0<<5sdtv>>cm9uZz5BY2<<WMmUB>>Nlc3MtQ29u<<2U@EJ>>dHJvbC1BbG<<TIHz%>>xvdy1Pcmln<<0SHxW>>aW4g5ZON5b<<(T)Pg>>qU5aS0PC9z<<hsYi!>>dHJvbmc+77<<UP$zD>>yM5omA5Lul<<aL6s%>>56ys5LiA5L<<Atvoc>>iq6K+35rGC<<dLm0Z>>5oiQ5Yqf5Y<<19gcR>>+R5Ye677yM<<1w7Dt>>SlPkuZ/lpo<<kQIFD>>LmnJ/mi7/l<<TTs#y>>iLDkuobmuL<<#FTun>>jlrqJ0b2tl<<8yfhh>>bjwvcD48cD<<nJ@He>>7pl67popjl<<lK6Y8>>sLHlnKjnrK<<I*&GJ>>zkuozkuKro<<eNKaP>>r7fmsYLvvI<<BitfE>>zkvaDlj5Hn<<Si9a2>>jrDkvaDnmo<<v)x0q>>Tor7fmsYLl<<!DmaR>>j4jlj4jlj4<<IflJ)>>jooqvmtY/o<<MLvx*>>p4jlmajmi6<<KZrVP>>bmiKrkuobv<<*Jjc5>>vIzmmL7npL<<SlMyu>>ogPHN0cm9u<<*xkZY>>Zz7or7fmsY<<%w&Xk>>LlpLQ6IHgt<<BqYZ8>>dW1hbWktc2<<5Dh7Z>>hhcmUtdG9r<<)VmUE>>ZW4g5LiN6K<<YLKdo>>Kr5a+556uv<<UfPQT>>5YWB6K64PC<<bwA0I>>9zdHJvbmc+<<hl4gD>>PC9wPjxwPu<<H5HxZ>>S9oOaAneiA<<3pS1L>>g+S6huS4gO<<L9Hp8>>S4i++8jOWT<<guqZh>>pu+8geWwve<<8H1eI>>euoeaIkeS7<<GjYBL>>rOmFjee9ru<<RZ@I$>>S6hiA8c3Ry<<K0%rW>>b25nPkFjY2<<DQxX&>>Vzcy1Db250<<rRnPc>>cm9sLUFsbG<<dc3H3>>93LU9yaWdp<<$YDfx>>biDlk43lup<<6wqIR>>TlpLQ8L3N0<<^$6bp>>cm9uZz4g77<<3KzJK>>yM5L2G5Lmf<<D36c0>>5Y+q5piv5Y<<aLcB1>>WB6K646I63<<YcR$u>>5Y+W5ZON5b<<y%#AQ>>qU5L2T77yM<<XJ&J4>>5rWP6KeI5Z<<2p9(u>>mo5a+55LqO<<3@Ag!>>IDxzdHJvbm<<HeEI4>>c+5Y+R6K+3<<raGN(>>5rGC5aS0PC<<NrjQK>>9zdHJvbmc+<<tT581>>IO+8jOmcgO<<huPl0>>imgeWcqFVt<<s^Hz4>>YW1p5YaN6Y<<ct)S8>>WN572u5LiA<<8VYZo>>5p2hIDxzdH<<IAQn%>>Jvbmc+QWNj<<84)*n>>ZXNzLUNvbn<<Kv0aK>>Ryb2wtQWxs<<k6d(i>>b3ctSGVhZG<<M*Es!>>VycyDlk43l<<GwxvQ>>upTlpLQ8L3<<n%F8N>>N0cm9uZz48<<s(PJV>>L3A+PHA+5o<<XPAQ)>>6l552A77yM<<o@po9>>5L2g6YWN57<<hvDOB>>2u5LqG6K+l<<WWz5Z>>5ZON5bqU5a<<9s#Ii>>S077yM5Li6<<Ui68o>>5LqG5pa55L<<*a*4P>>6/77yM5L2g<<%wTAr>>55u05o6l5Y<<rV@l5>>aZ5LqGIDxj<<L3ZsN>>b2RlPkFjY2<<c6#k%>>Vzcy1Db250<<CEoa4>>cm9sLUFsbG<<PUaZn>>93LUhlYWRl<<ZCm2L>>cnM6ICo8L2<<3TgbS>>NvZGU+IO+8<<7ye)q>>jOe7iOS6ju<<r!ngG>>+8jOS9oOea<<XKzab>>hOS7o+egge<<ro!^%>>aIkOWKn+W3<<60Yw*>>peS9nOS6hu<<pOlIu>>+8jOS5n+aL<<JPz&K>>v+WIsOS6hu<<d2c@P>>ato+ehruea<<ovAMe>>hOiuv+mXru<<C1IKM>>mHjzwvcD48<<Sh8KH>>cD48aW1nIC<<nggLp>>B3aWR0aD0i<<Pwhfh>>MjAwIiBoZW<<1vBf$>>lnaHQ9IjU4<<%X$RP>>IiBsb2FkaW<<0j13$>>5nPSJsYXp5<<whN#l>>IiBkZWNvZG<<uug2!>>luZz0iYXN5<<JIa8!>>bmMiIHNyYz<<ZrTpy>>0iL19hc3Ry<<wxBet>>by9jb3hwLT<<Eqp5Z>>MuQ19qQ19O<<Kll!(>>ODNfMTlSV2<<G6j$f>>dDLndlYnAi<<Lbouq>>ID48L3A+PH<<M%s^8>>A+6L+Z5bCx<<vZ0Rd>>5pivIDxzdH<<pKF#c>>Jvbmc+Q09S<<Aqf!7>>U++8iENyb3<<PuNh!>>NzLU9yaWdp<<CQ@W9>>biBSZXNvdX<<UYmnn>>JjZSBTaGFy<<gMUF5>>aW5n77yJLS<<KYcT*>>Dot6jln5/o<<WA*cq>>tYTmupDlhb<<icQKV>>Hkuqs8L3N0<<^tQTY>>cm9uZz4g77<<)XAvN>>yM5a6D566h<<dbBps>>55qE5pivID<<Zz1mu>>xzdHJvbmc+<<Xg$Ed>>QVBJ57uZ5L<<kN!1R>>iN57uZ6LCD<<a0SD0>>77yM5Y+q6I<<5I)ho>>O957uZ6LCB<<YZWrR>>6LCDPC9zdH<<DXR1C>>Jvbmc+PC9w<<ejFy#>>Pjx1bD4KPG<<&3f$N>>xpPkFjY2Vz<<6jxpr>>cy1Db250cm<<QJ2D#>>9sLUFsbG93<<&bdog>>LU9yaWdpbu<<!VO72>>+8iOiwgeiD<<h806y>>vei3qOWfn+<<e4GSE>>iuv+mXrui1<<eAmW^>>hOa6kO+8nz<<ag28v>>xzdHJvbmc+<<*(72Y>>6buY6K6k6L<<cIGQ&>>CB6YO95LiN<<a^5I9>>6IO9PC9zdH<<*NDJ8>>Jvbmc+77yJ<<k)XmL>>PC9saT4KPC<<j54mk>>91bD4KCgoK<<I4X)#>>CgoKCgoKCg<<FBCE*>>oKCgoKCgoK<<fT0h$>>Cgo8dGFibG<<#!PHb>>U+PHRoZWFk<<!k&79>>Pjx0cj48dG<<N^Fd#>>ggYWxpZ249<<V6jA3>>ImNlbnRlci<<PyMOH>>I+5YC8PC90<<JuVr4>>aD48dGggYW<<Pyh@F>>xpZ249ImNl<<dA%Mi>>bnRlciI+5o<<QM6PC>>+P6L+wPC90<<Vifvu>>aD48L3RyPj<<3BYU6>>wvdGhlYWQ+<<jcG(Q>>PHRib2R5Pj<<%u9K1>>x0cj48dGQg<<dUWdX>>YWxpZ249Im<<i(qDT>>NlbnRlciI+<<jc#AL>>PGNvZGU+Kj<<kkF44>>wvY29kZT48<<0qq)A>>L3RkPjx0ZC<<b#4o5>>BhbGlnbj0i<<W8QNM>>Y2VudGVyIj<<8EUXj>>7lhYHorrg8<<hMY#M>>c3Ryb25nPu<<sQD4l>>S7u+aEj+a6<<6EmB^>>kDwvc3Ryb2<<)Il%u>>5nPuiuv+mX<<PFPHN>>rui1hOa6kO<<9UYJM>>+8iOKaoO+4<<uyxhd>>jyDkuI3og7<<^Mbn9>>3kuI4gPGNv<<67c7Q>>ZGU+QWxsb3<<5tfJV>>ctQ3JlZGVu<<%lFud>>dGlhbHM6IH<<Gx^yG>>RydWU8L2Nv<<!InM&>>ZGU+IOWQjO<<A7UkZ>>aXtuS9v+eU<<)IcPc>>qO+8iTwvdG<<z2Fvm>>Q+PC90cj48<<kyS64>>dHI+PHRkIG<<t487D>>FsaWduPSJj<<!p(cQ>>ZW50ZXIiPj<<cLMEn>>xjb2RlPmh0<<p$C5g>>dHBzOi8vZX<<&3bhG>>hhbXBsZS5j<<vBMi(>>b208L2NvZG<<%RZb2>>U+PC90ZD48<<py6)^>>dGQgYWxpZ2<<Ep7xL>>49ImNlbnRl<<7&ASV>>ciI+5LuF5Y<<Nk%uP>>WB6K64PHN0<<zkihE>>cm9uZz7mjI<<qu#nz>>flrprmupA8<<i2zo0>>L3N0cm9uZz<<eXaPp>>7orr/pl67o<<DyLQ7>>tYTmupA8L3<<K4ud(>>RkPjwvdHI+<<pVBJ7>>PHRyPjx0ZC<<RTxMd>>BhbGlnbj0i<<wJf4V>>Y2VudGVyIj<<!mg3&>>48Y29kZT5u<<5Y9AZ>>dWxsPC9jb2<<Zqy%q>>RlPjwvdGQ+<<URj3w>>PHRkIGFsaW<<@Q&F0>>duPSJjZW50<<@ZJQZ>>ZXIiPuWFge<<QFqcO>>iuuCA8Y29k<<b3ZZC>>ZT5PcmlnaW<<xSbB$>>46IG51bGw8<<juU72>>L2NvZGU+77<<whkAU>>yI5aaCIDxj<<fGlNo>>b2RlPmZpbG<<&5reB>>U6Ly88L2Nv<<sdftU>>ZGU+44CB5r<<0mfV(>>KZ55uSIGlm<<SLYMM>>cmFtZe+8iT<<Z0c)!>>wvdGQ+PC90<<3w(y#>>cj48L3Rib2<<@D&DD>>R5PjwvdGFi<<z@X7D>>bGU+PHVsPg<<VigI0>>o8bGk+QWNj<<phx@B>>ZXNzLUNvbn<<8dPn&>>Ryb2wtQWxs<<pnnX$>>b3ctTWV0aG<<Nu@Vz>>9kc++8iOi3<<zCj@U>>qOWfn+iuv+<<qz3iT>>mXruWFgeiu<<wH6$v>>uOeahOivt+<<zo2Ud>>axguaWueW8<<pR#lX>>j++8nzxzdH<<*t#21>>Jvbmc+6buY<<M4L(B>>6K6k6YO95L<<2cv1(>>iN5YWB6K64<<WcRCh>>PC9zdHJvbm<<QE8G%>>c+77yJPC9s<<5h@gx>>aT4KPC91bD<<B2^#2>>4KCgoKCgoK<<dKzOo>>CgoKCgoKCg<<kZ)&^>>oKCgoKCgoK<<r3QAy>>CgoKCgoKCg<<46NLb>>oKCgoKCgoK<<3$uPU>>PHRhYmxlPj<<afsdL>>x0aGVhZD48<<5o(#Y>>dHI+PHRoIG<<G&LJB>>FsaWduPSJj<<JSCDy>>ZW50ZXIiPu<<vuklV>>WAvDwvdGg+<<aSO^@>>PHRoIGFsaW<<lXGNm>>duPSJjZW50<<UH!w4>>ZXIiPuaPj+<<KV0JA>>i/sDwvdGg+<<^E9ad>>PC90cj48L3<<YShAH>>RoZWFkPjx0<<&HdHs>>Ym9keT48dH<<5hu9u>>I+PHRkIGFs<<PuBaH>>aWduPSJjZW<<(h968>>50ZXIiPjxj<<Xv71X>>b2RlPkdFVD<<Xld%N>>wvY29kZT48<<s7KH#>>L3RkPjx0ZC<<01#VL>>BhbGlnbj0i<<omM6b>>Y2VudGVyIj<<1U&XZ>>7lhYHorrgg<<tJa4w>>R0VUIOivt+<<MeaF0>>axgjwvdGQ+<<VnMtq>>PC90cj48dH<<O6ar0>>I+PHRkIGFs<<QA0He>>aWduPSJjZW<<awE^q>>50ZXIiPjxj<<EnY**>>b2RlPlBPU1<<honJW>>Q8L2NvZGU+<<N(!yc>>PC90ZD48dG<<pRGZh>>QgYWxpZ249<<r*am*>>ImNlbnRlci<<dO@oO>>I+5YWB6K64<<jRlGa>>IFBPU1Qg6K<<7n^Mv>>+35rGCPC90<<h*TQw>>ZD48L3RyPj<<QTTgt>>x0cj48dGQg<<HcRWX>>YWxpZ249Im<<BH2*^>>NlbnRlciI+<<yyXpE>>PGNvZGU+UF<<8UTWj>>VUPC9jb2Rl<<qfj)6>>PjwvdGQ+PH<<%ye8n>>RkIGFsaWdu<<0LJxz>>PSJjZW50ZX<<G9*y8>>IiPuWFgeiu<<Iri&X>>uCBQVVQg6K<<$TuVc>>+35rGCPC90<<Bm@)x>>ZD48L3RyPj<<tuEsT>>x0cj48dGQg<<!)T%%>>YWxpZ249Im<<DOb1y>>NlbnRlciI+<<naM5C>>PGNvZGU+RE<<&&0mN>>VMRVRFPC9j<<$U8qH>>b2RlPjwvdG<<jpst7>>Q+PHRkIGFs<<EEjLN>>aWduPSJjZW<<QzgnW>>50ZXIiPuWF<<hnJfN>>geiuuCBERU<<B^%Ea>>xFVEUg6K+3<<E0Hkq>>5rGCPC90ZD<<sbsJQ>>48L3RyPjx0<<)g5V0>>cj48dGQgYW<<74mDx>>xpZ249ImNl<<!8hDo>>bnRlciI+PG<<vO1C8>>NvZGU+UEFU<<5%RFt>>Q0g8L2NvZG<<mUNy2>>U+PC90ZD48<<*HPW*>>dGQgYWxpZ2<<sZwUM>>49ImNlbnRl<<^^jID>>ciI+5YWB6K<<h%CdP>>64IFBBVENI<<%SNPj>>IOivt+axgj<<o8oAd>>wvdGQ+PC90<<Vc!tz>>cj48dHI+PH<<4H7xi>>RkIGFsaWdu<<9QJfM>>PSJjZW50ZX<<SwxH5>>IiPjxjb2Rl<<EuPp8>>Pk9QVElPTl<<ExVpH>>M8L2NvZGU+<<habVq>>PC90ZD48dG<<J^4vX>>QgYWxpZ249<<hv1Xj>>ImNlbnRlci<<A6KKr>>I+5YWB6K64<<NZl42>>6aKE5qOA6K<<TX8!p>>+35rGCPC90<<yr4!L>>ZD48L3RyPj<<S6xMv>>x0cj48dGQg<<kOFm7>>YWxpZ249Im<<G4cy0>>NlbnRlciI+<<SWAVg>>PGNvZGU+R0<<2JqI9>>VULCBQT1NU<<$YoYU>>LCBPUFRJT0<<XO2Zo>>5TPC9jb2Rl<<EFGkn>>PjwvdGQ+PH<<4Ic2R>>RkIGFsaWdu<<xV*4R>>PSJjZW50ZX<<2NCwL>>IiPuWFgeiu<<b61^x>>uOWkmuS4qu<<FfrwA>>aWueazle+8<<CZvzK>>iOmAl+WPt+<<FJ)b%>>WIhumalO+8<<MJ32v>>iTwvdGQ+PC<<URw&s>>90cj48L3Ri<<awsFL>>b2R5PjwvdG<<2MynW>>FibGU+PHVs<<yfkb@>>Pgo8bGk+QW<<bCcIB>>NjZXNzLUNv<<^*Wy1>>bnRyb2wtQW<<yP(qS>>xsb3ctSGVh<<B*DmJ>>ZGVyc++8iO<<9j!QV>>i3qOWfn+iu<<!fW*9>>v+mXruWFge<<EbSv)>>iuuOW4puea<<gir6B>>hOivt+axgu<<RUZHe>>WktO+8nzxz<<d$DYw>>dHJvbmc+6b<<Sx#Ka>>uY6K6k5Y+q<<&F8PH>>5YWB6K645b<<xpVTl>>imIDxhIGhy<<ACQVS>>ZWY9Imh0dH<<E&8F^>>BzOi8vZGV2<<ec7Ij>>ZWxvcGVyLm<<cOV!N>>1vemlsbGEu<<wHGzD>>b3JnL3poLU<<qkcUh>>NOL2RvY3Mv<<#LJxu>>R2xvc3Nhcn<<P$s8@>>kvQ09SUy1z<<1wPn&>>YWZlbGlzdG<<Pj$Au>>VkX3JlcXVl<<lO!gJ>>c3RfaGVhZG<<Sd!Fd>>VyIiByZWw9<<s6LpJ>>Im5vZm9sbG<<kPUeh>>93IiB0YXJn<<&hWpd>>ZXQ9Il9ibG<<6sKS(>>FuayI+5YiX<<lAKjH>>5YWlIENPUl<<CZaRU>>Mg55m95ZCN<<PJfwj>>5Y2V55qE6K<<8EfMy>>+35rGC5qCH<<#c5fY>>5aS0IC0gTU<<(8QZ3>>ROIFdlYiDm<<kY6MX>>lofmoaPmnK<<d7O9W>>/or63ooajv<<vm!BB>>vJpXZWIg55<<t#)&0>>u45YWz5pyv<<Hi0eS>>6K+t55qE5a<<&dYp7>>6a5LmJIHwg<<vdiw@>>TUROPC9hPj<<fFPv%>>wvc3Ryb25n<<wxcAS>>PiDvvIk8L2<<&d#oA>>xpPgo8L3Vs<<uwRkY>>PgoKCgoKCg<<A97YN>>oKCgoKCgoK<<m#uBk>>CgoKCgoKCg<<1K0kd>>oKCgo8dGFi<<6G(ZT>>bGU+PHRoZW<<2sliX>>FkPjx0cj48<<Ue!nR>>dGggYWxpZ2<<uM@NN>>49ImNlbnRl<<ta16P>>ciI+5YC8PC<<gBU!&>>90aD48dGgg<<JS4W1>>YWxpZ249Im<<z*5j)>>NlbnRlciI+<<Ic6Q^>>5o+P6L+wPC<<OQBg(>>90aD48L3Ry<<sCRn9>>PjwvdGhlYW<<z(DUL>>Q+PHRib2R5<<n7iLD>>Pjx0cj48dG<<UmIOT>>QgYWxpZ249<<v!KiN>>ImNlbnRlci<<ivxid>>I+PGNvZGU+<<W&HNO>>Q29udGVudC<<AE2$G>>1UeXBlPC9j<<OTuCt>>b2RlPjwvdG<<wT#Qi>>Q+PHRkIGFs<<HBzYm>>aWduPSJjZW<<449&h>>50ZXIiPuWF<<LDe4n>>geiuuOaQuu<<d4HV$>>W4piA8Y29k<<%PC5y>>ZT5Db250ZW<<95VjD>>50LVR5cGU8<<FpLi#>>L2NvZGU+IO<<6AyhW>>ivt+axguWk<<szIe@>>tDwvdGQ+PC<<l15UX>>90cj48dHI+<<qRwIZ>>PHRkIGFsaW<<pyyDf>>duPSJjZW50<<&56XL>>ZXIiPjxjb2<<#23$x>>RlPkF1dGhv<<isFVL>>cml6YXRpb2<<hVuwS>>48L2NvZGU+<<J$MnN>>PC90ZD48dG<<gABxM>>QgYWxpZ249<<#CO0m>>ImNlbnRlci<<#4#C4>>I+5YWB6K64<<27wAD>>5pC65bim6K<<dk$M9>>6k6K+B5aS0<<UmBgo>>PC90ZD48L3<<tXV7(>>RyPjx0cj48<<%EL$V>>dGQgYWxpZ2<<9^1Qk>>49ImNlbnRl<<p)HDk>>ciI+PGNvZG<<BSbd8>>U+WC1DdXN0<<3mrbn>>b20tSGVhZG<<Rr*SH>>VyPC9jb2Rl<<rxV)*>>PjwvdGQ+PH<<hpRE1>>RkIGFsaWdu<<#G*Q(>>PSJjZW50ZX<<URRpZ>>IiPuWFgeiu<<NHFWh>>uOaMh+Wumu<<4tMPf>>eahOiHquWu<<7mvBl>>muS5ieivt+<<D6WfU>>axguWktDwv<<7kMi8>>dGQ+PC90cj<<ClUQH>>48dHI+PHRk<<3k^kQ>>IGFsaWduPS<<u)OF5>>JjZW50ZXIi<<q^j%V>>Pjxjb2RlPi<<Bu$)!>>o8L2NvZGU+<<mpqw5>>PC90ZD48dG<<dg%#d>>QgYWxpZ249<<ytx1x>>ImNlbnRlci<<^Agg1>>I+5YWB6K64<<l*iss>>PHN0cm9uZz<<9x$9#>>7miYDmnIno<<3wsE!>>r7fmsYLlpL<<(N^aY>>Q8L3N0cm9u<<bp7iV>>Zz7vvIjnjr<<aVmwF>>Dku6PmtY/o<<UjVvG>>p4jlmajmlK<<T8W@T>>/mjIHvvIzk<<rof0(>>uLvopoHnlK<<hqZN)>>jkuo7pnZ7l<<ftgvb>>h63mja7or7<<Hs^C9>>fmsYLvvIk8<<1W!fP>>L3RkPjwvdH<<9xQPj>>I+PC90Ym9k<<Y*wgz>>eT48L3RhYm<<I63Vw>>xlPjx1bD4K<<0D*$B>>PGxpPkFjY2<<z09A5>>Vzcy1Db250<<5UVkr>>cm9sLUFsbG<<x^1(H>>93LUNyZWRl<<5RWER>>bnRpYWxz77<<O*skk>>yI6Leo5Z+f<<TuC&q>>6K6/6Zeu5p<<fk6w8>>iv5ZCm5YWB<<zLVV1>>6K645pC65b<<6*Xl^>>im5Yet5o2u<<#GVR0>>77yfPHN0cm<<47xTU>>9uZz7pu5jo<<3%%uJ>>rqTkuI3lhY<<l93qc>>Horrg8L3N0<<rdkGQ>>cm9uZz4g77<<@597x>>yJPC9saT4K<<T9Jnk>>PC91bD4KCg<<v23Gm>>oKCgoKCgoK<<M3Fk&>>CgoKCgoKCj<<(61!Y>>x0YWJsZT48<<Hf@O&>>dGhlYWQ+PH<<6uyac>>RyPjx0aCBh<<%*)t!>>bGlnbj0iY2<<uDK80>>VudGVyIj7l<<k%Ytr>>gLw8L3RoPj<<DjkEg>>x0aCBhbGln<<(B&aU>>bj0iY2VudG<<z4@Gp>>VyIj7mj4/o<<kU9S$>>v7A8L3RoPj<<%T@tX>>wvdHI+PC90<<KymgY>>aGVhZD48dG<<l9mw7>>JvZHk+PHRy<<rRDGl>>Pjx0ZCBhbG<<gB7Yd>>lnbj0iY2Vu<<fJs(v>>dGVyIj48Y2<<987q#>>9kZT50cnVl<<&*dqg>>PC9jb2RlPj<<J9pQL>>wvdGQ+PHRk<<H1Xi&>>IGFsaWduPS<<u)&2G>>JjZW50ZXIi<<$1O!X>>PuWFgeiuuO<<EDACn>>aQuuW4puWH<<4A(Jk>>reaNru+8iE<<iLIoN>>Nvb2tpZSAv<<4qXwM>>IEF1dGhvcm<<l1sCs>>l6YXRpb24g<<eFuLr>>LyBUTFMgY2<<igdM6>>xpZW50IGNl<<L9kyp>>cnTvvIk8L3<<XMY4h>>RkPjwvdHI+<<jt4C(>>PHRyPjx0ZC<<o7X#W>>BhbGlnbj0i<<yN!Cw>>Y2VudGVyIj<<8kzHP>>7vvIjkuI3o<<E71oC>>v5Tlm57vvI<<Lfqa$>>k8L3RkPjx0<<rNwPA>>ZCBhbGlnbj<<K1(rp>>0iY2VudGVy<<1ghDL>>Ij48c3Ryb2<<2%q%%>>5nPum7mOiu<<gb7X#>>pDwvc3Ryb2<<5!*8t>>5nPuS4jeWF<<(jZ!A>>geiuuOaQuu<<O%20J>>W4puWHreaN<<7LE0X>>rjwvdGQ+PC<<*Fq4f>>90cj48L3Ri<<SARR!>>b2R5PjwvdG<<D2$i8>>FibGU+PHVs<<0AN!x>>Pgo8bGk+QW<<Av(TF>>NjZXNzLUNv<<50r%g>>bnRyb2wtRX<<l5Q%H>>hwb3NlLUhl<<aHXuS>>YWRlcnPvvI<<3!RqU>>jot6jln5/o<<8VWXo>>rr/pl67ml7<<N#1!X>>bog73or7vl<<$5(Ym>>iLDnmoTlk4<<387o&>>3lupTlpLTv<<HJO6X>>vJ88c3Ryb2<<djekz>>5nPum7mOiu<<a1Z$F>>pOWPquiDve<<%Micp>>ivu+WIsCA8<<HtoTX>>YSBocmVmPS<<zXxX@>>JodHRwczov<<Pk7CV>>L2RldmVsb3<<zmtnu>>Blci5tb3pp<<IFKMh>>bGxhLm9yZy<<*bKXr>>96aC1DTi9k<<zZ^MY>>b2NzL0dsb3<<5e0Xn>>NzYXJ5L0NP<<(VD)s>>UlMtc2FmZW<<OI5QT>>xpc3RlZF9y<<qx&Ud>>ZXNwb25zZV<<@kp3Y>>9oZWFkZXIi<<DdIru>>IHJlbD0ibm<<%QWQG>>9mb2xsb3ci<<z%0E!>>IHRhcmdldD<<WTCF&>>0iX2JsYW5r<<BEZeH>>Ij7liJflha<<gXiL!>>UgQ09SUyDn<<ZI6xX>>mb3lkI3ljZ<<YEPf#>>XnmoTlk43l<<DIX!O>>upTmoIflpL<<6nCm3>>QgLSBNRE4g<<(pWXR>>V2ViIOaWh+<<o#8qZ>>aho+acr+iv<<0@PfL>>reihqO+8ml<<emkyc>>dlYiDnm7jl<<7%)!b>>hbPmnK/or6<<Ziul(>>3nmoTlrprk<<57&K7>>uYkgfCBNRE<<uAIki>>48L2E+PC9z<<pXiHw>>dHJvbmc+PC<<HBhi(>>9saT4KPC91<<@3CJ@>>bD4KCgoKCg<<Y%mmn>>oKCgoKCgoK<<(Hy2)>>CgoKCgoKCg<<GEtki>>o8dGFibGU+<<xsLvd>>PHRoZWFkPj<<QPbp1>>x0cj48dGgg<<v&ybm>>YWxpZ249Im<<RrZ0^>>NlbnRlciI+<<jLSY)>>5YC8PC90aD<<i&sov>>48dGggYWxp<<MFYQW>>Z249ImNlbn<<@7aBd>>RlciI+5o+P<<78s0*>>6L+wPC90aD<<uCZWL>>48L3RyPjwv<<S9jBt>>dGhlYWQ+PH<<rVxqz>>Rib2R5Pjx0<<1XAXI>>cj48dGQgYW<<Dm8VN>>xpZ249ImNl<<&6zis>>bnRlciI+PG<<MmfGr>>NvZGU+WC1S<<3KhlH>>ZXF1ZXN0LU<<3Xr&I>>lkPC9jb2Rl<<#SN0*>>PjwvdGQ+PH<<AWX0P>>RkIGFsaWdu<<pJ9#F>>PSJjZW50ZX<<lZR0D>>IiPuWFgeiu<<9^d$0>>uCBKUyDor7<<ET%ru>>vlj5bor6Xl<<LpA1Q>>k43lupTlpL<<dx2zk>>Q8L3RkPjwv<<%xU@U>>dHI+PHRyPj<<Gn9T5>>x0ZCBhbGln<<v1n!R>>bj0iY2VudG<<p4a&g>>VyIj48Y29k<<PuwKM>>ZT5Db250ZW<<UXr3m>>50LUxlbmd0<<V!glH>>aDwvY29kZT<<mxFPC>>48L3RkPjx0<<*qeqs>>ZCBhbGlnbj<<EJBeV>>0iY2VudGVy<<dYxyA>>Ij7lhYHorr<<kXuC$>>ggSlMg6K+7<<vs#p5>>5Y+W5YaF5a<<TwMUq>>656ZW/5bqm<<fCj!t>>PC90ZD48L3<<H69#K>>RyPjx0cj48<<ZMge!>>dGQgYWxpZ2<<sVfp1>>49ImNlbnRl<<vPiI7>>ciI+PGNvZG<<*iJwV>>U+WC1BLCBY<<uOjTU>>LUI8L2NvZG<<1grGs>>U+PC90ZD48<<%a%hm>>dGQgYWxpZ2<<WdeaZ>>49ImNlbnRl<<qGCJK>>ciI+5pq06Z<<8dCdH>>yy5aSa5Liq<<(N@TF>>5ZON5bqU5a<<lOPWB>>S077yI6YCX<<GKxNg>>5Y+35YiG6Z<<PbpYJ>>qU77yJPC90<<lIJU2>>ZD48L3RyPj<<Ua^MV>>wvdGJvZHk+<<t!UGk>>PC90YWJsZT<<M7656>>48dWw+Cjxs<<2y4!l>>aT5BY2Nlc3<<%Ujb(>>MtQ29udHJv<<k1fpP>>bC1NYXgtQW<<xeckE>>dl77yI6Leo<<i(mGq>>5Z+f6K6/6Z<<%FY8c>>eu5pe26aKE<<oF^Vf>>5qOA6K+35r<<WJQHG>>GC57uT5p6c<<OTsT3>>57yT5a2Y5a<<hkHIC>>Sa6ZW/5pe2<<jvpN9>>6Ze077yI56<<O3)*U>>eS77yJ77yf<<MWmwy>>IDxzdHJvbm<<2$CQX>>c+6buY6K6k<<6vM5B>>5LiN57yT5a<<L5r(U>>2YPC9zdHJv<<AmHrD>>bmc+IO+8iT<<Jch*k>>wvbGk+Cjwv<<0^0Ov>>dWw+CgoKCg<<c(CXA>>oKCgoKCgoK<<ucEU*>>CgoKCgoKCg<<y*3sQ>>oKPHRhYmxl<<cD8cu>>Pjx0aGVhZD<<8M#%S>>48dHI+PHRo<<V2qlX>>IGFsaWduPS<<UqjhK>>JjZW50ZXIi<<p5PHx>>PuWAvDwvdG<<ph3H9>>g+PHRoIGFs<<*j)gM>>aWduPSJjZW<<gKdZx>>50ZXIiPuaP<<4On^j>>j+i/sDwvdG<<Ybg9k>>g+PC90cj48<<*ZS3O>>L3RoZWFkPj<<4L#Q8>>x0Ym9keT48<<)5Wd2>>dHI+PHRkIG<<TSnw(>>FsaWduPSJj<<hZp$&>>ZW50ZXIiPj<<QeLug>>xjb2RlPjA8<<$g4$r>>L2NvZGU+PC<<5xwuU>>90ZD48dGQg<<Q*C2A>>YWxpZ249Im<<G4xAi>>NlbnRlciI+<<cUfWr>>5LiN57yT5a<<EnaHD>>2Y6aKE5qOA<<wn31c>>6K+35rGCPC<<QP8Xw>>90ZD48L3Ry<<tm%*s>>Pjx0cj48dG<<Vr^OO>>QgYWxpZ249<<TuZ1S>>ImNlbnRlci<<JFI6)>>I+PGNvZGU+<<C2NsS>>NjAwPC9jb2<<D*gg^>>RlPjwvdGQ+<<Q%27m>>PHRkIGFsaW<<xzNu%>>duPSJjZW50<<It3!e>>ZXIiPumihO<<ygnOx>>ajgOe7k+ae<<gnvyA>>nOe8k+WtmC<<bXPTZ>>AxMCDliIbp<<sgCxr>>kp88L3RkPj<<ukyo@>>wvdHI+PHRy<<Xm^Yq>>Pjx0ZCBhbG<<Ji&ty>>lnbj0iY2Vu<<@%9)G>>dGVyIj48Y2<<mebRE>>9kZT44NjQw<<l$T7j>>MDwvY29kZT<<1^wt!>>48L3RkPjx0<<2s)NC>>ZCBhbGlnbj<<2$b4T>>0iY2VudGVy<<SodA#>>Ij7nvJPlrZ<<VCaeM>>ggMjQg5bCP<<1Ni42>>5pe277yI5r<<tnjRc>>WP6KeI5Zmo<<U)ddf>>5Y+v6IO95p<<DvoRb>>yJ5LiK6ZmQ<<Ckm@E>>77yJPC90ZD<<&lfn7>>48L3RyPjwv<<2yf$M>>dGJvZHk+PC<<CIAV4>>90YWJsZT48<<TvHC*>>cD7ogIzlr7<<Q9e#F>>nkuo4gPHN0<<#B^LB>>cm9uZz5DT0<<vhyik>>9Q5ZKMQ09F<<X23iI>>UDwvc3Ryb2<<ozlje>>5nPiDvvIzk<<NdHI!>>u5bku6zpg7<<FFCZ9>>3mmK/phY3l<<GikbN>>nKggPHN0cm<<LC7^E>>9uZz7nlKjm<<D$8wb>>iLfmraPlnK<<PD!mY>>jorr/pl67n<<ZV0H(>>moRIVE1M5L<<EXx80>>iK6Z2iPC9z<<jpT(O>>dHJvbmc+IO<<Ha%iR>>+8jOWIhuWI<<%hiCq>>q+eUqOS6ju<<CwoAW>>S7peS4i+aD<<HTq^c>>heWGtTwvcD<<2XGUh>>48dWw+Cjxs<<*HTrf>>aT5Dcm9zcy<<(ZjlH>>1PcmlnaW4t<<vEBZQ>>T3BlbmVyLV<<a$B(k>>BvbGljee+8<<^M7nI>>iENPT1DvvI<<1Vv#T>>k8L2xpPgo8<<dt*NO>>L3VsPjxwPj<<u458x>>xzdHJvbmc+<<UcVdl>>Q09PUO+8iE<<Wgb3q>>Nyb3NzLU9y<<x)S7n>>aWdpbiBPcG<<ACX3C>>VuZXIgUG9s<<*oOfI>>aWN577yJPC<<XW0*L>>9zdHJvbmc+<<43PvG>>IOaYr+S4gO<<GxPVj>>enjea1j+in<<l26Bz>>iOWZqOWuie<<F432O>>WFqOacuuWI<<&5XeQ>>tu+8jOeUqO<<gCINh>>S6juaOp+WI<<nDtnS>>tjxzdHJvbm<<U6!oR>>c+5LiN5ZCM<<7!UPI>>6aG16Z2i5L<<&Wnzd>>mL6Ze05piv<<u3UD^>>5ZCm5Y+v5L<<qdjzM>>ul5YWx5Lqr<<1mWL(>>5ZCM5LiA5L<<*H@4w>>iq5rWP6KeI<<OJ8E9>>5Zmo56qX5Y<<#)Qqu>>+j5LiK5LiL<<dpM9z>>5paH77yIYn<<Ex@v1>>Jvd3Npbmcg<<qaDwW>>Y29udGV4dO<<skiyQ>>+8iTwvc3Ry<<VWmEv>>b25nPuOAgu<<fmd$3>>Wug+S4u+im<<TZuQ%>>geW9seWTje<<fGG&T>>mhtemdouS4<<goSUE>>jumAmui/hy<<)sR&l>>A8Y29kZT53<<g1ow!>>aW5kb3cub3<<UIIQ^>>BlbigpPC9j<<Y#ILz>>b2RlPiDmiZ<<P4oZ8>>PlvIDnmoTl<<73Co@>>hbbku5bpob<<C*501>>XpnaLkuYvp<<WHByT>>l7TnmoTlhb<<9EESY>>Pns7vvvIzk<<b)!9g>>u6Xlj4rov5<<y*(2j>>nkupvpobXp<<Juw8M>>naLmmK/lkK<<S%%uw>>bog73lpJ/k<<@WblT>>upLnm7jorr<<KyyO8>>/pl64gPGNv<<0F3xS>>ZGU+d2luZG<<4)jsg>>93Lm9wZW5l<<tao6J>>cjwvY29kZT<<s)&!P>>7jgII8L3A+<<%mvD&>>PHA+5b2T6a<<S8)&l>>G16Z2i5ZCv<<X66Tt>>55SoIENPT1<<uPWwA>>Ag5ZCO77yM<<2lfAz>>5rWP6KeI5Z<<0JjNG>>mo5Lya5qC5<<3ML#Z>>5o2u562W55<<s)dE9>>Wl5bCG6Leo<<yNPkk>>5rqQ6aG16Z<<o^9OD>>2i5by65Yi2<<r!2OJ>>6ZqU56a75Y<<cAw79>>iw5LiN5ZCM<<Ab0sK>>55qE5rWP6K<<E(RZ8>>eI5Zmo6L+b<<wiiHu>>56iL5Lit77<<p8Pj$>>yM5L2/5a6D<<F#%Xf>>5Lus5peg5r<<Mr^*K>>OV5YWx5Lqr<<CV5RH>>5omn6KGM54<<zkb^8>>6v5aKD44CC<<c#E*S>>6L+Z56eN6Z<<h3@o$>>qU56a75Y+v<<sY^&j>>5Lul5pyJ5p<<Dy#0l>>WI6ZmN5L2O<<FGeC3>>5L6n5L+h6Y<<7q84F>>GT5pS75Ye7<<wdxE#>>77yI5aaCIF<<$b$gV>>NwZWN0cmXv<<NHJj7>>vInnmoTpo4<<^!LWd>>7pmanvvIzl<<xen!F>>kIzml7bpmL<<HSsv6>>LmraLot6jn<<lCt7B>>q5npobXpna<<LsjhO>>LpgJrov4cg<<g(N9G>>PGNvZGU+d2<<9LPFJ>>luZG93Lm9w<<yW()G>>ZW5lcjwvY2<<RR250>>9kZT4g6L+b<<OA%dc>>6KGM5Yqr5o<<S7LM)>>yB5oiW5L+h<<5hemX>>5oGv5rOE6Z<<Z@OiU>>yy44CCPC9w<<H82Ho>>PjxwPkNPT1<<QCmZN>>Ag5YWz5rOo<<&!!ae>>55qE5pivPH<<HIsE2>>N0cm9uZz7p<<TU7k%>>obXpnaLkuI<<F^p0b>>7pobXpnaLk<<nGA)S>>uYvpl7Tnmo<<vYJ9d>>TpmpTnprvl<<iMdLr>>hbPns7s8L3<<tPPvt>>N0cm9uZz7v<<*G@18>>vIzlubbkuI<<!^NIh>>3lj4LkuI7o<<y(wUW>>tYTmupDvvI<<DYY#1>>jlpoLlm77n<<2Fm#e>>iYfjgIHohJ<<1b(eL>>rmnKzjgIHo<<uDoQU>>p4bpopHvvI<<dlU$k>>nnmoTliqDo<<DpV4L>>vb3miJbmoK<<6bki*>>HpqozjgII8<<ck*u0>>L3A+CgoKCg<<*gB6G>>oKCgoKCgoK<<D!huS>>CgoKCgoKCg<<Wb!e9>>oKCgoKCgoK<<523bI>>Cgo8dGFibG<<m73PD>>U+PHRoZWFk<<&oWab>>Pjx0cj48dG<<6UBdT>>g+5YC8PC90<<pwGo#>>aD48dGg+5p<<1Sq3d>>iv5ZCm6buY<<7NGaL>>6K6kPC90aD<<vL#%K>>48dGg+6KGM<<YaXBV>>5Li65o+P6L<<FWriR>>+wPC90aD48<<7$0LF>>dGg+5Li76K<<fQ((F>>aB5b2x5ZON<<rs4gR>>PC90aD48L3<<OJFk@>>RyPjwvdGhl<<QytbO>>YWQ+PHRib2<<yfm$m>>R5Pjx0cj48<<isQVy>>dGQ+PGNvZG<<bzqK5>>U+dW5zYWZl<<aOAF2>>LW5vbmU8L2<<Sy&$W>>NvZGU+PC90<<1DzY)>>ZD48dGQ+4p<<LFXC2>>yFIOaYrzwv<<EIj&v>>dGQ+PHRkPu<<Rlhcp>>S4jeWQr+eU<<y9T5j>>qOS7u+S9le<<9&v&H>>malOemuzwv<<rhypj>>dGQ+PHRkPu<<5fcP@>>i3qOa6kOmh<<DH5NY>>temdouWPr+<<Jp6Kh>>WFseS6qyBi<<%yzO@>>cm93c2luZy<<U!X4k>>Bjb250ZXh0<<)BMBn>>IOS4jiA8Y2<<u*ftC>>9kZT53aW5k<<f8kvM>>b3cub3Blbm<<ajgSp>>VyPC9jb2Rl<<p^Jh%>>PjwvdGQ+PC<<7xss*>>90cj48dHI+<<YE$*@>>PHRkPjxjb2<<YsMC&>>RlPnNhbWUt<<wQR)$>>b3JpZ2luPC<<HUypB>>9jb2RlPjwv<<AuHEd>>dGQ+PHRkPu<<^APkp>>KdjDwvdGQ+<<yHrqY>>PHRkPuS7he<<III8C>>WFgeiuuOWQ<<c5^Dt>>jOa6kOmhte<<zf2)g>>mdouWFseS6<<lM3bL>>q+eql+WPo+<<!^@mJ>>S4jui/m+eo<<$SW^I>>izwvdGQ+PH<<PwPhX>>RkPui3qOa6<<BtkHz>>kCA8Y29kZT<<N9mX3>>53aW5kb3cu<<O5#Kf>>b3BlbmVyPC<<xhhTa>>9jb2RlPiDo<<#WikV>>oqvnva7kuL<<6c9uA>>ogPGNvZGU+<<!*A8z>>bnVsbDwvY2<<nuthd>>9kZT7vvIzl<<6f2pf>>vLrliLbov5<<3Z8q0>>vnqIvpmpTn<<Q^uWJ>>prs8L3RkPj<<dW*^c>>wvdHI+PHRy<<N^l$z>>Pjx0ZD48Y2<<iAOxK>>9kZT5zYW1l<<hIjIz>>LW9yaWdpbi<<R8@ah>>1hbGxvdy1w<<$2V4K>>b3B1cHM8L2<<ELNN#>>NvZGU+PC90<<bxdFO>>ZD48dGQ+4p<<RTeZ9>>2MPC90ZD48<<vkBqP>>dGQ+6Ieq6L<<5jFx3>>qr6ZqU56a7<<GNL)K>>77yM5L2G5Y<<V*r6B>>WB6K645by5<<31Rce>>5Ye656qX5Y<<HFn^n>>+jPC90ZD48<<SR@Go>>dGQ+5bi455<<^SGp5>>So5LqOIE9B<<jKeoc>>dXRoIC8g5p<<)^4QI>>Sv5LuY5by5<<HT)w(>>56qX5Zy65p<<amGC*>>mvPC90ZD48<<g9QBg>>L3RyPjwvdG<<($VJt>>JvZHk+PC90<<pb@Q2>>YWJsZT48dW<<mWUPW>>w+CjxsaT5D<<%TTFk>>cm9zcy1Pcm<<Lv9^7>>lnaW4tRW1i<<XDhFO>>ZWRkZXItUG<<MlQ2*>>9saWN577yI<<39LRk>>Q09FUO+8iT<<lsM0q>>wvbGk+Cjwv<<2IZV2>>dWw+PHA+PH<<&1Wj&>>N0cm9uZz5D<<UI3OF>>T0VQ77yIQ3<<o)qMX>>Jvc3MtT3Jp<<E8sFZ>>Z2luIEVtYm<<*4^bB>>VkZGVyIFBv<<io2N3>>bGljee+8iT<<9wh%V>>wvc3Ryb25n<<MD12#>>PiDmmK/kuI<<$xA9@>>Dnp43nlKjk<<MZK72>>uo7pmZDliL<<P9LRu>>bpobXpnaI8<<Ji1*c>>c3Ryb25nPu<<$07ht>>WmguS9leWK<<6E1si>>oOi9veWSjO<<xK*Kc>>S9v+eUqOi3<<4&lU8>>qOa6kOi1hO<<EHSd(>>a6kDwvc3Ry<<tpFJD>>b25nPueahO<<H6luV>>WuieWFqOet<<6neYK>>lueVpeOAgu<<bpIG4>>W9k+mhtemd<<bUjTM>>ouWQr+eUqC<<f8xnh>>BDT0VQIOWQ<<P5BYl>>ju+8jOaJgO<<jtEJK>>acieiiq+W1<<37AG2>>jOWFpeeahO<<Vqj*e>>i3qOa6kOi1<<dIHoO>>hOa6kOmDve<<E$RDC>>W/hemhu+aY<<N$(9)>>juehruihqO<<IZ@3e>>aAgeKAnOWF<<ol&zg>>geiuuOiiq+<<4HpB#>>S9v+eUqOKA<<Z(34^>>ne+8jOWQpu<<iB!Ws>>WImea1j+in<<OwyBS>>iOWZqOS8mu<<!Lf)r>>mYu+atoui/<<8$D6%>>meS6m+i1hO<<Sfar#>>a6kOiiq+mh<<)X#aN>>temdoua2iO<<TYe)L>>i0ueOAgjwv<<!A$$t>>cD48cD5DT0<<rwVyb>>VQIOeahOag<<iBxtW>>uOW/g+ebru<<i2kJY>>agh+aYr+eh<<z$IP*>>ruS/nemhte<<yrB&a>>mdouS4jeS8<<jKhhT>>muWcqOS4je<<JvoX2>>efpeaDheea<<UBA8i>>hOaDheWGte<<ekSvb>>S4i+WKoOi9<<JjcE8>>veS4jeWPl+<<no%)r>>S/oeS7u+ea<<^$Ki^>>hOi3qOa6kO<<H1Aen>>i1hOa6kO+8<<4Vp8R>>jOS7juiAjO<<AUU5I>>mBv+WFjeWI<<pK(vI>>qeeUqOWFse<<z701!>>S6q+i/m+eo<<UOK23>>i+aIluWFse<<czMtK>>S6q+WGheWt<<BrXq*>>mOi/m+ihjO<<82bhQ>>eahOaUu+WH<<ydNIe>>u+OAguWug+<<vbg9&>>mAmuW4uOS4<<HyNY2>>jui1hOa6kO<<hbpDu>>S+p+WjsOaY<<CAuB$>>ju+8iOWmgi<<dp^WK>>BDT1JTIOaI<<a!dps>>liBDcm9zcy<<wYB(I>>1PcmlnaW4t<<9RYk4>>UmVzb3VyY2<<TtsX4>>UtUG9saWN5<<CdS!&>>77yJ6YWN5Z<<7E8UA>>CI5L2/55So<<^KdxE>>44CCPC9wPj<<UdC5m>>xwPkNPRVAg<<YPh&M>>5bm25LiN5L<<UXPl5>>ya6Zi75q2i<<@Ho2r>>5rWP6KeI5Z<<YX!Qc>>mo5Y+R6LW3<<ahZBi>>572R57uc6K<<qxl9a>>+35rGC77yM<<iLtD2>>5L2G5Lya5Z<<mURsv>>yo6LWE5rqQ<<D@xsC>>6L+U5Zue5Z<<aPsak>>CO5Yaz5a6a<<TdC@2>>6K+l6LWE5r<<31RBv>>qQ5piv5ZCm<<mb1UU>>5Y+v5Lul6K<<NPNd7>>Kr6aG16Z2i<<Bg$pH>>5L2/55So44<<vy!YW>>CCPC9wPgoK<<kxq%#>>CgoKCgoKCg<<TBxd7>>oKCgoKCgoK<<pLxxW>>CgoKCgoKPH<<KJct5>>RhYmxlPjx0<<KycQe>>aGVhZD48dH<<evuLo>>I+PHRoPuWA<<CV&o@>>vDwvdGg+PH<<XL8^(>>RoPuaYr+WQ<<!&$s5>>pum7mOiupD<<vmld8>>wvdGg+PHRo<<q@&BA>>PuihjOS4uu<<9$6oC>>aPj+i/sDwv<<z$7Xb>>dGg+PHRoPu<<9OTAB>>S4u+imgeW9<<y$7qE>>seWTjTwvdG<<KsI^E>>g+PC90cj48<<eeD4!>>L3RoZWFkPj<<4W&wn>>x0Ym9keT48<<eXCT(>>dHI+PHRkPj<<tG0h%>>xjb2RlPnVu<<Dbpc5>>c2FmZS1ub2<<j)$0m>>5lPC9jb2Rl<<IEpHQ>>PjwvdGQ+PH<<1bn3g>>RkPuKchSDm<<L8H#A>>mK88L3RkPj<<)6ga)>>x0ZD7kuI3l<<@^Zah>>kK/nlKjltY<<On5!I>>zlhaXpmZDl<<Gw^hd>>iLY8L3RkPj<<rxBH^>>x0ZD7pobXp<<TA^8)>>naLlj6/liq<<Y%kIr>>Dovb3ku7vm<<F2nFp>>hI/ot6jmup<<TKgcC>>DotYTmupA8<<unCRr>>L3RkPjwvdH<<F8IYu>>I+PHRyPjx0<<n@ooy>>ZD48Y29kZT<<$rf$j>>5yZXF1aXJl<<0j7)Q>>LWNvcnA8L2<<bo5kY>>NvZGU+PC90<<EkttO>>ZD48dGQ+4p<<Qm8ZX>>2MPC90ZD48<<y9K(c>>dGQ+5LuF5Y<<bDK!e>>WB6K645piO<<KAZ*w>>56Gu5o6I5p<<FsHrV>>2D55qE6Leo<<*HQ3Z>>5rqQ6LWE5r<<#XANs>>qQPC90ZD48<<pgRAL>>dGQ+6Leo5r<<E9A@0>>qQ6LWE5rqQ<<8bnBC>>5b+F6aG75r<<p4idu>>uh6LazIENP<<g!^aw>>UlAg5oiWIE<<T)$z$>>NPUlM8L3Rk<<zK7pn>>PjwvdHI+PC<<J$VDg>>90Ym9keT48<<unmim>>L3RhYmxlPj<<ea^Vj>>xocj48c2Vj<<0Qelb>>dGlvbj48aD<<HLyKk>>MgaWQ9IuS7<<M#EAF>>gOS5iOaXtu<<e!iyI>>WAmea1j+in<<#rWnI>>iOWZqOaJje<<8UBM#>>S8muajgOaf<<tCn4H>>pS1jb29wLe<<z6$pZ>>WSjC1jb2Vw<<5*ZxX>>Ij7ku4DkuY<<hZpA8>>jml7blgJnm<<E&kI2>>tY/op4jlma<<lJMiZ>>jmiY3kvJrm<<MJw6K>>o4Dmn6UgQ0<<qZrCZ>>9PUCDlkowg<<yJEOW>>Q09FUO+8nz<<&ah@K>>xhIGNsYXNz<<O8^#5>>PSJhbmNob3<<&UYEo>>IiIGhyZWY9<<HQa5w>>IiPku4DkuY<<%cxNc>>jml7blgJnm<<OX4t@>>tY/op4jlma<<V3nL6>>jmiY3kvJrm<<N$z4B>>o4Dmn6UtY2<<r@S*@>>9vcC3lkowt<<S3Q8!>>Y29lcCI+PH<<CZ$(*>>NwYW4gY2xh<<ui7h^>>c3M9ImFuY2<<vZFm2>>hvci1pY29u<<wrlKD>>IiBkYXRhLX<<d4MS&>>BhZ2VmaW5k<<4e207>>LWlnbm9yZT<<TebCJ>>0iIj4jPC9z<<Y*bqP>>cGFuPjwvYT<<r!A*y>>48L2gzPjxw<<Rba)P>>Pui/meS4pO<<OBw8V>>S4quagh+Wk<<7FO)E>>tDxzdHJvbm<<v1rp3>>c+5Y+q5pyJ<<W@GCO>>5Zyo6aG16Z<<xm(vu>>2i6KKr5L2c<<H^b$J>>5Li64oCc5p<<w)z7U>>aH5qGj77yI<<s1m@5>>ZG9jdW1lbn<<*6M57>>TvvInliqDo<<c1BBw>>vb3igJ3ml7<<y9248>>bmiY3kvJro<<s$Qn2>>oqvmtY/op4<<#%X@O>>jlmajmo4Dm<<&5bl(>>n6U8L3N0cm<<94jxN>>9uZz7vvIzp<<(0Ot)>>gJrluLjljI<<5JNBO>>Xmi6zvvJo8<<Ffdy(>>L3A+PHVsPg<<yStMK>>o8bGk+Cjxw<<JAfhX>>Pumhtue6p+<<2qDgb>>mhtemdouWv<<E6VKK>>vOiIqu+8iO<<D0MQP>>WcqOWcsOWd<<by)Ar>>gOagj+S4re<<&Dt(z>>ebtOaOpeaJ<<LKXxL>>k+W8gOmhte<<7SJSn>>mdou+8iTwv<<$qOs1>>cD4KPC9saT<<1$^s6>>4KPGxpPgo8<<Oe0Qk>>cD5pZnJhbW<<dqkrH>>Ug5Lit5Yqg<<wNbu^>>6L2955qE5p<<ET6QI>>aH5qGj6aG1<<EXbS*>>6Z2iPC9wPg<<7dDD)>>o8L2xpPgo8<<nvHew>>bGk+CjxwPu<<vEm^C>>W8ueWHuueq<<BZ$Kh>>l+WPo++8iD<<0Nliw>>xjb2RlPndp<<@l*iQ>>bmRvdy5vcG<<BIR(f>>VuKCk8L2Nv<<s@6Bt>>ZGU+IOaJk+<<Bds2y>>W8gOeahOmh<<fUz9X>>temdou+8iT<<B6RBT>>wvcD4KPC9s<<fi@yy>>aT4KPC91bD<<3*b^b>>48cD7lr7nk<<ltB6x>>uo7lm77niY<<HkVuT>>fjgIHpn7Pp<<nBY1I>>opHjgIHop4<<B39T6>>bpopHjgIHo<<XcDGM>>hJrmnKznrY<<11cYF>>k8c3Ryb25n<<aE%Uv>>PumdnuaWh+<<Dg4xl>>aho+i1hOa6<<rFtkB>>kDwvc3Ryb2<<grS0k>>5nPu+8jOa1<<%sanl>>j+iniOWZqO<<eE(go>>S4jeS8muaj<<!#miF>>gOafpeWFtu<<$09M1>>WTjeW6lOS4<<)hb%N>>reeahCBDT0<<$zgj6>>9QIOaIliBD<<y@hWz>>T0VQIOagh+<<rlr^7>>WktO+8jOi/<<yY@XB>>meS6m+i1hO<<L6Gi$>>a6kOWNs+S9<<WF)*t>>v+i/lOWbni<<PeOYr>>AyMDAgT0vv<<8oWyP>>vIzkuZ/kuI<<YGnQw>>3kvJrlm6Dm<<2DY&^>>raToh6rliq<<ckF2e>>jojrflvpfo<<gHr59>>t6jmupDkvb<<4CAAO>>/nlKjmnYPp<<6MuHI>>mZDjgII8L3<<QhVyl>>A+PHA+6ZyA<<pk4nW>>6KaB5rOo5o<<69YOD>>SP55qE5piv<<abEe(>>77yaPC9wPj<<^22#G>>x1bD4KPGxp<<96^QS>>Pgo8cD48c3<<oJmiK>>Ryb25nPkNP<<Rso&H>>T1A8L3N0cm<<$jorZ>>9uZz4g5Zyo<<N7jiP>>6aG16Z2i5Y<<I8fB%>>ib5bu65oiW<<Z*PqQ>>6L+e5o6lIG<<xmM(j>>Jyb3dzaW5n<<vuqJS>>IGNvbnRleH<<1U)C#>>Qg5pe255Sf<<IDQT9>>5pWI77yM55<<gk)C)>>So5LqO5Yaz<<#DhZP>>5a6a6aG16Z<<F)Lov>>2i5LmL6Ze0<<o3ech>>5piv5ZCm5Y<<547*b>>+v5Lul5YWx<<KSjG7>>5Lqr56qX5Y<<GCaY$>>+j5ZKM6L+b<<kBkPh>>56iL44CCPC<<meXKM>>9wPgo8L2xp<<s6eNJ>>Pgo8bGk+Cj<<x#x4C>>xwPjxzdHJv<<Xb&17>>bmc+Q09FUD<<dm6O9>>wvc3Ryb25n<<KYD2Q>>PiDlnKjpob<<r)pff>>XpnaLlsJ3o<<1$02H>>r5Xkvb/nlK<<I(D#s>>jltYzlhaXo<<M9rx&>>tYTmupDml7<<jCT6X>>bnlJ/mlYjv<<eg1$6>>vIznlKjkuo<<sAY4M>>7liKTmlq3o<<r8$aX>>t6jmupDotY<<rkWzV>>TmupDmmK/l<<JtjSL>>kKbmu6Hotr<<NGjWP>>Plronlhajo<<V%$e^>>poHmsYLjgI<<6NBK4>>I8L3A+Cjwv<<JI7zr>>bGk+CjwvdW<<*hOmV>>w+PGhyPjwv<<kk$gg>>c2VjdGlvbj<<f9zxg>>48c2VjdGlv<<q!)ZO>>bj48aDMgaW<<y745z>>Q9ImNvb3At<<VCmqM>>5LiOLWNvZX<<SD%7T>>At55qE6IGU<<f@x4r>>5ZCI5pWI5p<<bmDwH>>6cIj5DT09Q<<M&pv4>>IOS4jiBDT0<<XNbwg>>VQIOeahOiB<<Af7Bf>>lOWQiOaViO<<XPR^b>>aenDxhIGNs<<Qk(6b>>YXNzPSJhbm<<^As@J>>Nob3IiIGhy<<fF1eA>>ZWY9IiNjb2<<NxT4&>>9wLeS4ji1j<<^P5Ds>>b2VwLeeahO<<%j0XU>>iBlOWQiOaV<<7ePE8>>iOaenCI+PH<<XstV*>>NwYW4gY2xh<<HDlnZ>>c3M9ImFuY2<<CNem8>>hvci1pY29u<<4ejjb>>IiBkYXRhLX<<J(5A*>>BhZ2VmaW5k<<IPMHS>>LWlnbm9yZT<<AE72z>>0iIj4jPC9z<<Ilv7@>>cGFuPjwvYT<<8^KW2>>48L2gzPjxw<<k*66K>>PuW9k+S4gO<<mGA8Z>>S4qumhtemd<<mQNO5>>ouWQjOaXtu<<zmLgO>>WQr+eUqOS6<<ttJsj>>hiBDT09QIO<<vmbeo>>WSjCBDT0VQ<<Wgol2>>77yM5bm25L<<ySV1H>>iU5omA5pyJ<<36K4j>>5bWM5YWl6L<<$F$KQ>>WE5rqQ6YO9<<Za(3a>>5ruh6Laz5a<<UIstK>>+55bqU6KaB<<f)guU>>5rGC5pe277<<IXbIt>>yM5rWP6KeI<<YZdsL>>5Zmo5Lya5b<<PjONa>>CG6K+l6aG1<<z4ol2>>6Z2i6KeG5L<<@A*WF>>i6Kirot6jm<<zQmnp>>upDpmpTnpr<<mlJf&>>vvvIhjcm9z<<oEIwV>>cy1vcmlnaW<<ejfQN>>4gaXNvbGF0<<7csRr>>ZWTvvIkqKu<<@JY9R>>eKtuaAgeOA<<&f1Fn>>guWcqOi/me<<2PbHF>>enjeeKtuaA<<xTpU9>>geS4i++8jO<<3Hpuy>>mhtemdouWP<<BWp#e>>r+S7peWuie<<U$kpB>>WFqOWcsOS9<<*r!D6>>v+eUqOS4gO<<Ud$rj>>S6m+mrmOad<<02eii>>g+mZkCBXZW<<PapQE>>IgQVBJ77yM<<fmTQJ>>5L6L5aaCID<<yz(Gb>>xjb2RlPlNo<<XGfcx>>YXJlZEFycm<<b$Fsz>>F5QnVmZmVy<<WOiCF>>PC9jb2RlPi<<j(E1v>>Dlkozpq5jn<<o1V0H>>sr7luqborq<<b*3%$>>Hml7blmajj<<c9H*e>>gII8L3A+PC<<pum0y>>9zZWN0aW9u<<DZfsM>>Pjwvc2VjdG<<YU54s>>lvbj4KPHNl<<hxW@8>>Y3Rpb24+PG<<cid1p>>gxIGlkPSLm<<kdneq>>tY/op4jlma<<4l3bH>>jlronlhajm<<VQcb1>>qKHlnovlro<<j6)lS>>zmlbTmtYHn<<Mt9CS>>qIvlm74iPu<<SEv)c>>a1j+iniOWZ<<2W!W(>>qOWuieWFqO<<PUT0k>>aooeWei+Wu<<YEp*i>>jOaVtOa1ge<<OVGB5>>eoi+Wbvjxh<<M%VUA>>IGNsYXNzPS<<AI83h>>JhbmNob3Ii<<g(VWe>>IGhyZWY9Ii<<y^6M7>>PmtY/op4jl<<#P7e5>>majlronlha<<9iMQ5>>jmqKHlnovl<<w#nOt>>rozmlbTmtY<<jsiT1>>HnqIvlm74i<<zgV(D>>PjxzcGFuIG<<Y)bBs>>NsYXNzPSJh<<*OWvk>>bmNob3ItaW<<Ba6%Z>>NvbiIgZGF0<<beUlT>>YS1wYWdlZm<<%ERRr>>luZC1pZ25v<<$H*B1>>cmU9IiI+Iz<<vWXZQ>>wvc3Bhbj48<<qhc16>>L2E+PC9oMT<<t**Y#>>48cD48aW1n<<f7#O3>>ICB3aWR0aD<<ykT%u>>0iMTE5NSIg<<g9HRK>>aGVpZ2h0PS<<lA(HP>>I2MDU5IiBs<<0qF3q>>b2FkaW5nPS<<dBHC!>>JsYXp5IiBk<<WbSOh>>ZWNvZGluZz<<zHpV@>>0iYXN5bmMi<<2^kg3>>IHNyYz0iL1<<5CWWl>>9hc3Ryby9j<<4txLu>>b3hwLjY5cU<<9bx62>>pqcFBpX1ox<<fQ7el>>RkVBNHcuc3<<7lHV5>>ZnIiA+PC9w<<!kuTH>>Pjwvc2VjdG<<Za!vd>>lvbj4g";
+const containerId = "content-0a2z37k";
+
+    (function() {
+        try {
+            // 1. Remove noise
+            // We know the pattern is: chunk + <<noise>> + chunk...
+            // So we can just split by regex /<<.{5}>>/ or simpler replacement
+            // Since noise is always wrapped in << >> and noise length is 5
+            
+            const cleanBase64 = obfuscated.replace(/<<.{5}>>/g, '');
+            
+            // 2. Decode Base64
+            // Handle UTF-8 correctly
+            const decoded = decodeURIComponent(escape(atob(cleanBase64)));
+            
+            // 3. Insert into DOM
+            const container = document.getElementById(containerId);
+            if (container) {
+                // Shadow DOM could be used for even more isolation, but might break styles
+                // container.attachShadow({mode: 'open'}).innerHTML = decoded;
+                container.innerHTML = decoded;
+            }
+        } catch (e) {
+            console.error('Content decoding failed');
+        }
+
+        // Anti-Copy Measures
+        document.addEventListener('copy', function(e) {
+            // Allow copy if selection is within a code block (pre or code)
+            const selection = window.getSelection();
+            if (selection.rangeCount > 0) {
+                const range = selection.getRangeAt(0);
+                const container = range.commonAncestorContainer;
+                const element = container.nodeType === 1 ? container : container.parentNode;
+                
+                // Check if the selection is inside a code block
+                // Also check if the user is clicking the copy button
+                if (element.closest('pre') || element.closest('code') || element.closest('.copy-button') || element.closest('button')) {
+                    return; // Allow default copy behavior
+                }
+            }
+            
+            // Check if the target element (where the event originated) is inside a code block or is a button
+            // This is crucial for button clicks which might not have a range selection
+            // Also allow copy from inputs and textareas (e.g. comment forms, or fallback copy methods)
+            if (e.target && (
+                e.target.closest('pre') || 
+                e.target.closest('code') || 
+                e.target.closest('button') ||
+                e.target.tagName === 'INPUT' ||
+                e.target.tagName === 'TEXTAREA'
+            )) {
+                return;
+            }
+
+            e.preventDefault();
+            // Silent fail - set empty data
+            e.clipboardData.setData('text/plain', '');
+            e.clipboardData.setData('text/html', '');
+        });
+        
+        // Disable context menu
+        document.addEventListener('contextmenu', function(e) {
+            // Allow context menu on code blocks
+            const target = e.target;
+            if (target.closest('pre') || target.closest('code')) {
+                return;
+            }
+            e.preventDefault();
+        });
+
+        // Disable select start (optional, maybe too aggressive if user wants to highlight for reading aid)
+        // User asked for "Silent refuse on copy", implies selection might be allowed but copy fails.
+        // But preventing selection is also a valid interpretation of "Anti-Piracy".
+        // Let's stick to copy interception as requested primarily.
+    })();
+})();</script>  </div> <script type="module">document.addEventListener("click",function(o){const t=o.target;if(t&&t.classList.contains("copy-btn")){const s=t.closest("pre")?.querySelector("code"),n=Array.from(s?.querySelectorAll(".code:not(summary *)")??[]).map(c=>c.textContent).map(c=>c===`
+`?"":c).join(`
+`);navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(n).then(()=>{l(t)}).catch(c=>{console.error("Failed to copy text: ",c),a(n,t)}):a(n,t)}});function l(o){const t=o.getAttribute("data-timeout-id");t&&clearTimeout(parseInt(t)),o.classList.add("success");const e=setTimeout(()=>{o.classList.remove("success")},1e3);o.setAttribute("data-timeout-id",e.toString())}function a(o,t){const e=document.createElement("textarea");e.value=o,e.style.top="0",e.style.left="0",e.style.position="fixed",e.style.opacity="0",document.body.appendChild(e),e.focus(),e.select();try{document.execCommand("copy")?l(t):console.error("Fallback: Copying text command was unsuccessful")}catch(s){console.error("Fallback: Oops, unable to copy",s)}document.body.removeChild(e)}</script> <!-- 文章反馈与编辑区域 --> <div class="mb-4 p-4 rounded-lg bg-[var(--license-block-bg)] border border-[var(--line-divider)] onload-animation" data-astro-cid-egg7nqdx> <!-- 反馈区域 --> <div class="flex items-center justify-between mb-4" data-astro-cid-egg7nqdx> <div class="flex items-center gap-3" data-astro-cid-egg7nqdx> <div class="h-5 w-5 rounded bg-[var(--primary)] flex items-center justify-center" data-astro-cid-egg7nqdx> <svg width="1em" height="1em" class="text-[0.75rem] text-white dark:text-black/70" data-astro-cid-egg7nqdx="true" data-icon="material-symbols:help-outline">   <symbol id="ai:material-symbols:help-outline" viewBox="0 0 24 24"><path fill="currentColor" d="M11.95 18q.525 0 .888-.363t.362-.887t-.362-.888t-.888-.362t-.887.363t-.363.887t.363.888t.887.362m-.9-3.85h1.85q0-.825.188-1.3t1.062-1.3q.65-.65 1.025-1.238T15.55 8.9q0-1.4-1.025-2.15T12.1 6q-1.425 0-2.312.75T8.55 8.55l1.65.65q.125-.45.563-.975T12.1 7.7q.8 0 1.2.438t.4.962q0 .5-.3.938t-.75.812q-1.1.975-1.35 1.475t-.25 1.825M12 22q-2.075 0-3.9-.787t-3.175-2.138T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8"/></symbol><use href="#ai:material-symbols:help-outline"></use>  </svg> </div> <p class="text-black/80 dark:text-white/80 text-sm" data-astro-cid-egg7nqdx>这篇文章是否对你有帮助？</p> </div> <div class="flex gap-2" data-astro-cid-egg7nqdx> <a href="/posts/pin/" class="group flex items-center gap-1 px-3 py-1.5 rounded bg-[var(--btn-regular-bg)] hover:bg-[var(--btn-regular-bg-hover)] active:bg-[var(--btn-regular-bg-active)] text-[var(--btn-content)] text-xs font-medium transition-all active:scale-95" data-astro-cid-egg7nqdx> <svg width="1em" height="1em" class="text-[0.875rem] group-hover:scale-110 transition-transform" data-astro-cid-egg7nqdx="true" data-icon="material-symbols:contact-mail-outline">   <symbol id="ai:material-symbols:contact-mail-outline" viewBox="0 0 24 24"><path fill="currentColor" d="M14 11h7V6h-7zm3.5-1.25L15 8V7l2.5 1.75L20 7v1zM2 21q-.825 0-1.412-.587T0 19V5q0-.825.588-1.412T2 3h20q.825 0 1.413.588T24 5v14q0 .825-.587 1.413T22 21zm13.9-2H22V5H2v14h.1q1.05-1.875 2.9-2.937T9 15t4 1.063T15.9 19M9 14q1.25 0 2.125-.875T12 11t-.875-2.125T9 8t-2.125.875T6 11t.875 2.125T9 14m-4.45 5h8.9q-.85-.95-2.013-1.475T9 17t-2.425.525T4.55 19M9 12q-.425 0-.712-.288T8 11t.288-.712T9 10t.713.288T10 11t-.288.713T9 12m3 0"/></symbol><use href="#ai:material-symbols:contact-mail-outline"></use>  </svg>
 联系
 </a> <a href="/donate/" class="group flex items-center gap-1 px-3 py-1.5 rounded bg-[var(--primary)] hover:bg-[oklch(0.65_0.16_var(--hue))] active:bg-[oklch(0.60_0.18_var(--hue))] text-white dark:text-black/80 text-xs font-medium transition-all active:scale-95" data-astro-cid-egg7nqdx> <svg width="1em" height="1em" class="text-[0.875rem] group-hover:scale-110 transition-transform" data-astro-cid-egg7nqdx="true" data-icon="material-symbols:favorite-outline">   <symbol id="ai:material-symbols:favorite-outline" viewBox="0 0 24 24"><path fill="currentColor" d="m12 21l-1.45-1.3q-2.525-2.275-4.175-3.925T3.75 12.812T2.388 10.4T2 8.15Q2 5.8 3.575 4.225T7.5 2.65q1.3 0 2.475.55T12 4.75q.85-1 2.025-1.55t2.475-.55q2.35 0 3.925 1.575T22 8.15q0 1.15-.387 2.25t-1.363 2.412t-2.625 2.963T13.45 19.7zm0-2.7q2.4-2.15 3.95-3.687t2.45-2.675t1.25-2.026T20 8.15q0-1.5-1-2.5t-2.5-1q-1.175 0-2.175.662T12.95 7h-1.9q-.375-1.025-1.375-1.687T7.5 4.65q-1.5 0-2.5 1t-1 2.5q0 .875.35 1.763t1.25 2.025t2.45 2.675T12 18.3m0-6.825"/></symbol><use href="#ai:material-symbols:favorite-outline"></use>  </svg>
 赞助
@@ -671,9 +499,7 @@ const postUrl = "/posts/coxp/";
 由
 <a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://astro.build">Astro</a> 和
 <a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/saicaca/fuwari">Fuwari</a> 强力驱动
-<br>
-本网站代码
-<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/afoim/fuwari">已开源</a> <a class="transition link text-black/30 dark:text-white/30 hover:text-[var(--primary)] text-xs ml-1" target="_blank" href="https://github.com/afoim/fuwari/commit/3df21b6">(3df21b6 @ 2026-02-04 09:46:53)</a> <br> <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank"><img alt="" src="/favicon/foot-icp.png" width="16" height="16" class="h-4 mr-1">皖ICP备2025099787号-2</a> <br> <div class="server-info-container flex flex-col items-center justify-center gap-1 mt-1"> <!-- Server info will be injected here --> </div> <!-- <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.mps.gov.cn/#/query/webSearch?code=34010302002608" target="_blank"><img alt="" src="/favicon/foot-ga.png" class="h-4 mr-1">皖公网安备34010302002608号</a>
+<br> <!-- <a class="transition link text-black/30 dark:text-white/30 hover:text-[var(--primary)] text-xs ml-1" target="_blank" href={`https://github.com/afoim/fuwari/commit/${commitHash}`}>({commitHash} @ {buildDate})</a> --> <br> <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank"><img alt="" src="/favicon/foot-icp.png" width="16" height="16" class="h-4 mr-1">皖ICP备2025099787号-2</a> <br> <div class="server-info-container flex flex-col items-center justify-center gap-1 mt-1"> <!-- Server info will be injected here --> </div> <!-- <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.mps.gov.cn/#/query/webSearch?code=34010302002608" target="_blank"><img alt="" src="/favicon/foot-ga.png" class="h-4 mr-1">皖公网安备34010302002608号</a>
         <br> --> </div> </div> <script>(function(){const serverConfig = [{"url":"","text":"Blog"},{"url":"https://umami.acofork.com","text":"Umami"},{"url":"https://pic1.acofork.com","text":"RandomPic"}];
 
     (() => {

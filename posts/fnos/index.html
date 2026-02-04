@@ -340,123 +340,86 @@ const umamiConfig = {"enable":true,"baseUrl":"https://umami.acofork.com","shareI
     } else {
         fetchPageViews();
     }
-})();</script>  </div> <!-- always show cover as long as it has one --> <div id="post-cover" class="mb-8 rounded-xl banner-container onload-animation overflow-hidden relative image-wrapper" style="--theme-hue: 361" data-astro-cid-i2xmscho> <img src="/_astro/QmUBuX9qmsNP1NHeEeUmuPNdS5ctvk4LchcSsFARDC4vZJ.BrNISSlK_1WtfBF.webp" alt style="object-position: center" loading="lazy" fetchpriority="auto" data-astro-cid-i2xmscho="true" width="1920" height="864" decoding="async" class="w-full h-full object-cover image-content">  </div>  <div data-pagefind-body class="prose dark:prose-invert prose-base !max-w-none custom-md break-words mb-6 markdown-content onload-animation"> <!--<div class="prose dark:prose-invert max-w-none custom-md">--> <!--<div class="max-w-none custom-md">-->  <section><h3 id="吸引我的东西">吸引我的东西<a class="anchor" href="#吸引我的东西"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><ol>
-<li>
-<p>影视刮削：飞快，薄纱Plex几条街。通过<a href="/autobangumi">AutoBangumi</a>可以完美自动追番+刮削一条龙服务。偶尔会有不准，但可以手动匹配，数据源来自<a href="https://www.themoviedb.org/" rel="nofollow" target="_blank">TMDB</a>和<a href="https://www.imdb.com/" rel="nofollow" target="_blank">IMDB</a>
-<img alt="QmbNXd4FJ8FM8mwkKxJNdBoNbvhawJ2HdSvW5tFUt3o4ub.webp" width="3840" height="2066" loading="lazy" decoding="async" src="/_astro/f1bd7089efdf00097d5474ef967a62dcfca42e98.wr42EvB0_Fj83o.webp" ></p>
-</li>
-<li>
-<p>相册：可以通过手机APP自动备份，支持仅备份图片，可以多用户使用，存储互不干扰，也可以设置要共享的图片
-<img alt="QmeLJ7in4xcokPWUgkkSobDLUTrFrXep2o38qUXQ1njQR9.webp" width="3840" height="2050" loading="lazy" decoding="async" src="/_astro/2f9981f8397cc1278807ed28f8a2e15954868fec.Dl33UJ4w_M50D2.webp" ></p>
-</li>
-</ol></section>
-<section><h3 id="注意事项">注意事项<a class="anchor" href="#注意事项"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><ol>
-<li>
-<p>飞牛NAS在安装的时候会叫你选择安装盘，然后会将安装盘的一部分空间（默认为64GB）作为系统分区，其余空间可用于创建存储空间（但是系统盘不能和别的盘组存储池，只能单独建存储池）
-<img alt="QmNfRbvHu1fuYoincACcP2MG4yV4pgRni3rb4Y9J7uw4FW.webp" width="3840" height="2234" loading="lazy" decoding="async" src="/_astro/6403ef19d941abdc93d8c7da01364a8983c98109.BKc_B1t-_ZXUcIS.webp" ></p>
-</li>
-<li>
-<p>应用商店安装的软件需要先授予目录访问权限应用才能读取目录（无论是原生还是Docker应用）
-<img alt="QmP4unAVra1zy7gkjEzSCYEDAJMMe1BVWPKoVyjYv8b9Ho.webp" width="3840" height="2232" loading="lazy" decoding="async" src="/_astro/79af3b25d8b677b2718c953c0d431ead2f137e1d.DYY8l10q_Z2iDIf5.webp" ></p>
-</li>
-<li>
-<p>发行版为Debian 12。根目录为系统分区的空间，/vol1 为存储空间1的空间 /vol2 为存储空间2的空间。推荐使用<a href="https://onani.cn/RaiDrive" rel="nofollow" target="_blank">RaiDrive</a>或<a href="/SSHFS">SSHFS</a>挂载Linux目录到Windows
-<img alt="QmWMQHNpJUUPg9B1Hdw2zmwLx9q6bcS52nUFiB3P9iYvU9.webp" width="3840" height="3022" loading="lazy" decoding="async" src="/_astro/d4ec6f87893f4af5d7eedb2e2a19a784fd6c6f92.CsTJ06QA_5Ha6Q.webp" ></p>
-</li>
-<li>
-<p>SSH需要自己开，账密为NAS管理员账密，建议登上之后改为仅密钥登录，参见：<a href="https://www.runoob.com/w3cnote/set-ssh-login-key.html" rel="nofollow" target="_blank">设置 SSH 通过密钥登录</a>
-<img alt="QmTk3va2NCbYTcVewVjuqjGx6MwMwiUnManrNwxvEq4SBR.webp" width="3840" height="2234" loading="lazy" decoding="async" src="/_astro/9f92130465ab62e912b7404266febc7212e2125b.CrdE62Wk_ZhjFHx.webp" ></p>
-</li>
-<li>
-<p>各网卡测试</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th align="center">名称</th><th align="center">类型</th><th align="center">品牌</th><th align="center">是否免驱</th></tr></thead><tbody><tr><td align="center">Realtek GBE Family （r8168）</td><td align="center">有线</td><td align="center">Realtek（瑞昱）</td><td align="center">否，需要自行安装驱动</td></tr><tr><td align="center">Realtek 8852BE</td><td align="center">无线</td><td align="center">Realtek（瑞昱）</td><td align="center">否，需要自行安装驱动</td></tr><tr><td align="center">Intel AC3160</td><td align="center">无线</td><td align="center">Intel（英特尔）</td><td align="center">是</td></tr><tr><td align="center">USB有线网卡</td><td align="center">有线</td><td align="center">Realtek（瑞昱）</td><td align="center">是</td></tr></tbody></table>
-</li>
-<li>
-<p>各存储模式区别</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th align="center">模式</th><th align="center">作用</th><th align="center">是否能扩容</th><th align="center">是否能换盘</th><th align="center">容灾</th><th align="center">是否能热备</th><th align="center">是否能修改存储模式</th></tr></thead><tbody><tr><td align="center">Basic</td><td align="center">将物理硬盘的一部分或者全部作为一个存储池，不可扩容，仅能单盘创建这个模式</td><td align="center">否</td><td align="center">否</td><td align="center">无</td><td align="center">否</td><td align="center">是，可转为RAID</td></tr><tr><td align="center">Linear</td><td align="center">将一个或多个物理硬盘的一部分或者全部作为一个存储池，可扩容</td><td align="center">是</td><td align="center">否</td><td align="center">无</td><td align="center">否</td><td align="center">否</td></tr><tr><td align="center">RAID类</td><td align="center">自行使用搜索引擎搜索，更详细</td><td align="center">未测试</td><td align="center">未测试</td><td align="center">未测试</td><td align="center">未测试</td><td align="center">未测试</td></tr></tbody></table>
-<ol start="7">
-<li>NAS迅雷内测码：迅雷牛通</li>
-</ol>
-</li>
-</ol></section>  </div> <script type="module">document.addEventListener("click",function(s){const t=s.target;if(t&&t.classList.contains("copy-btn")){const c=t.closest("pre")?.querySelector("code"),i=Array.from(c?.querySelectorAll(".code:not(summary *)")??[]).map(e=>e.textContent).map(e=>e===`
-`?"":e).join(`
-`);navigator.clipboard.writeText(i);const o=t.getAttribute("data-timeout-id");o&&clearTimeout(parseInt(o)),t.classList.add("success");const n=setTimeout(()=>{t.classList.remove("success")},1e3);t.setAttribute("data-timeout-id",n.toString())}});</script> <!-- 文章反馈与编辑区域 --> <div class="mb-4 p-4 rounded-lg bg-[var(--license-block-bg)] border border-[var(--line-divider)] onload-animation" data-astro-cid-egg7nqdx> <!-- 反馈区域 --> <div class="flex items-center justify-between mb-4" data-astro-cid-egg7nqdx> <div class="flex items-center gap-3" data-astro-cid-egg7nqdx> <div class="h-5 w-5 rounded bg-[var(--primary)] flex items-center justify-center" data-astro-cid-egg7nqdx> <svg width="1em" height="1em" class="text-[0.75rem] text-white dark:text-black/70" data-astro-cid-egg7nqdx="true" data-icon="material-symbols:help-outline">   <symbol id="ai:material-symbols:help-outline" viewBox="0 0 24 24"><path fill="currentColor" d="M11.95 18q.525 0 .888-.363t.362-.887t-.362-.888t-.888-.362t-.887.363t-.363.887t.363.888t.887.362m-.9-3.85h1.85q0-.825.188-1.3t1.062-1.3q.65-.65 1.025-1.238T15.55 8.9q0-1.4-1.025-2.15T12.1 6q-1.425 0-2.312.75T8.55 8.55l1.65.65q.125-.45.563-.975T12.1 7.7q.8 0 1.2.438t.4.962q0 .5-.3.938t-.75.812q-1.1.975-1.35 1.475t-.25 1.825M12 22q-2.075 0-3.9-.787t-3.175-2.138T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8"/></symbol><use href="#ai:material-symbols:help-outline"></use>  </svg> </div> <p class="text-black/80 dark:text-white/80 text-sm" data-astro-cid-egg7nqdx>这篇文章是否对你有帮助？</p> </div> <div class="flex gap-2" data-astro-cid-egg7nqdx> <a href="/posts/pin/" class="group flex items-center gap-1 px-3 py-1.5 rounded bg-[var(--btn-regular-bg)] hover:bg-[var(--btn-regular-bg-hover)] active:bg-[var(--btn-regular-bg-active)] text-[var(--btn-content)] text-xs font-medium transition-all active:scale-95" data-astro-cid-egg7nqdx> <svg width="1em" height="1em" class="text-[0.875rem] group-hover:scale-110 transition-transform" data-astro-cid-egg7nqdx="true" data-icon="material-symbols:contact-mail-outline">   <symbol id="ai:material-symbols:contact-mail-outline" viewBox="0 0 24 24"><path fill="currentColor" d="M14 11h7V6h-7zm3.5-1.25L15 8V7l2.5 1.75L20 7v1zM2 21q-.825 0-1.412-.587T0 19V5q0-.825.588-1.412T2 3h20q.825 0 1.413.588T24 5v14q0 .825-.587 1.413T22 21zm13.9-2H22V5H2v14h.1q1.05-1.875 2.9-2.937T9 15t4 1.063T15.9 19M9 14q1.25 0 2.125-.875T12 11t-.875-2.125T9 8t-2.125.875T6 11t.875 2.125T9 14m-4.45 5h8.9q-.85-.95-2.013-1.475T9 17t-2.425.525T4.55 19M9 12q-.425 0-.712-.288T8 11t.288-.712T9 10t.713.288T10 11t-.288.713T9 12m3 0"/></symbol><use href="#ai:material-symbols:contact-mail-outline"></use>  </svg>
+})();</script>  </div> <!-- always show cover as long as it has one --> <div id="post-cover" class="mb-8 rounded-xl banner-container onload-animation overflow-hidden relative image-wrapper" style="--theme-hue: 361" data-astro-cid-i2xmscho> <img src="/_astro/QmUBuX9qmsNP1NHeEeUmuPNdS5ctvk4LchcSsFARDC4vZJ.BrNISSlK_1WtfBF.webp" alt style="object-position: center" loading="lazy" fetchpriority="auto" data-astro-cid-i2xmscho="true" width="1920" height="864" decoding="async" class="w-full h-full object-cover image-content">  </div>  <div data-pagefind-body class="prose dark:prose-invert prose-base !max-w-none custom-md break-words mb-6 markdown-content onload-animation"> <!--<div class="prose dark:prose-invert max-w-none custom-md">--> <!--<div class="max-w-none custom-md">-->  <div id="content-2r7my1v"></div> <script>(function(){const obfuscated = "IDxzZWN0aW<<AttbS>>9uPjxoMyBp<<17I3P>>ZD0i5ZC45b<<frd(q>>yV5oiR55qE<<#nCFr>>5Lic6KW/Ij<<k1CR5>>7lkLjlvJXm<<SKBeK>>iJHnmoTkuJ<<J%)#X>>zopb88YSBj<<6ZEH)>>bGFzcz0iYW<<(NEzS>>5jaG9yIiBo<<xVytV>>cmVmPSIj5Z<<Boqqg>>C45byV5oiR<<%HIrf>>55qE5Lic6K<<WF%CY>>W/Ij48c3Bh<<Uqoc6>>biBjbGFzcz<<y*IfG>>0iYW5jaG9y<<IY6SF>>LWljb24iIG<<U^55r>>RhdGEtcGFn<<zP%Lp>>ZWZpbmQtaW<<#S7o3>>dub3JlPSIi<<%w#0Z>>PiM8L3NwYW<<Pa%aV>>4+PC9hPjwv<<$(y#!>>aDM+PG9sPg<<8OjmC>>o8bGk+Cjxw<<b5ItO>>PuW9seinhu<<$ip&L>>WIruWJiu+8<<fG)f8>>mumjnuW/q+<<F6)(w>>+8jOiWhOe6<<fKos9>>sVBsZXjlh6<<H(30$>>DmnaHooZfj<<4#d4N>>gILpgJrov4<<MUCE(>>c8YSBocmVm<<FPtfh>>PSIvYXV0b2<<%q3Ek>>Jhbmd1bWki<<&Lu*w>>PkF1dG9CYW<<J9TAN>>5ndW1pPC9h<<GJd5z>>PuWPr+S7pe<<I!)fG>>WujOe+juiH<<R@m@m>>quWKqOi/ve<<&O3lA>>eVqivliK7l<<SXWzD>>iYrkuIDmna<<(Y%Go>>HpvpnmnI3l<<c#ZJ3>>iqHjgILlgb<<zwf(D>>blsJTkvJrm<<XXolV>>nInkuI3lh4<<S%Z%W>>bvvIzkvYbl<<6Ge08>>j6/ku6XmiY<<DO30z>>vliqjljLnp<<IieBj>>hY3vvIzmlb<<#(ztO>>Dmja7mupDm<<N5iac>>naXoh6o8YS<<dTtwk>>BocmVmPSJo<<TGs8V>>dHRwczovL3<<OCKv4>>d3dy50aGVt<<51GFZ>>b3ZpZWRiLm<<P1R*f>>9yZy8iIHJl<<%1c@5>>bD0ibm9mb2<<#QWgs>>xsb3ciIHRh<<tLa1a>>cmdldD0iX2<<OxySC>>JsYW5rIj5U<<Zoon&>>TURCPC9hPu<<kVTu2>>WSjDxhIGhy<<Lt6RX>>ZWY9Imh0dH<<LbhnW>>BzOi8vd3d3<<l2ANJ>>LmltZGIuY2<<Xl8J3>>9tLyIgcmVs<<r#Qi2>>PSJub2ZvbG<<gwc1x>>xvdyIgdGFy<<UwBSq>>Z2V0PSJfYm<<3OJHD>>xhbmsiPklN<<3jB!R>>REI8L2E+Cj<<Xa9hh>>xpbWcgYWx0<<^)by^>>PSJRbWJOWG<<UQa%V>>Q0Rko4Rk04<<3TNZ)>>bXdrS3hKTm<<JdT5L>>RCb05idmhh<<N*gxT>>d0oySGRTdl<<7bD#t>>c1dEZVdDNv<<W^gDW>>NHViLndlYn<<wanwX>>AiIHdpZHRo<<GeBk@>>PSIzODQwIi<<Rf!lD>>BoZWlnaHQ9<<xK6e#>>IjIwNjYiIG<<*rEu&>>xvYWRpbmc9<<EDr$K>>ImxhenkiIG<<wcN50>>RlY29kaW5n<<7nBD^>>PSJhc3luYy<<dGDeE>>Igc3JjPSIv<<y@OJO>>X2FzdHJvL2<<G8hwi>>YxYmQ3MDg5<<v%#*t>>ZWZkZjAwMD<<8v*8W>>k3ZDU0NzRl<<qv402>>Zjk2N2E2Mm<<W6RNN>>RjZmNhNDJl<<*PWsL>>OTgud3I0Mk<<%qMWD>>V2QjBfRmo4<<kCSPP>>M28ud2VicC<<ogAHz>>IgPjwvcD4K<<kaEGU>>PC9saT4KPG<<$0XPD>>xpPgo8cD7n<<rmyCV>>m7jlhozvvJ<<4y@5P>>rlj6/ku6Xp<<KO6Ih>>gJrov4fmiY<<ZsR!a>>vmnLpBUFDo<<ty9U9>>h6rliqjlpI<<sHQM@>>fku73vvIzm<<26B3!>>lK/mjIHku4<<!y1Yh>>XlpIfku73l<<O#iqx>>m77niYfvvI<<xZXXQ>>zlj6/ku6Xl<<jEzUp>>pJrnlKjmiL<<0EXhH>>fkvb/nlKjv<<@j(ZW>>vIzlrZjlgq<<RkkP%>>jkupLkuI3l<<veetn>>ubLmibDvvI<<92ulM>>zkuZ/lj6/k<<b&973>>u6Xorr7nva<<vshG3>>7opoHlhbHk<<1T6U1>>uqvnmoTlm7<<8sf*J>>7niYcKPGlt<<!I31v>>ZyBhbHQ9Il<<zKMY$>>FtZUxKN2lu<<a20lW>>NHhjb2tQV1<<5WdFG>>Vna2tTb2JE<<$)$Cj>>TFVUckZyWG<<q&UyZ>>VwMm8zOHFV<<M%H8b>>WFExbmpRUj<<T0Ivc>>kud2VicCIg<<DxogH>>d2lkdGg9Ij<<#kkW%>>M4NDAiIGhl<<aR6GH>>aWdodD0iMj<<CHf6!>>A1MCIgbG9h<<1WSpA>>ZGluZz0ibG<<M4IZ8>>F6eSIgZGVj<<HyZ61>>b2Rpbmc9Im<<dUr#f>>FzeW5jIiBz<<5LCS6>>cmM9Ii9fYX<<v@cRT>>N0cm8vMmY5<<7O@1W>>OTgxZjgzOT<<KIX#n>>djYzEyNzg4<<*%9E0>>MDdlZDI4Zj<<l(*0r>>hhMmUxNTk1<<tlC0N>>NDg2OGZlYy<<RnVap>>5EbDMzVUo0<<J)ZpP>>d19NNTBEMi<<EJ6Q!>>53ZWJwIiA+<<aA9vg>>PC9wPgo8L2<<rl3tG>>xpPgo8L29s<<0lKvC>>Pjwvc2VjdG<<0$%bG>>lvbj4KPHNl<<x4ZV)>>Y3Rpb24+PG<<KmK7Z>>gzIGlkPSLm<<(nX)@>>s6jmhI/kuo<<@FIm8>>vpobkiPuaz<<wTT(w>>qOaEj+S6i+<<OP$76>>mhuTxhIGNs<<cLzv$>>YXNzPSJhbm<<EiTyk>>Nob3IiIGhy<<6DxK8>>ZWY9IiPms6<<(q4nH>>jmhI/kuovp<<l%dXj>>obkiPjxzcG<<Ev4ux>>FuIGNsYXNz<<he^2!>>PSJhbmNob3<<6zOVa>>ItaWNvbiIg<<Npio@>>ZGF0YS1wYW<<jyH2r>>dlZmluZC1p<<93EJX>>Z25vcmU9Ii<<Syv(@>>I+Izwvc3Bh<<mRJrC>>bj48L2E+PC<<1M&f(>>9oMz48b2w+<<8)kOK>>CjxsaT4KPH<<dKefN>>A+6aOe54mb<<m91ds>>TkFT5Zyo5a<<xM&pL>>6J6KOF55qE<<jwN8X>>5pe25YCZ5L<<hEKyw>>ya5Y+r5L2g<<mWibO>>6YCJ5oup5a<<6HAh@>>6J6KOF55uY<<TmIMW>>77yM54S25Z<<(ZhKf>>CO5Lya5bCG<<(V)UJ>>5a6J6KOF55<<BphO2>>uY55qE5LiA<<fYj7J>>6YOo5YiG56<<fQG7!>>m66Ze077yI<<Gqv3f>>6buY6K6k5L<<NvcE)>>i6NjRHQu+8<<gmMFp>>ieS9nOS4uu<<Ndq^9>>ezu+e7n+WI<<m83&@>>huWMuu+8jO<<RYUBT>>WFtuS9meep<<HmXpG>>uumXtOWPr+<<I#foG>>eUqOS6juWI<<@gEap>>m+W7uuWtmO<<4ihhV>>WCqOepuumX<<#Qd^f>>tO+8iOS9hu<<pWu3w>>aYr+ezu+e7<<Z3PK^>>n+ebmOS4je<<(w#ob>>iDveWSjOWI<<5gSmg>>q+eahOebmO<<b#nD3>>e7hOWtmOWC<<P7ClI>>qOaxoO+8jO<<qnw2J>>WPquiDveWN<<RUYma>>leeLrOW7uu<<dlT7k>>WtmOWCqOax<<cR4j9>>oO+8iQo8aW<<0e$#)>>1nIGFsdD0i<<kKFm0>>UW1OZlJidk<<c#tOR>>h1MWZ1WW9p<<X*AiS>>bmNBQ2NQMk<<jv*Rg>>1HNHlWNHBn<<Drw5x>>Um5pM3JiNF<<p2wUO>>k5Sjd1dzRG<<fbLRJ>>Vy53ZWJwIi<<r!6HJ>>B3aWR0aD0i<<JsS3m>>Mzg0MCIgaG<<5^nJK>>VpZ2h0PSIy<<8O6Ze>>MjM0IiBsb2<<PeW)T>>FkaW5nPSJs<<NoXKq>>YXp5IiBkZW<<2I68R>>NvZGluZz0i<<*^@DH>>YXN5bmMiIH<<GgvFr>>NyYz0iL19h<<TmB^w>>c3Ryby82ND<<iB4OV>>AzZWYxOWQ5<<SK8cB>>NDFhYmRjOT<<mW(9s>>NkOGM3ZGEw<<AiQLP>>MTM2NGE4OT<<z(fzR>>gzYzk4MTA5<<8TpM3>>LkJLY19CMX<<oKTrT>>QtX1pYVWNJ<<*%4GS>>Uy53ZWJwIi<<fQKiY>>A+PC9wPgo8<<*uk&6>>L2xpPgo8bG<<pE5k4>>k+CjxwPuW6<<U)QsN>>lOeUqOWVhu<<TSVBp>>W6l+Wuieij<<oSt*%>>heeahOi9r+<<dE!Kb>>S7tumcgOim<<a6YzV>>geWFiOaOiO<<TAUkm>>S6iOebruW9<<IVXbu>>leiuv+mXru<<$jwOf>>adg+mZkOW6<<DXE4L>>lOeUqOaJje<<Hh^SQ>>iDveivu+WP<<5v!)H>>luebruW9le<<ChXZ^>>+8iOaXoOiu<<C5v0i>>uuaYr+WOn+<<&uzH5>>eUn+i/mOaY<<NJK$j>>r0RvY2tlcu<<P^)#c>>W6lOeUqO+8<<&yjvS>>iQo8aW1nIG<<wR828>>FsdD0iUW1Q<<#NE0p>>NHVuQVZyYT<<2gA2)>>F6eTdna2pF<<5pvcu>>elNDWUVEQU<<0)#^0>>pNTWUxQlZX<<ONniK>>UEtvVnlqWX<<i8$oI>>Y4YjlIby53<<kKU$K>>ZWJwIiB3aW<<%Faaw>>R0aD0iMzg0<<GaTw)>>MCIgaGVpZ2<<bzbK7>>h0PSIyMjMy<<nj(7V>>IiBsb2FkaW<<pJte5>>5nPSJsYXp5<<vlBSt>>IiBkZWNvZG<<p2C#W>>luZz0iYXN5<<Oq%9p>>bmMiIHNyYz<<*swZ8>>0iL19hc3Ry<<(!m%d>>by83OWFmM2<<z5*jg>>IyNWQ4YjY3<<NPKg!>>N2IyNzE4Yz<<OmsP!>>k1M2MwZDQz<<ZLkDS>>MWVhZDJmMT<<abBbj>>M3ZTFkLkRZ<<Jn9u%>>WThsMTBxX1<<I!SeD>>oyaURJZjUu<<iUz*i>>d2VicCIgPj<<eGW@d>>wvcD4KPC9s<<tWJSO>>aT4KPGxpPg<<r4aTr>>o8cD7lj5Ho<<W*F3T>>oYzniYjkuL<<UVUgH>>pEZWJpYW4g<<7X#qQ>>MTLjgILmoL<<qhfnZ>>nnm67lvZXk<<6DDd!>>uLrns7vnu5<<QSSb*>>/liIbljLrn<<lPd2v>>moTnqbrpl7<<)#5kv>>TvvIwvdm9s<<MUhyE>>MSDkuLrlrZ<<mB^TZ>>jlgqjnqbrp<<ml3Oe>>l7Qx55qE56<<$9%p2>>m66Ze0IC92<<AR^AQ>>b2wyIOS4uu<<5iOeW>>WtmOWCqOep<<%3H4F>>uumXtDLnmo<<JOJMM>>Tnqbrpl7Tj<<aBuJr>>gILmjqjojZ<<54Dci>>Dkvb/nlKg8<<%DF$)>>YSBocmVmPS<<Ph!id>>JodHRwczov<<$Tev7>>L29uYW5pLm<<gzfCF>>NuL1JhaURy<<Llgei>>aXZlIiByZW<<hOX7V>>w9Im5vZm9s<<r1nc^>>bG93IiB0YX<<Wx%Dn>>JnZXQ9Il9i<<2kXBQ>>bGFuayI+Um<<t1nZ#>>FpRHJpdmU8<<1bAq^>>L2E+5oiWPG<<SlBys>>EgaHJlZj0i<<$Z$kx>>L1NTSEZTIj<<)iLF7>>5TU0hGUzwv<<)953I>>YT7mjILovb<<EGv6Y>>1MaW51eOeb<<J#ZEy>>ruW9leWIsF<<BxMV^>>dpbmRvd3MK<<tT6dw>>PGltZyBhbH<<H4A*!>>Q9IlFtV01R<<SnZKd>>SE5wSlVVUG<<rvMsw>>c5QjFIZHcy<<(qDu@>>em13THg5cT<<cE7Ri>>ZiY1M1Mm5V<<tqAaE>>RmlCM1A5aV<<u0o5V>>l2VTkud2Vi<<*S2)H>>cCIgd2lkdG<<C4JrH>>g9IjM4NDAi<<*KIhG>>IGhlaWdodD<<x4f(O>>0iMzAyMiIg<<&^EU9>>bG9hZGluZz<<ln#zd>>0ibGF6eSIg<<7W!!W>>ZGVjb2Rpbm<<M6%u5>>c9ImFzeW5j<<RJ9pO>>IiBzcmM9Ii<<FOgML>>9fYXN0cm8v<<!l@Sd>>ZDRlYzZmOD<<UTk!W>>c4OTNmNGFm<<OtPhd>>NWQ3ZWVkYj<<G9mmZ>>JlMmExOWE3<<rCb9w>>ODRmZDZjNm<<CWfbF>>Y5Mi5Dc1RK<<ZclZM>>MDZRQV81SG<<vRhP7>>E2US53ZWJw<<hVh8&>>IiA+PC9wPg<<MM^Ix>>o8L2xpPgo8<<9vFIZ>>bGk+CjxwPl<<o2Ec1>>NTSOmcgOim<<yArvi>>geiHquW3se<<9y*xO>>W8gO+8jOi0<<!sGvd>>puWvhuS4uk<<oO3s9>>5BU+euoeeQ<<$UGMS>>huWRmOi0pu<<6786i>>Wvhu+8jOW7<<S7giX>>uuiurueZu+<<QOnk7>>S4iuS5i+WQ<<6hIiG>>juaUueS4uu<<D^j9*>>S7heWvhumS<<Yr!xX>>peeZu+W9le<<Bwwg4>>+8jOWPguin<<$B^^&>>ge+8mjxhIG<<0N548>>hyZWY9Imh0<<A1lmn>>dHBzOi8vd3<<U$%z@>>d3LnJ1bm9v<<Ff*OI>>Yi5jb20vdz<<XjXxs>>Njbm90ZS9z<<6D#(A>>ZXQtc3NoLW<<7*xlQ>>xvZ2luLWtl<<gDw8H>>eS5odG1sIi<<U03lL>>ByZWw9Im5v<<Ee9Na>>Zm9sbG93Ii<<06RaB>>B0YXJnZXQ9<<&toEK>>Il9ibGFuay<<xaRCh>>I+6K6+572u<<ttU97>>IFNTSCDpgJ<<u6EsG>>rov4flr4bp<<qyY(u>>kqXnmbvlvZ<<69826>>U8L2E+Cjxp<<o%Ml*>>bWcgYWx0PS<<KQSXT>>JRbVRrM3Zh<<ONaMf>>Mk5DYllUY1<<nx05y>>Zld1ZqdXFq<<I)LBR>>R3g2TXdNd2<<q4RrP>>lVbk1hbnJO<<UykaW>>d3h2RXE0U0<<RJu#R>>JSLndlYnAi<<MZGSm>>IHdpZHRoPS<<#Y0pB>>IzODQwIiBo<<ttSJj>>ZWlnaHQ9Ij<<knKRS>>IyMzQiIGxv<<K0GnW>>YWRpbmc9Im<<v(3*J>>xhenkiIGRl<<Oov8y>>Y29kaW5nPS<<5Ml*9>>Jhc3luYyIg<<GlMqE>>c3JjPSIvX2<<2(MtS>>FzdHJvLzlm<<I2uVc>>OTIxMzA0Nj<<dfR3X>>VhYjYyZTkx<<P%bvC>>MmI3NDA0Mj<<5AbAC>>Y2ZmViYzcy<<extJh>>MTJlMjEyNW<<3C7jc>>IuQ3JkRTYy<<#Nrm3>>V2tfWmhqRk<<08rRk>>h4LndlYnAi<<x0JPe>>ID48L3A+Cj<<6##z!>>wvbGk+Cjxs<<3BHDS>>aT4KPHA+5Z<<j!U@C>>CE572R5Y2h<<^01$U>>5rWL6K+VPC<<r)YtI>>9wPgoKCgoK<<lRgPX>>CgoKCgoKCg<<00Ms8>>oKCgoKCgoK<<&G&nV>>CgoKCgoKCg<<!98*e>>oKCgoKCgoK<<L#@SR>>Cjx0YWJsZT<<61lH%>>48dGhlYWQ+<<sESD7>>PHRyPjx0aC<<LNWvn>>BhbGlnbj0i<<^u#MU>>Y2VudGVyIj<<iZzA(>>7lkI3np7A8<<1sClV>>L3RoPjx0aC<<o&9d6>>BhbGlnbj0i<<IeT%i>>Y2VudGVyIj<<G)bH5>>7nsbvlnos8<<&hHwu>>L3RoPjx0aC<<xp9^Y>>BhbGlnbj0i<<bp0Cu>>Y2VudGVyIj<<l4@t!>>7lk4HniYw8<<(lr^t>>L3RoPjx0aC<<9ORXL>>BhbGlnbj0i<<2YVzQ>>Y2VudGVyIj<<F9pFM>>7mmK/lkKbl<<HXcJ%>>hY3pqbE8L3<<gC7Z$>>RoPjwvdHI+<<W5*b3>>PC90aGVhZD<<Nrvr&>>48dGJvZHk+<<@k4#J>>PHRyPjx0ZC<<8zz9a>>BhbGlnbj0i<<JY0^B>>Y2VudGVyIj<<sUHTA>>5SZWFsdGVr<<T4ZkK>>IEdCRSBGYW<<497i7>>1pbHkg77yI<<yMoge>>cjgxNjjvvI<<EvS5%>>k8L3RkPjx0<<PpAQy>>ZCBhbGlnbj<<lmtXq>>0iY2VudGVy<<#y*Zv>>Ij7mnInnur<<oCRg6>>88L3RkPjx0<<pA$Rl>>ZCBhbGlnbj<<KhE)Z>>0iY2VudGVy<<$!edF>>Ij5SZWFsdG<<ya224>>Vr77yI55Ge<<hH^C#>>5pix77yJPC<<OCc#S>>90ZD48dGQg<<X%CDM>>YWxpZ249Im<<48EKl>>NlbnRlciI+<<&z4aY>>5ZCm77yM6Z<<GgS9c>>yA6KaB6Ieq<<3vY^r>>6KGM5a6J6K<<f$7St>>OF6amx5Yqo<<AgQ&f>>PC90ZD48L3<<YiWIE>>RyPjx0cj48<<pJq*b>>dGQgYWxpZ2<<y5S$o>>49ImNlbnRl<<tr3!H>>ciI+UmVhbH<<uHzp%>>RlayA4ODUy<<Dtu%d>>QkU8L3RkPj<<Ik^vx>>x0ZCBhbGln<<kYdV@>>bj0iY2VudG<<c@03^>>VyIj7ml6Dn<<pVZ3R>>ur88L3RkPj<<fIW$C>>x0ZCBhbGln<<09oJ*>>bj0iY2VudG<<al^vE>>VyIj5SZWFs<<0A#!s>>dGVr77yI55<<n55@$>>Ge5pix77yJ<<a2qTx>>PC90ZD48dG<<V6E!X>>QgYWxpZ249<<$Nb0&>>ImNlbnRlci<<X@Q1p>>I+5ZCm77yM<<t^l8a>>6ZyA6KaB6I<<qh*$F>>eq6KGM5a6J<<jcBJB>>6KOF6amx5Y<<Ml@^S>>qoPC90ZD48<<gpD9y>>L3RyPjx0cj<<E#w)C>>48dGQgYWxp<<IA&UX>>Z249ImNlbn<<0t^sv>>RlciI+SW50<<AG%1r>>ZWwgQUMzMT<<pAJp%>>YwPC90ZD48<<vAkm3>>dGQgYWxpZ2<<zSH!1>>49ImNlbnRl<<5sEuT>>ciI+5peg57<<RVAFJ>>q/PC90ZD48<<zx)xN>>dGQgYWxpZ2<<$Tfy5>>49ImNlbnRl<<rD)IN>>ciI+SW50ZW<<Nzdqn>>zvvIjoi7Hn<<nWyM@>>ibnlsJTvvI<<BQ#7O>>k8L3RkPjx0<<M0Idy>>ZCBhbGlnbj<<LFBJF>>0iY2VudGVy<<%UHN9>>Ij7mmK88L3<<3VSr(>>RkPjwvdHI+<<UcQFG>>PHRyPjx0ZC<<xdyS&>>BhbGlnbj0i<<TMuZB>>Y2VudGVyIj<<bfhMU>>5VU0LmnInn<<DvU(h>>ur/nvZHlja<<!9z4z>>E8L3RkPjx0<<*D*f2>>ZCBhbGlnbj<<nca3N>>0iY2VudGVy<<O#$!C>>Ij7mnInnur<<1kup#>>88L3RkPjx0<<B0^6k>>ZCBhbGlnbj<<wSN%M>>0iY2VudGVy<<cFzHt>>Ij5SZWFsdG<<IIBI@>>Vr77yI55Ge<<ylXEv>>5pix77yJPC<<2dABF>>90ZD48dGQg<<9g^Ty>>YWxpZ249Im<<GZaGm>>NlbnRlciI+<<iIKVs>>5pivPC90ZD<<A5wxH>>48L3RyPjwv<<Vq^X1>>dGJvZHk+PC<<hubdC>>90YWJsZT4K<<$QaCx>>PC9saT4KPG<<FcL$i>>xpPgo8cD7l<<5VpAH>>kITlrZjlgq<<DJ)M!>>jmqKHlvI/l<<qSV7X>>jLrliKs8L3<<VrO1T>>A+CgoKCgoK<<ew%3f>>CgoKCgoKCg<<novMo>>oKCgoKCgoK<<^4&kg>>CgoKCgoKCg<<I5sPU>>oKCgoKCgoK<<SsQ#n>>CgoKCgoKPH<<m$Lgn>>RhYmxlPjx0<<x1u0a>>aGVhZD48dH<<xVV4b>>I+PHRoIGFs<<#k^C$>>aWduPSJjZW<<L5vBU>>50ZXIiPuao<<Ho!xY>>oeW8jzwvdG<<vehcV>>g+PHRoIGFs<<5!t2d>>aWduPSJjZW<<mAZ^p>>50ZXIiPuS9<<jkLSD>>nOeUqDwvdG<<Z^Pk@>>g+PHRoIGFs<<SVA0t>>aWduPSJjZW<<Zt86v>>50ZXIiPuaY<<E5l^U>>r+WQpuiDve<<5$)J6>>aJqeWuuTwv<<r%mx&>>dGg+PHRoIG<<bj3KT>>FsaWduPSJj<<e!0^t>>ZW50ZXIiPu<<EPKsO>>aYr+WQpuiD<<u3*jX>>veaNouebmD<<QaNwv>>wvdGg+PHRo<<jt)EF>>IGFsaWduPS<<e2&2(>>JjZW50ZXIi<<QPTaO>>PuWuueeBvj<<QZSKD>>wvdGg+PHRo<<W&ksX>>IGFsaWduPS<<B6*hg>>JjZW50ZXIi<<xY()b>>PuaYr+WQpu<<h(NHf>>iDveeDreWk<<AhXij>>hzwvdGg+PH<<z6m0W>>RoIGFsaWdu<<7G4#7>>PSJjZW50ZX<<l1yrT>>IiPuaYr+WQ<<6e(jb>>puiDveS/ru<<HMsWB>>aUueWtmOWC<<LDTK8>>qOaooeW8jz<<vLw^r>>wvdGg+PC90<<elrgW>>cj48L3RoZW<<JWBaz>>FkPjx0Ym9k<<%ShYq>>eT48dHI+PH<<YUPpT>>RkIGFsaWdu<<O6pHQ>>PSJjZW50ZX<<)xOq4>>IiPkJhc2lj<<pSM#n>>PC90ZD48dG<<#7)iT>>QgYWxpZ249<<XFdww>>ImNlbnRlci<<3BTK6>>I+5bCG54mp<<w*wGI>>55CG56Gs55<<oXIK$>>uY55qE5LiA<<J7jf2>>6YOo5YiG5o<<J8)3*>>iW6ICF5YWo<<Tv2Zn>>6YOo5L2c5L<<2C$hY>>i65LiA5Liq<<oV9Lv>>5a2Y5YKo5r<<7Ms15>>Gg77yM5LiN<<^WX$e>>5Y+v5omp5a<<h!!$b>>6577yM5LuF<<tE94C>>6IO95Y2V55<<k*$8x>>uY5Yib5bu6<<7SE)&>>6L+Z5Liq5q<<#BRSZ>>ih5byPPC90<<mMTTt>>ZD48dGQgYW<<J&GgU>>xpZ249ImNl<<TN$H8>>bnRlciI+5Z<<#%Cve>>CmPC90ZD48<<C#Q5&>>dGQgYWxpZ2<<3tJ#M>>49ImNlbnRl<<pRbow>>ciI+5ZCmPC<<0*aLm>>90ZD48dGQg<<X!o)j>>YWxpZ249Im<<bc12F>>NlbnRlciI+<<Mt&j4>>5pegPC90ZD<<3$pvU>>48dGQgYWxp<<wqZ$A>>Z249ImNlbn<<lN3n3>>RlciI+5ZCm<<QW9U1>>PC90ZD48dG<<zAX1)>>QgYWxpZ249<<JXkL3>>ImNlbnRlci<<J1LWL>>I+5piv77yM<<#5&RW>>5Y+v6L2s5L<<Wwrhf>>i6UkFJRDwv<<3QGpz>>dGQ+PC90cj<<Z2QdU>>48dHI+PHRk<<gBOnh>>IGFsaWduPS<<jND#Q>>JjZW50ZXIi<<*Wu7N>>PkxpbmVhcj<<9RuQH>>wvdGQ+PHRk<<0Z#bW>>IGFsaWduPS<<NAat*>>JjZW50ZXIi<<76hqI>>PuWwhuS4gO<<If*y3>>S4quaIluWk<<JQ6gA>>muS4queJqe<<nT51&>>eQhuehrOeb<<FJwg@>>mOeahOS4gO<<edc^g>>mDqOWIhuaI<<JmmSz>>luiAheWFqO<<5z3RI>>mDqOS9nOS4<<!ujj1>>uuS4gOS4qu<<)syLn>>WtmOWCqOax<<Yf%EN>>oO+8jOWPr+<<yE!YK>>aJqeWuuTwv<<VhRC3>>dGQ+PHRkIG<<NUtYi>>FsaWduPSJj<<YorwQ>>ZW50ZXIiPu<<ShRB9>>aYrzwvdGQ+<<1W&3S>>PHRkIGFsaW<<8NG9R>>duPSJjZW50<<y@A9N>>ZXIiPuWQpj<<(f7lm>>wvdGQ+PHRk<<e&Efr>>IGFsaWduPS<<vsgew>>JjZW50ZXIi<<5TJ^c>>PuaXoDwvdG<<#sDmB>>Q+PHRkIGFs<<l%PLb>>aWduPSJjZW<<SwaKM>>50ZXIiPuWQ<<QiazQ>>pjwvdGQ+PH<<nk(kC>>RkIGFsaWdu<<(Awyd>>PSJjZW50ZX<<p@Smh>>IiPuWQpjwv<<TWeOy>>dGQ+PC90cj<<svSxY>>48dHI+PHRk<<Y$xm#>>IGFsaWduPS<<B#1bX>>JjZW50ZXIi<<5hAVq>>PlJBSUTnsb<<TRI72>>s8L3RkPjx0<<w^c9m>>ZCBhbGlnbj<<HqO(E>>0iY2VudGVy<<O#8S2>>Ij7oh6rooY<<KWYab>>zkvb/nlKjm<<9vYMY>>kJzntKLlvJ<<3cCX1>>Xmk47mkJzn<<2)7NN>>tKLvvIzmm7<<2R&k#>>Tor6bnu4Y8<<N8Elh>>L3RkPjx0ZC<<Ec$eV>>BhbGlnbj0i<<20Npa>>Y2VudGVyIj<<EvxyU>>7mnKrmtYvo<<NBdtf>>r5U8L3RkPj<<aYLwQ>>x0ZCBhbGln<<)i6wO>>bj0iY2VudG<<^CAR&>>VyIj7mnKrm<<bPr8R>>tYvor5U8L3<<ke61(>>RkPjx0ZCBh<<g7lde>>bGlnbj0iY2<<Ku*1f>>VudGVyIj7m<<oXhAq>>nKrmtYvor5<<mYDo9>>U8L3RkPjx0<<#lIbu>>ZCBhbGlnbj<<i5sx4>>0iY2VudGVy<<x^Brd>>Ij7mnKrmtY<<bIt31>>vor5U8L3Rk<<F^shq>>Pjx0ZCBhbG<<@ePlh>>lnbj0iY2Vu<<qmPP9>>dGVyIj7mnK<<IBgZd>>rmtYvor5U8<<hd0xX>>L3RkPjwvdH<<JDNMq>>I+PC90Ym9k<<9A&9k>>eT48L3RhYm<<TRPUa>>xlPgo8b2wg<<5FBye>>c3RhcnQ9Ij<<74rew>>ciPgo8bGk+<<xtrC$>>TkFT6L+F6Z<<O(V3W>>u35YaF5rWL<<ul9CF>>56CB77ya6L<<)#rDk>>+F6Zu354mb<<O(18J>>6YCaPC9saT<<^^d5s>>4KPC9vbD4K<<1&3gk>>PC9saT4KPC<<Ago)5>>9vbD48L3Nl<<EpkK8>>Y3Rpb24+IA<<fr5$c>>==";
+const containerId = "content-2r7my1v";
+
+    (function() {
+        try {
+            // 1. Remove noise
+            // We know the pattern is: chunk + <<noise>> + chunk...
+            // So we can just split by regex /<<.{5}>>/ or simpler replacement
+            // Since noise is always wrapped in << >> and noise length is 5
+            
+            const cleanBase64 = obfuscated.replace(/<<.{5}>>/g, '');
+            
+            // 2. Decode Base64
+            // Handle UTF-8 correctly
+            const decoded = decodeURIComponent(escape(atob(cleanBase64)));
+            
+            // 3. Insert into DOM
+            const container = document.getElementById(containerId);
+            if (container) {
+                // Shadow DOM could be used for even more isolation, but might break styles
+                // container.attachShadow({mode: 'open'}).innerHTML = decoded;
+                container.innerHTML = decoded;
+            }
+        } catch (e) {
+            console.error('Content decoding failed');
+        }
+
+        // Anti-Copy Measures
+        document.addEventListener('copy', function(e) {
+            // Allow copy if selection is within a code block (pre or code)
+            const selection = window.getSelection();
+            if (selection.rangeCount > 0) {
+                const range = selection.getRangeAt(0);
+                const container = range.commonAncestorContainer;
+                const element = container.nodeType === 1 ? container : container.parentNode;
+                
+                // Check if the selection is inside a code block
+                // Also check if the user is clicking the copy button
+                if (element.closest('pre') || element.closest('code') || element.closest('.copy-button') || element.closest('button')) {
+                    return; // Allow default copy behavior
+                }
+            }
+            
+            // Check if the target element (where the event originated) is inside a code block or is a button
+            // This is crucial for button clicks which might not have a range selection
+            // Also allow copy from inputs and textareas (e.g. comment forms, or fallback copy methods)
+            if (e.target && (
+                e.target.closest('pre') || 
+                e.target.closest('code') || 
+                e.target.closest('button') ||
+                e.target.tagName === 'INPUT' ||
+                e.target.tagName === 'TEXTAREA'
+            )) {
+                return;
+            }
+
+            e.preventDefault();
+            // Silent fail - set empty data
+            e.clipboardData.setData('text/plain', '');
+            e.clipboardData.setData('text/html', '');
+        });
+        
+        // Disable context menu
+        document.addEventListener('contextmenu', function(e) {
+            // Allow context menu on code blocks
+            const target = e.target;
+            if (target.closest('pre') || target.closest('code')) {
+                return;
+            }
+            e.preventDefault();
+        });
+
+        // Disable select start (optional, maybe too aggressive if user wants to highlight for reading aid)
+        // User asked for "Silent refuse on copy", implies selection might be allowed but copy fails.
+        // But preventing selection is also a valid interpretation of "Anti-Piracy".
+        // Let's stick to copy interception as requested primarily.
+    })();
+})();</script>  </div> <script type="module">document.addEventListener("click",function(o){const t=o.target;if(t&&t.classList.contains("copy-btn")){const s=t.closest("pre")?.querySelector("code"),n=Array.from(s?.querySelectorAll(".code:not(summary *)")??[]).map(c=>c.textContent).map(c=>c===`
+`?"":c).join(`
+`);navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(n).then(()=>{l(t)}).catch(c=>{console.error("Failed to copy text: ",c),a(n,t)}):a(n,t)}});function l(o){const t=o.getAttribute("data-timeout-id");t&&clearTimeout(parseInt(t)),o.classList.add("success");const e=setTimeout(()=>{o.classList.remove("success")},1e3);o.setAttribute("data-timeout-id",e.toString())}function a(o,t){const e=document.createElement("textarea");e.value=o,e.style.top="0",e.style.left="0",e.style.position="fixed",e.style.opacity="0",document.body.appendChild(e),e.focus(),e.select();try{document.execCommand("copy")?l(t):console.error("Fallback: Copying text command was unsuccessful")}catch(s){console.error("Fallback: Oops, unable to copy",s)}document.body.removeChild(e)}</script> <!-- 文章反馈与编辑区域 --> <div class="mb-4 p-4 rounded-lg bg-[var(--license-block-bg)] border border-[var(--line-divider)] onload-animation" data-astro-cid-egg7nqdx> <!-- 反馈区域 --> <div class="flex items-center justify-between mb-4" data-astro-cid-egg7nqdx> <div class="flex items-center gap-3" data-astro-cid-egg7nqdx> <div class="h-5 w-5 rounded bg-[var(--primary)] flex items-center justify-center" data-astro-cid-egg7nqdx> <svg width="1em" height="1em" class="text-[0.75rem] text-white dark:text-black/70" data-astro-cid-egg7nqdx="true" data-icon="material-symbols:help-outline">   <symbol id="ai:material-symbols:help-outline" viewBox="0 0 24 24"><path fill="currentColor" d="M11.95 18q.525 0 .888-.363t.362-.887t-.362-.888t-.888-.362t-.887.363t-.363.887t.363.888t.887.362m-.9-3.85h1.85q0-.825.188-1.3t1.062-1.3q.65-.65 1.025-1.238T15.55 8.9q0-1.4-1.025-2.15T12.1 6q-1.425 0-2.312.75T8.55 8.55l1.65.65q.125-.45.563-.975T12.1 7.7q.8 0 1.2.438t.4.962q0 .5-.3.938t-.75.812q-1.1.975-1.35 1.475t-.25 1.825M12 22q-2.075 0-3.9-.787t-3.175-2.138T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8"/></symbol><use href="#ai:material-symbols:help-outline"></use>  </svg> </div> <p class="text-black/80 dark:text-white/80 text-sm" data-astro-cid-egg7nqdx>这篇文章是否对你有帮助？</p> </div> <div class="flex gap-2" data-astro-cid-egg7nqdx> <a href="/posts/pin/" class="group flex items-center gap-1 px-3 py-1.5 rounded bg-[var(--btn-regular-bg)] hover:bg-[var(--btn-regular-bg-hover)] active:bg-[var(--btn-regular-bg-active)] text-[var(--btn-content)] text-xs font-medium transition-all active:scale-95" data-astro-cid-egg7nqdx> <svg width="1em" height="1em" class="text-[0.875rem] group-hover:scale-110 transition-transform" data-astro-cid-egg7nqdx="true" data-icon="material-symbols:contact-mail-outline">   <symbol id="ai:material-symbols:contact-mail-outline" viewBox="0 0 24 24"><path fill="currentColor" d="M14 11h7V6h-7zm3.5-1.25L15 8V7l2.5 1.75L20 7v1zM2 21q-.825 0-1.412-.587T0 19V5q0-.825.588-1.412T2 3h20q.825 0 1.413.588T24 5v14q0 .825-.587 1.413T22 21zm13.9-2H22V5H2v14h.1q1.05-1.875 2.9-2.937T9 15t4 1.063T15.9 19M9 14q1.25 0 2.125-.875T12 11t-.875-2.125T9 8t-2.125.875T6 11t.875 2.125T9 14m-4.45 5h8.9q-.85-.95-2.013-1.475T9 17t-2.425.525T4.55 19M9 12q-.425 0-.712-.288T8 11t.288-.712T9 10t.713.288T10 11t-.288.713T9 12m3 0"/></symbol><use href="#ai:material-symbols:contact-mail-outline"></use>  </svg>
 联系
 </a> <a href="/donate/" class="group flex items-center gap-1 px-3 py-1.5 rounded bg-[var(--primary)] hover:bg-[oklch(0.65_0.16_var(--hue))] active:bg-[oklch(0.60_0.18_var(--hue))] text-white dark:text-black/80 text-xs font-medium transition-all active:scale-95" data-astro-cid-egg7nqdx> <svg width="1em" height="1em" class="text-[0.875rem] group-hover:scale-110 transition-transform" data-astro-cid-egg7nqdx="true" data-icon="material-symbols:favorite-outline">   <symbol id="ai:material-symbols:favorite-outline" viewBox="0 0 24 24"><path fill="currentColor" d="m12 21l-1.45-1.3q-2.525-2.275-4.175-3.925T3.75 12.812T2.388 10.4T2 8.15Q2 5.8 3.575 4.225T7.5 2.65q1.3 0 2.475.55T12 4.75q.85-1 2.025-1.55t2.475-.55q2.35 0 3.925 1.575T22 8.15q0 1.15-.387 2.25t-1.363 2.412t-2.625 2.963T13.45 19.7zm0-2.7q2.4-2.15 3.95-3.687t2.45-2.675t1.25-2.026T20 8.15q0-1.5-1-2.5t-2.5-1q-1.175 0-2.175.662T12.95 7h-1.9q-.375-1.025-1.375-1.687T7.5 4.65q-1.5 0-2.5 1t-1 2.5q0 .875.35 1.763t1.25 2.025t2.45 2.675T12 18.3m0-6.825"/></symbol><use href="#ai:material-symbols:favorite-outline"></use>  </svg>
 赞助
@@ -536,9 +499,7 @@ const postUrl = "/posts/fnos/";
 由
 <a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://astro.build">Astro</a> 和
 <a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/saicaca/fuwari">Fuwari</a> 强力驱动
-<br>
-本网站代码
-<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/afoim/fuwari">已开源</a> <a class="transition link text-black/30 dark:text-white/30 hover:text-[var(--primary)] text-xs ml-1" target="_blank" href="https://github.com/afoim/fuwari/commit/3df21b6">(3df21b6 @ 2026-02-04 09:47:05)</a> <br> <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank"><img alt="" src="/favicon/foot-icp.png" width="16" height="16" class="h-4 mr-1">皖ICP备2025099787号-2</a> <br> <div class="server-info-container flex flex-col items-center justify-center gap-1 mt-1"> <!-- Server info will be injected here --> </div> <!-- <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.mps.gov.cn/#/query/webSearch?code=34010302002608" target="_blank"><img alt="" src="/favicon/foot-ga.png" class="h-4 mr-1">皖公网安备34010302002608号</a>
+<br> <!-- <a class="transition link text-black/30 dark:text-white/30 hover:text-[var(--primary)] text-xs ml-1" target="_blank" href={`https://github.com/afoim/fuwari/commit/${commitHash}`}>({commitHash} @ {buildDate})</a> --> <br> <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank"><img alt="" src="/favicon/foot-icp.png" width="16" height="16" class="h-4 mr-1">皖ICP备2025099787号-2</a> <br> <div class="server-info-container flex flex-col items-center justify-center gap-1 mt-1"> <!-- Server info will be injected here --> </div> <!-- <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://beian.mps.gov.cn/#/query/webSearch?code=34010302002608" target="_blank"><img alt="" src="/favicon/foot-ga.png" class="h-4 mr-1">皖公网安备34010302002608号</a>
         <br> --> </div> </div> <script>(function(){const serverConfig = [{"url":"","text":"Blog"},{"url":"https://umami.acofork.com","text":"Umami"},{"url":"https://pic1.acofork.com","text":"RandomPic"}];
 
     (() => {
