@@ -29,7 +29,7 @@
 &lt;p&gt;其实被盗文章也没啥，我本身也不通过文章来盈利。但是，当我看到我自己拿我自己电脑使用QQ截的图片被发到微信公众号上并默认添加了他的水印，就有点膈应了&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;https://acofork.com/_astro/watermark-5.CFAwcR4I_1efJe6.webp&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;我向来视我的文章如老婆，他这样一整就好像我被NTR了一样&lt;/p&gt;
-&lt;p&gt;那么开始水印战争吧，我要让盗文章的就算盗了也要让最终读者知道到底是谁做的&lt;/p&gt;
+&lt;p&gt;那么开始水印战争吧，我要让盗文章的就算盗了，也要让最终读者知道到底是谁做的&lt;/p&gt;
 &lt;h1&gt;正式开始&lt;/h1&gt;
 &lt;p&gt;终于又到了我最喜欢的技术环节，那么既然要加水印，我最先想到的就是一个十分古老的LSB水印项目： &lt;a href=&quot;https://github.com/guofei9987/blind_watermark&quot;&gt;guofei9987/blind_watermark: Blind&amp;amp;Invisible Watermark ，图片盲水印，提取水印无须原图！&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;它的原理非常简单，就是对图像做一点很细微的改动，通过改动像素来插入一个编码后的二维码，由于二维码天生抗干扰，再加上一张正常规格的图片像素点非常多，该项目README演示了对添加水印的图片做旋转，缩放，遮挡都可以完整提取出水印&lt;/p&gt;
